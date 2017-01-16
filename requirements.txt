@@ -10,3 +10,4 @@ robotpy-hal-sim
 robotpy-wpilib-utilities
 wpilib
 pygame
+coverage
