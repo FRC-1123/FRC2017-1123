@@ -5,7 +5,6 @@ import ctre
 
 
 class Robot(wpilib.IterativeRobot):
-
     def robotInit(self):
         """
         This function is called upon program startup and
@@ -29,7 +28,7 @@ class Robot(wpilib.IterativeRobot):
 
     def teleopPeriodic(self):
         """This function is called periodically during operator control."""
-        self.robot_drive.arcadeDrive(self.stick)
+        self.robot_drive.tankDrive(self.stick, 1, self.stick, 5)
 
     def testPeriodic(self):
         """This function is called periodically during test mode."""
