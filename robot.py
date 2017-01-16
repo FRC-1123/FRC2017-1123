@@ -11,8 +11,8 @@ class Robot(wpilib.IterativeRobot):
         This function is called upon program startup and
         should be used for any initialization code.
         """
-        self.robot_drive = wpilib.RobotDrive(ctre.CANTalon(1), ctre.CANTalon(2))
-        self.stick = wpilib.Joystick(1)
+        self.robot_drive = wpilib.RobotDrive(ctre.CANTalon(0), ctre.CANTalon(1))
+        self.stick = wpilib.Joystick(0)
 
     def autonomousInit(self):
         """This function is run once each time the robot enters autonomous mode."""
