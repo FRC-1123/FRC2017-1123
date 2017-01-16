@@ -1,3 +1,5 @@
 venv/
 .deploy_cfg
 .idea/
+.coverage
+tests/__pycache__/
