@@ -10,8 +10,12 @@ class Robot(wpilib.IterativeRobot):
         This function is called upon program startup and
         should be used for any initialization code.
         """
-        self.robot_drive = wpilib.RobotDrive(ctre.CANTalon(0), ctre.CANTalon(1))
+        left_motor = ctre.CANTalon(0)
+        right_motor = ctre.CANTalon(1)
+        left_motor.setInverted(True)
+        self.robot_drive = wpilib.RobotDrive(left_motor, right_motor)
         self.stick = wpilib.Joystick(0)
+        self.controller = wpilib.XboxController(0)
 
     def autonomousInit(self):
         """This function is run once each time the robot enters autonomous mode."""
@@ -29,6 +33,8 @@ class Robot(wpilib.IterativeRobot):
     def teleopPeriodic(self):
         """This function is called periodically during operator control."""
         self.robot_drive.tankDrive(self.stick, 1, self.stick, 5)
+        if self.controller.getAButton():
+            self.robot_drive.drive(-.1, 0)
 
     def testPeriodic(self):
         """This function is called periodically during test mode."""
