@@ -12,8 +12,9 @@ class Robot(wpilib.IterativeRobot):
         """
         left_motor = ctre.CANTalon(0)
         right_motor = ctre.CANTalon(1)
-        left_motor.setInverted(True)
         self.robot_drive = wpilib.RobotDrive(left_motor, right_motor)
+        self.robot_drive.setMaxOutput(.3)
+
         self.stick = wpilib.Joystick(0)
         self.controller = wpilib.XboxController(0)
 
@@ -32,7 +33,7 @@ class Robot(wpilib.IterativeRobot):
 
     def teleopPeriodic(self):
         """This function is called periodically during operator control."""
-        self.robot_drive.tankDrive(self.stick, 1, self.stick, 5)
+        self.robot_drive.tankDrive(self.stick, 1, self.stick, 5)  # 1 and 5 are left and right joystick axes
         if self.controller.getAButton():
             self.robot_drive.drive(-.1, 0)
 
