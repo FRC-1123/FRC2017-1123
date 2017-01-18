@@ -2,14 +2,13 @@
 
 import wpilib
 import ctre
+from networktables import NetworkTables
 import time
 
 # Logging to see messages from networktables
 import logging
 logging.basicConfig(level=logging.DEBUG)
 
-from networktables import NetworkTables
-sd = NetworkTables.getTable("SmartDashboard")
 
 
 class Robot(wpilib.IterativeRobot):
@@ -26,6 +25,8 @@ class Robot(wpilib.IterativeRobot):
         self.stick = wpilib.Joystick(0)
         self.controller = wpilib.XboxController(0)
 
+        sd = NetworkTables.getTable("SmartDashboard")
+        
         self.timer = wpilib.Timer()
         self.timer.start()
 

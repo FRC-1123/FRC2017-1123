@@ -10,11 +10,7 @@ logging.basicConfig(level=logging.DEBUG)
 from networktables import NetworkTables
 
 
-if len(sys.argv) != 2:
-    print("Error: specify an IP to connect to!")
-    exit(0)
-
-ip = sys.argv[1]
+ip = "10.11.23.2"
 NetworkTables.initialize(server=ip)
 sd = NetworkTables.getTable("SmartDashboard")
 
