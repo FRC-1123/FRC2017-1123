@@ -17,11 +17,11 @@ class Robot(wpilib.IterativeRobot):
         This function is called upon program startup and
         should be used for any initialization code.
         """
-        #left_motor = ctre.CANTalon(0)
-        #right_motor = ctre.CANTalon(1)
-        left_motor = wpilib.Talon(0)
-        right_motor = wpilib.Talon(1)
-        self.robot_drive = wpilib.RobotDrive(left_motor, right_motor)
+        self.left_motor = ctre.CANTalon(0)
+        self.right_motor = ctre.CANTalon(1)
+        #self.left_motor = wpilib.Talon(0)
+        #self.right_motor = wpilib.Talon(1)
+        self.robot_drive = wpilib.RobotDrive(self.left_motor, self.right_motor)
         self.robot_drive.setMaxOutput(1)
 
         self.stick = wpilib.Joystick(0)
@@ -33,13 +33,16 @@ class Robot(wpilib.IterativeRobot):
         self.forward_timer.start()
         self.init_forward = False  # only needed the first time forward command is sent because forward_timer starts at 0
         
+        self.second_timer = wpilib.Timer()  # timer for commands that execute once per second
+        self.second_timer.start()
+
         self.sd.putBoolean("timeRunning", True)
 
 
     def autonomousInit(self):
         """This function is run once each time the robot enters autonomous mode."""
         self.auto_loop_counter = 0
-
+    
     def autonomousPeriodic(self):
         """This function is called periodically during autonomous."""
         # Check if we've completed 100 loops (approximately 2 seconds)
@@ -47,7 +50,7 @@ class Robot(wpilib.IterativeRobot):
             self.robot_drive.drive(-0.5, 0)  # Drive forwards at half speed
             self.auto_loop_counter += 1
         else:
-            self.robot_drive.drive(0, 0)  # Stop robot
+            self.robot_drive.drive(0, 0)  # stop robot
 
     def teleopPeriodic(self):
         """This function is called periodically during operator control."""
@@ -65,6 +68,8 @@ class Robot(wpilib.IterativeRobot):
             self.sd.putBoolean("forwardCommand", False)
             self.forward_timer.reset()
             self.init_forward = True
+        
+        self.sd.putNumberArray("outputs", [self.left_motor.getOutputCurrent(), self.right_motor.getOutputCurrent()])
         
 
     def testPeriodic(self):

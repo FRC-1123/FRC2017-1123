@@ -26,7 +26,10 @@ var ui = {
 		get: document.getElementById('get')
 	},
 	autoSelect: document.getElementById('auto-select'),
-    armPosition: document.getElementById('arm-position')
+        outputs: {
+                left: document.getElementById('left-output'),
+                right: document.getElementById('right-output')
+        }
 };
 
 // Sets function to be called on NetworkTables connect. Commented out because it's usually not necessary.
@@ -125,6 +128,10 @@ function onValueChanged(key, value, isNew) {
 			}
 			NetworkTables.setValue(key, false);
 			break;
+                case '/SmartDashboard/outputs':
+                        ui.outputs.left.innerHTML = value[0];
+                        ui.outputs.right.innerHTML = value[1];
+                        break;
 		case '/SmartDashboard/autonomous/options': // Load list of prewritten autonomous modes
 			// Clear previous list
 			while (ui.autoSelect.firstChild) {
