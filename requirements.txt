@@ -3,6 +3,7 @@ py
 pyfrc
 pynetconsole
 pynetworktables
+pynetworktables2js
 pytest
 robotpy-ctre
 robotpy-hal-base

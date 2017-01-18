@@ -2,6 +2,14 @@
 
 import wpilib
 import ctre
+import time
+
+# Logging to see messages from networktables
+import logging
+logging.basicConfig(level=logging.DEBUG)
+
+from networktables import NetworkTables
+sd = NetworkTables.getTable("SmartDashboard")
 
 
 class Robot(wpilib.IterativeRobot):
@@ -18,8 +26,11 @@ class Robot(wpilib.IterativeRobot):
         self.stick = wpilib.Joystick(0)
         self.controller = wpilib.XboxController(0)
 
-        self.printTimer = wpilib.Timer()
-        self.printTimer.start()
+        self.timer = wpilib.Timer()
+        self.timer.start()
+
+        sd.putBoolean("timeRunning", True)
+
 
     def autonomousInit(self):
         """This function is run once each time the robot enters autonomous mode."""
@@ -43,6 +54,15 @@ class Robot(wpilib.IterativeRobot):
             self.robot_drive.setLeftRightMotorOutputs(-.5, .5)
         elif self.controller.getYButton():  # turn in place
             self.robot_drive.setLeftRightMotorOutputs(.5, -.5)
+        
+        # interact with NetworkTables
+        if timer.hasPeriodPassed(1):
+            try:
+                print("dsTime:", sd.getNumber("dsTime"))
+            except KeyError:
+                print("dsTime: N/A")
+            sd.putNumber("robotTime", timer.get())
+        
 
     def testPeriodic(self):
         """This function is called periodically during test mode."""
