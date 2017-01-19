@@ -33,12 +33,10 @@
             <rect id="gyro-arm" x="80" y="5" width="10" height="80" />
             <text id="gyro-number" x="90" y="115">0º</text>
         </svg>
-        <!-- Example robot diagram, arm moves when encoder value changes -->
         <svg id="robot-diagram" width="332" height="450">
-            <text x="40" y="340">Example SVG Robot Diagram</text>
+            <text x="40" y="340">Da Bot</text>
             <rect x="75" y="360" width="230" height="40" />
             <rect x="85" y="370" width="210" height="40" />
-            <rect id="robot-arm" x="5" y="375" width="80" height="10" />
             <circle cx="100" cy="410" r="25" />
             <circle cx="260" cy="410" r="25" />
             <rect x="60" y="380" width="250" height="30" />
@@ -47,22 +45,16 @@
     </article>
     <!-- The sidebar of the dashboard. Designed for smaller control elements like selection boxes and small buttons. -->
     <aside>
-        <!-- Example button which toggles /SmartDashboard/exampleValue NetworkTables value.
-            The <p> below then says the value. -->
-        <div id="example-section">
-            <button id="example-button">Change example value</button>
-            <p id="example-readout">Value is undefined</p>
-        </div>
+        <div id="move-forward">
+            <button id="forward-button">Move Forward</button>
+	    <!-- <p id="forward-readout">Forward command not being sent.</p> -->
+	</div>
         <!-- Autonomous selector -->
         <div class="select-container">
             <select id="auto-select">
                 <option>No auto modes found</option>
                 <!-- This gets populated by JS -->
             </select>
-        </div>
-        <div>
-            <p>Adjust arm height</p>
-            <input id="arm-position" type="range" min="0" max="1200" value="770">
         </div>
     </aside>
     <script src="/networktables/networktables.js"></script>

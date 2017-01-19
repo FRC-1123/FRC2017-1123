@@ -17,20 +17,23 @@ class Robot(wpilib.IterativeRobot):
         This function is called upon program startup and
         should be used for any initialization code.
         """
-        left_motor = ctre.CANTalon(0)
-        right_motor = ctre.CANTalon(1)
+        #left_motor = ctre.CANTalon(0)
+        #right_motor = ctre.CANTalon(1)
+        left_motor = wpilib.Talon(0)
+        right_motor = wpilib.Talon(1)
         self.robot_drive = wpilib.RobotDrive(left_motor, right_motor)
-        self.robot_drive.setMaxOutput(2)
+        self.robot_drive.setMaxOutput(1)
 
         self.stick = wpilib.Joystick(0)
         self.controller = wpilib.XboxController(0)
 
-        sd = NetworkTables.getTable("SmartDashboard")
+        self.sd = NetworkTables.getTable("SmartDashboard")
         
-        self.timer = wpilib.Timer()
-        self.timer.start()
-
-        sd.putBoolean("timeRunning", True)
+        self.forward_timer = wpilib.Timer()
+        self.forward_timer.start()
+        self.init_forward = False  # only needed the first time forward command is sent because forward_timer starts at 0
+        
+        self.sd.putBoolean("timeRunning", True)
 
 
     def autonomousInit(self):
@@ -55,14 +58,13 @@ class Robot(wpilib.IterativeRobot):
             self.robot_drive.setLeftRightMotorOutputs(-.5, .5)
         elif self.controller.getYButton():  # turn in place
             self.robot_drive.setLeftRightMotorOutputs(.5, -.5)
-        
-        # interact with NetworkTables
-        if timer.hasPeriodPassed(1):
-            try:
-                print("dsTime:", sd.getNumber("dsTime"))
-            except KeyError:
-                print("dsTime: N/A")
-            sd.putNumber("robotTime", timer.get())
+        elif self.init_forward and self.forward_timer.get() < 1:  # check if move forward command sent within 1 second
+            self.robot_drive.drive(-.5, 0)
+
+        if self.sd.containsKey("forwardCommand") and self.sd.getBoolean("forwardCommand"):  # check if move forward button pressed
+            self.sd.putBoolean("forwardCommand", False)
+            self.forward_timer.reset()
+            self.init_forward = True
         
 
     def testPeriodic(self):

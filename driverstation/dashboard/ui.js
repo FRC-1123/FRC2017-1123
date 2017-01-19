@@ -13,9 +13,9 @@ var ui = {
 	robotDiagram: {
 		arm: document.getElementById('robot-arm')
 	},
-	example: {
-		button: document.getElementById('example-button'),
-		readout: document.getElementById('example-readout')
+	forwardCommand: {
+		button: document.getElementById('forward-button'),
+		//readout: document.getElementById('forward-readout')
 	},
 	tuning: {
 		list: document.getElementById('tuning'),
@@ -77,16 +77,16 @@ function onValueChanged(key, value, isNew) {
 			// Rotate the arm in diagram to match real arm
 			ui.robotDiagram.arm.style.transform = 'rotate(' + armAngle + 'deg)';
 			break;
-			// This button is just an example of triggering an event on the robot by clicking a button.
-		case '/SmartDashboard/exampleVariable':
+			// This button moves the robot forward for 1 second.
+		case '/SmartDashboard/forwardCommand':
 			if (value) { // If function is active:
 				// Add active class to button.
-				ui.example.button.className = 'active';
-				ui.example.readout.innerHTML = 'Value is true';
+				ui.forwardCommand.button.className = 'active';
+				//ui.forwardCommand.readout.innerHTML = "Moving forward...";
 			} else { // Otherwise
 				// Take it off
-				ui.example.button.className = '';
-				ui.example.readout.innerHTML = 'Value is false';
+				ui.fowardCommand.button.className = '';
+				//ui.forwardCommand.readout.innerHTML = "Forward command not being sent.";
 			}
 			break;
 		case '/SmartDashboard/timeRunning':
@@ -95,7 +95,7 @@ function onValueChanged(key, value, isNew) {
 			var s = 135;
 			if (value) {
 				// Make sure timer is reset to black when it starts
-				ui.timer.style.color = 'black';
+				ui.timer.style.color = 'white';
 				// Function below adjusts time left every second
 				var countdown = setInterval(function() {
 					s--; // Subtract one second
@@ -209,9 +209,9 @@ function onValueChanged(key, value, isNew) {
 }
 
 // The rest of the doc is listeners for UI elements being clicked on
-ui.example.button.onclick = function() {
+ui.forwardCommand.button.onclick = function() {
 	// Set NetworkTables values to the opposite of whether button has active class.
-	NetworkTables.setValue('/SmartDashboard/exampleVariable', this.className != 'active');
+	NetworkTables.setValue('/SmartDashboard/forwardCommand', true);
 };
 
 // Reset gyro value to 0 on click
