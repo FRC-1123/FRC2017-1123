@@ -23,41 +23,41 @@ function createWindow() {
         server = require('child_process').spawn('python3', ['-m', 'pynetworktables2js']);
     }
 
-	// Create the browser window.
-	mainWindow = new BrowserWindow({
-		width: 1366,
-		height: 570,
-		// 1366x570 is a good standard height, but you may want to change this to fit your DriverStation computer's screen better.
-		// It's best if the dashboard takes up as much space as possible without covering the DriverStation application.
-		// The window is closed until the python server is ready
-		show: false
-	});
+    // Create the browser window.
+    mainWindow = new BrowserWindow({
+        width: 1366,
+        height: 570,
+        // 1366x570 is a good standard height, but you may want to change this to fit your DriverStation computer's screen better.
+        // It's best if the dashboard takes up as much space as possible without covering the DriverStation application.
+        // The window is closed until the python server is ready
+        show: false
+    });
 
-	// Move window to top (left) of screen.
-	mainWindow.setPosition(0, 0);
+    // Move window to top (left) of screen.
+    mainWindow.setPosition(0, 0);
 
-	// Load window.
-	mainWindow.loadURL('http://localhost:8888');
+    // Load window.
+    mainWindow.loadURL('http://localhost:8888');
 
-	// Once the python server is ready, load window contents.
-	mainWindow.once('ready-to-show', function() {
-		mainWindow.loadURL('http://localhost:8888');
-		mainWindow.once('ready-to-show', function() {
-			// Once it has reloaded, show the window
-			mainWindow.show();
-		});
-	});
+    // Once the python server is ready, load window contents.
+    mainWindow.once('ready-to-show', function() {
+        mainWindow.loadURL('http://localhost:8888');
+        mainWindow.once('ready-to-show', function() {
+            // Once it has reloaded, show the window
+            mainWindow.show();
+        });
+    });
 
     // Remove menu
     mainWindow.setMenu(null);
 
-	// Emitted when the window is closed.
-	mainWindow.on('closed', function() {
-		// Dereference the window object, usually you would store windows
-		// in an array if your app supports multi windows, this is the time
-		// when you should delete the corresponding element.
-		mainWindow = null;
-	});
+    // Emitted when the window is closed.
+    mainWindow.on('closed', function() {
+        // Dereference the window object, usually you would store windows
+        // in an array if your app supports multi windows, this is the time
+        // when you should delete the corresponding element.
+        mainWindow = null;
+    });
 }
 
 // This method will be called when Electron has finished
@@ -66,8 +66,8 @@ app.on('ready', createWindow);
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function() {
-	// On OS X it is common for applications and their menu bar
-	// to stay active until the user quits explicitly with Cmd + Q.
+    // On OS X it is common for applications and their menu bar
+    // to stay active until the user quits explicitly with Cmd + Q.
     // For FRCDB, though? Screw the standard.
     // That standard sucks for this application.
     // So we're going to kill the application regardless.
@@ -86,9 +86,9 @@ app.on('quit', function() {
 });
 
 app.on('activate', function() {
-	// On OS X it's common to re-create a window in the app when the
-	// dock icon is clicked and there are no other windows open.
-	if (mainWindow === null) {
-		createWindow();
-	}
+    // On OS X it's common to re-create a window in the app when the
+    // dock icon is clicked and there are no other windows open.
+    if (mainWindow === null) {
+        createWindow();
+    }
 });

@@ -5,10 +5,10 @@ import time
 
 # Logging to see messages from networktables
 import logging
+
 logging.basicConfig(level=logging.DEBUG)
 
 from networktables import NetworkTables
-
 
 ip = "10.11.23.2"
 NetworkTables.initialize(server=ip)
