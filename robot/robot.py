@@ -33,8 +33,8 @@ class Robot(CommandBasedRobot):
         self.autonomousProgram = AutonomousProgram()
 
     def robotPeriodic(self):
-        self.sd.putNumber("leftOutput", subsystems.motors.left_motor.getSetPoint())
-        self.sd.putNumber("rightOutput", subsystems.motors.right_motor.getSetPoint())
+        self.sd.putNumber("leftOutput", subsystems.motors.left_motor.getSetpoint())
+        self.sd.putNumber("rightOutput", subsystems.motors.right_motor.getSetpoint())
 
     def autonomousInit(self):
         '''

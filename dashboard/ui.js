@@ -129,12 +129,10 @@ function onValueChanged(key, value, isNew) {
             NetworkTables.setValue(key, false);
             break;
         case '/SmartDashboard/leftOutput':
-            console.log("yayyyyyyyyyyyyyyyyyyyyyyyyyyy")
-            ui.outputs.left.innerHTML = value;
+            ui.outputs.left.innerHTML = Math.round(-value * 100);
             break;
         case '/SmartDashboard/rightOutput':
-            console.log("yayyyyyyyyyyy")
-            ui.outputs.right.innerHTML = value;
+            ui.outputs.right.innerHTML = Math.round(value * 100);
             break;
         case '/SmartDashboard/autonomous/options': // Load list of prewritten autonomous modes
             // Clear previous list
