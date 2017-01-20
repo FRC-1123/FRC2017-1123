@@ -1,81 +1,60 @@
 #!/usr/bin/env python3
 
 import wpilib
-import ctre
 from networktables import NetworkTables
-import time
 
-# Logging to see messages from networktables
+from commandbased import CommandBasedRobot
+import subsystems
+from commands.autonomous import AutonomousProgram
+from commands.setspeed import SetSpeed
+
 import logging
 
 logging.basicConfig(level=logging.DEBUG)
 
 
-class Robot(wpilib.IterativeRobot):
+class Robot(CommandBasedRobot):
+    '''
+    The CommandBasedRobot base class implements almost everything you need for
+    a working robot program. All you need to do is set up the subsystems and
+    commands. You do not need to override the "periodic" functions, as they
+    will automatically call the scheduler. You may override the "init" functions
+    if you want to do anything special when the mode changes.
+    '''
+
     def robotInit(self):
-        """
-        This function is called upon program startup and
-        should be used for any initialization code.
-        """
-        self.left_motor = ctre.CANTalon(0)
-        self.right_motor = ctre.CANTalon(1)
-        # self.left_motor = wpilib.Talon(0)
-        # self.right_motor = wpilib.Talon(1)
-        self.robot_drive = wpilib.RobotDrive(self.left_motor, self.right_motor)
-        self.robot_drive.setMaxOutput(1)
-
-        self.stick = wpilib.Joystick(0)
-        self.controller = wpilib.XboxController(0)
-
+        '''
+        This is a good place to set up your subsystems and anything else that
+        you will need to access later.
+        '''
         self.sd = NetworkTables.getTable("SmartDashboard")
 
-        self.forward_timer = wpilib.Timer()
-        self.forward_timer.start()
-        self.init_forward = False  # only needed the first time forward command is sent because forward_timer starts at 0
+        subsystems.init()
+        self.autonomousProgram = AutonomousProgram()
 
-        self.second_timer = wpilib.Timer()  # timer for commands that execute once per second
-        self.second_timer.start()
-
-        self.sd.putBoolean("timeRunning", True)
+    def robotPeriodic(self):
+        self.sd.putNumber("leftOutput", subsystems.motors.left_motor.getSetPoint())
+        self.sd.putNumber("rightOutput", subsystems.motors.right_motor.getSetPoint())
 
     def autonomousInit(self):
-        """This function is run once each time the robot enters autonomous mode."""
-        self.auto_loop_counter = 0
+        '''
+        You should call start on your autonomous program here. You can
+        instantiate the program here if you like, or in robotInit as in this
+        example. You can also use a SendableChooser to have the autonomous
+        program chosen from the SmartDashboard.
+        '''
+        self.autonomousProgram.start()
 
-    def autonomousPeriodic(self):
-        """This function is called periodically during autonomous."""
-        # Check if we've completed 100 loops (approximately 2 seconds)
-        if self.auto_loop_counter < 100:
-            self.robot_drive.drive(-0.5, 0)  # Drive forwards at half speed
-            self.auto_loop_counter += 1
-        else:
-            self.robot_drive.drive(0, 0)  # stop robot
+    def teleopInit(self):
+        self.sd.putBoolean("timeRunning", True)
 
-    def teleopPeriodic(self):
-        """This function is called periodically during operator control."""
-        self.robot_drive.tankDrive(self.stick, 5, self.stick, 1,
-                                   True)  # 5 and 1 are left and right joystick axes, respectively
-        if self.controller.getAButton():
-            self.robot_drive.drive(-.5, 0)  # move forward slowly
-        if self.controller.getXButton():  # turn in place
-            self.robot_drive.setLeftRightMotorOutputs(-.5, .5)
-        elif self.controller.getYButton():  # turn in place
-            self.robot_drive.setLeftRightMotorOutputs(.5, -.5)
-        elif self.init_forward and self.forward_timer.get() < 1:  # check if move forward command sent within 1 second
-            self.robot_drive.drive(-.5, 0)
-
+    def testPeriodic(self):
+        # this is just proof-of-concept code, should really be in a subsystem
         if self.sd.containsKey("forwardCommand") and self.sd.getBoolean(
                 "forwardCommand"):  # check if move forward button pressed
             self.sd.putBoolean("forwardCommand", False)
-            self.forward_timer.reset()
-            self.init_forward = True
-
-        self.sd.putNumberArray("outputs", [self.left_motor.getOutputCurrent(), self.right_motor.getOutputCurrent()])
-
-    def testPeriodic(self):
-        """This function is called periodically during test mode."""
-        wpilib.LiveWindow.run()
+            SetSpeed(power=.5, timeoutInSeconds=1)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     wpilib.run(Robot)

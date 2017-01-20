@@ -128,9 +128,13 @@ function onValueChanged(key, value, isNew) {
             }
             NetworkTables.setValue(key, false);
             break;
-        case '/SmartDashboard/outputs':
-            ui.outputs.left.innerHTML = value[0];
-            ui.outputs.right.innerHTML = value[1];
+        case '/SmartDashboard/leftOutput':
+            console.log("yayyyyyyyyyyyyyyyyyyyyyyyyyyy")
+            ui.outputs.left.innerHTML = value;
+            break;
+        case '/SmartDashboard/rightOutput':
+            console.log("yayyyyyyyyyyy")
+            ui.outputs.right.innerHTML = value;
             break;
         case '/SmartDashboard/autonomous/options': // Load list of prewritten autonomous modes
             // Clear previous list
@@ -252,9 +256,4 @@ ui.tuning.get.onclick = function() {
 // Update NetworkTables when autonomous selector is changed
 ui.autoSelect.onchange = function() {
     NetworkTables.setValue('/SmartDashboard/autonomous/selected', this.value);
-};
-
-// Get value of arm height slider when it's adjusted
-ui.armPosition.oninput = function() {
-    NetworkTables.setValue('/SmartDashboard/arm/encoder', parseInt(this.value));
 };
