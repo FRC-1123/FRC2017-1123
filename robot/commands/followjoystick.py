@@ -34,9 +34,9 @@ class FollowJoystick(Command):
             self.forward_timer.reset()
             self.init_forward = True
         if self.init_forward and self.forward_timer.get() < 1:  # check if move forward command sent within 1 second
-            subsystems.motors.setSpeed(-.5)
+            subsystems.motors.setSpeed(-.2)
         else:
             subsystems.motors.robot_drive.tankDrive(subsystems.oi.joystick, robotmap.joystick.left_port,
-                                                subsystems.oi.joystick, robotmap.joystick.right_port, True)
+                                                    subsystems.oi.joystick, robotmap.joystick.right_port, True)
         self.sd.putNumber("leftOutput", subsystems.motors.left_motor.getSetpoint())
         self.sd.putNumber("rightOutput", subsystems.motors.right_motor.getSetpoint())

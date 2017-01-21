@@ -5,10 +5,13 @@ pynetconsole
 pynetworktables
 pynetworktables2js
 pytest
+numpy
+pybind11
 robotpy-ctre
 robotpy-hal-base
 robotpy-hal-sim
 robotpy-wpilib-utilities
+robotpy-cscore
 wpilib
 pygame
 coverage

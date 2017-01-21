@@ -4,6 +4,7 @@ from a single location. Instantiate a PortsList for each subsystem and assign
 port numbers as needed.
 '''
 
+
 class PropertiesList:
     '''Dummy class used to store variables on an object.'''
     pass

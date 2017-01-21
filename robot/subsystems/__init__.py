@@ -8,10 +8,12 @@ from wpilib.robotbase import RobotBase
 
 from .motors import Motors
 from .oi import OI
+from .camera import Camera
 
 motors = None
 oi = None
 front_camera = None
+
 
 def init():
     '''
@@ -34,5 +36,5 @@ def init():
     commands need access to the subsystems, OI must be instantiated last.
     '''
     oi = OI()
-    
+
     front_camera = Camera()
