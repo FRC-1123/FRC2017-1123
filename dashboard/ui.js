@@ -29,7 +29,8 @@ var ui = {
     outputs: {
         left: document.getElementById('left-output'),
         right: document.getElementById('right-output')
-    }
+    },
+    pneumatic: document.getElementById('pneumatic')
 };
 
 // Sets function to be called on NetworkTables connect. Commented out because it's usually not necessary.
@@ -133,6 +134,12 @@ function onValueChanged(key, value, isNew) {
             break;
         case '/SmartDashboard/rightOutput':
             ui.outputs.right.innerHTML = Math.round(value * 100);
+            break;
+        case '/SmartDashboard/pneumatic':
+            if value:
+                ui.pneumatic.innerHTML = "On"
+            else:
+                ui.pneumatic.innerHTML = "Off"
             break;
         case '/SmartDashboard/autonomous/options': // Load list of prewritten autonomous modes
             // Clear previous list

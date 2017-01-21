@@ -20,7 +20,7 @@ def init():
     Creates all subsystems. You must run this before any commands are
     instantiated. Do not run it more than once.
     '''
-    global motors, oi, front_camera
+    global motors, oi, front_camera, gear_mech
 
     '''
     Some tests call startCompetition multiple times, so don't throw an error if
@@ -38,3 +38,5 @@ def init():
     oi = OI()
 
     front_camera = Camera()
+
+    gear_mech = GearMech()
