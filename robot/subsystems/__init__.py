@@ -6,13 +6,15 @@ for it in the global scope.
 
 from wpilib.robotbase import RobotBase
 
-from .camera import Camera
+#from .camera import Camera
 from .motors import Motors
 from .oi import OI
+from .gearmech import GearMech
 
 motors = None
 oi = None
-front_camera = None
+gear_mech = None
+#front_camera = None
 
 
 def init():
@@ -20,7 +22,7 @@ def init():
     Creates all subsystems. You must run this before any commands are
     instantiated. Do not run it more than once.
     '''
-    global motors, oi, front_camera, gear_mech
+    global motors, oi, gear_mech
 
     '''
     Some tests call startCompetition multiple times, so don't throw an error if
@@ -37,6 +39,6 @@ def init():
     '''
     oi = OI()
 
-    front_camera = Camera()
+#    front_camera = Camera()
 
     gear_mech = GearMech()

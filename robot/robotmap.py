@@ -11,8 +11,8 @@ class PropertiesList:
 
 
 motors = PropertiesList()
-motors.left_id = 0
-motors.right_id = 1
+motors.left_id = 1
+motors.right_id = 0
 
 joystick = PropertiesList()
 joystick.port = 0
@@ -26,4 +26,5 @@ cameras.front_camera_height = 240
 cameras.front_camera_fps = 30
 
 gear_mech = PropertiesList()
-gear_mech.solenoid_channel = 0
+gear_mech.forward_solenoid_channel = 0
+gear_mech.reverse_solenoid_channel = 1

@@ -136,10 +136,10 @@ function onValueChanged(key, value, isNew) {
             ui.outputs.right.innerHTML = Math.round(value * 100);
             break;
         case '/SmartDashboard/pneumatic':
-            if value:
-                ui.pneumatic.innerHTML = "On"
-            else:
-                ui.pneumatic.innerHTML = "Off"
+            if (value)
+                ui.pneumatic.innerHTML = "Out";
+            else
+                ui.pneumatic.innerHTML = "In";
             break;
         case '/SmartDashboard/autonomous/options': // Load list of prewritten autonomous modes
             // Clear previous list
