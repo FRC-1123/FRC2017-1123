@@ -48,8 +48,5 @@ class Camera(Subsystem):
         self.processing_frame = np.zeros(
             shape=(robotmap.cameras.front_camera_width, robotmap.cameras.front_camera_height, 3), dtype=np.uint8)
 
-    def get_rod_position(self):
-        pass
-
     def initDefaultCommand(self):
         self.setDefaultCommand(ServeCrosshairStream())
