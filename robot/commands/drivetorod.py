@@ -1,11 +1,10 @@
-import wpilib
-from wpilib.command import Command
-import subsystems
-import robotmap
+import logging
 
 import cv2
-
-import logging
+import robotmap
+import subsystems
+import wpilib
+from wpilib.command import Command
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -87,6 +86,6 @@ class DriveToRod(Command):
         center1 = (moments1['m10'] // moments1['m00'], moments1['m01'] // moments1['m00'])  # center of first tape strip
         moments2 = cv2.moments(second_largest[0])
         center2 = (
-        moments2['m10'] // moments2['m00'], moments2['m01'] // moments2['m00'])  # center of second tape strip
+            moments2['m10'] // moments2['m00'], moments2['m01'] // moments2['m00'])  # center of second tape strip
 
         return (center1[0] + center2[0]) // 2, (center1[1] + center2[1]) // 2

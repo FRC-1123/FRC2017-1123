@@ -1,9 +1,7 @@
-import wpilib
-from wpilib.command import Command
+import logging
 
 import subsystems
-
-import logging
+from wpilib.command import Command
 
 logging.basicConfig(level=logging.DEBUG)
 

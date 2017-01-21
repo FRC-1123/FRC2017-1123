@@ -1,11 +1,10 @@
-import wpilib
-from wpilib.command import Command
-
-import subsystems
-import robotmap
-from networktables import NetworkTables
-
 import logging
+
+import robotmap
+import subsystems
+import wpilib
+from networktables import NetworkTables
+from wpilib.command import Command
 
 logging.basicConfig(level=logging.DEBUG)
 

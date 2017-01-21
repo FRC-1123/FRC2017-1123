@@ -1,11 +1,7 @@
-import wpilib
-from wpilib.command.subsystem import Subsystem
-
-import robotmap
-
 import cscore as cs
 import numpy as np
-import cv2
+import robotmap
+from wpilib.command.subsystem import Subsystem
 
 
 class Camera(Subsystem):

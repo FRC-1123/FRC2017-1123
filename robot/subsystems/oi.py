@@ -1,7 +1,7 @@
+import robotmap
 import wpilib
 from wpilib.command.subsystem import Subsystem
 from wpilib.joystick import Joystick
-import robotmap
 
 
 class OI(Subsystem):
@@ -20,4 +20,3 @@ class OI(Subsystem):
 
         # trigger = JoystickButton(self.joystick, Joystick.ButtonType.kTrigger)
         # trigger.whenPressed(Crash())
-

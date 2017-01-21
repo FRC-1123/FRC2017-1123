@@ -1,6 +1,5 @@
-from wpilib.command import TimedCommand
-
 import subsystems
+from wpilib.command import TimedCommand
 
 
 class SetSpeed(TimedCommand):

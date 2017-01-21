@@ -1,14 +1,13 @@
 #!/usr/bin/env python3
 
-import wpilib
-from networktables import NetworkTables
+import logging
 
-from commandbased import CommandBasedRobot
 import subsystems
+import wpilib
+from commandbased import CommandBasedRobot
 from commands.autonomous import AutonomousProgram
 from commands.setspeed import SetSpeed
-
-import logging
+from networktables import NetworkTables
 
 logging.basicConfig(level=logging.DEBUG)
 

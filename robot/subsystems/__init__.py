@@ -6,9 +6,9 @@ for it in the global scope.
 
 from wpilib.robotbase import RobotBase
 
+from .camera import Camera
 from .motors import Motors
 from .oi import OI
-from .camera import Camera
 
 motors = None
 oi = None

@@ -1,9 +1,8 @@
-import wpilib
-from wpilib.command.subsystem import Subsystem
 import ctre
-
-from commands.followjoystick import FollowJoystick
 import robotmap
+import wpilib
+from commands.followjoystick import FollowJoystick
+from wpilib.command.subsystem import Subsystem
 
 
 class Motors(Subsystem):
