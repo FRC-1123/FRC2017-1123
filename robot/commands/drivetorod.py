@@ -6,7 +6,7 @@ import subsystems
 import wpilib
 from wpilib.command import Command
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 
 
 class DriveToRod(Command):
@@ -32,7 +32,11 @@ class DriveToRod(Command):
         self.requires(subsystems.motors)
 
     def execute(self):
-        center_x = self.get_center()[0] / robotmap.cameras.front_camera_width
+        center = self.get_center()
+        if not self.get_center:
+            print("Couldn't find the rod!")
+            return
+        center_x = center[0] / robotmap.cameras.front_camera_width
         error = .5 - center_x
         print("current rod error:", error)
         if abs(error) > .02:  # only use PID if error greater than 2%
