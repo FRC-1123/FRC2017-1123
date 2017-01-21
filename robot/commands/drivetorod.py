@@ -3,6 +3,8 @@ from wpilib.command import Command
 
 import subsystems
 
+import robotmap
+
 import logging
 
 logging.basicConfig(level=logging.DEBUG)
@@ -15,11 +17,29 @@ class DriveToRod(Command):
 
     def __init__(self):
         super().__init__("Drive To Rod")
+        
+        # PID constants
+        self.kp = 15
+        self.ki = 0
+        self.kd = 0
+        
+        self.timer = wpilib.Timer()
+        self.timer.start()
+        self.prev_error = 0
+        self.prev_time = self.timer.get()
 
         self.requires(subsystems.front_camera)
 
     def execute(self):
         pass
+
+    def calc_pid(self, error):
+        time = self.timer.get()
+        e_deriv = (error - self.prev_error) / (time - self.prev_time)
+        e_int = (error + self.prev_error) / 2 * (time - self.prev_time)
+        self.prev_error = error
+        self.prev_time = time
+        return self.kp*error + self.kd*e_deriv + self.ki*e_int
 
     def get_center(self):
         time, frame = subsystems.front_camera.cv_sink.grabFrame(subsystems.front_camera.processing_frame)
