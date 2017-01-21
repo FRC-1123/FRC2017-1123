@@ -11,13 +11,14 @@ from .oi import OI
 
 motors = None
 oi = None
+front_camera = None
 
 def init():
     '''
     Creates all subsystems. You must run this before any commands are
     instantiated. Do not run it more than once.
     '''
-    global motors, oi
+    global motors, oi, front_camera
 
     '''
     Some tests call startCompetition multiple times, so don't throw an error if
@@ -33,3 +34,5 @@ def init():
     commands need access to the subsystems, OI must be instantiated last.
     '''
     oi = OI()
+    
+    front_camera = Camera()
