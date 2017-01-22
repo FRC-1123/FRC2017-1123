@@ -5,6 +5,14 @@
     <meta charset="utf-8">
     <title>FRC Dashboard</title>
     <link rel="stylesheet" href="css/style.css">
+    <script type="text/javascript">
+        // reload on ctrl-r
+        window.addEventListener("keypress", function(ev) {
+            console.log(ev);
+            if (ev.key === "r" && ev.ctrlKey)
+                location.reload(true);
+        });
+    </script>
 </head>
 
 <body>
