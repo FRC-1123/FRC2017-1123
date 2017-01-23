@@ -54,10 +54,10 @@ class DriveToRod(Command):
         return self.kp * error + self.kd * e_deriv + self.ki * e_int
 
     def get_center(self):
-        time, frame = subsystems.front_camera.cv_sink.grabFrame(subsystems.front_camera.processing_frame)
+        time, frame = subsystems.front_camera.cv_sink.grabFrame(subsystems.front_camera.frame)
         if time == 0:
             print("error:", subsystems.front_camera.cv_sink.getError())
-            return
+            return False
 
         # filter only green
         hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)

@@ -22,26 +22,17 @@ class Camera(Subsystem):
 
         self.cv_sink = cs.CvSink("cvsink")
         self.cv_sink.setSource(camera)
+        self.cv_source = cv.CvSource("cvsource", cs.VideoMode.PixelFormat.kMJPEG,
 
-        # serves images with a crosshair at the center
-        self.crosshair_mjpeg_server = cs.MjpegServer("crosshair_httpserver", 8081)
-        self.crosshair_mjpeg_server.setSource(camera)
-        self.crosshair_source = cv.CvSource("crosshair_source", cs.VideoMode.PixelFormat.kMJPEG,
+        # set up image server
+        mjpeg_server = cs.MjpegServer("httpserver", 8081)
+        mjpeg_server.setSource(self.cv_source)
                                             robotmap.cameras.front_camera_width, robotmap.cameras.front_camera_height,
                                             robotmaps.cameras.front_camera_fps)
-        print("crosshair mjpg server listening at http://0.0.0.0:8081")
+        print("mjpg server listening at http://0.0.0.0:8081")
 
-        # images for processing
-        self.processing_mjpeg_server = cs.MjpegServer("processing_httpserver", 8082)
-        self.processing_mjpeg_server.setSource(cv_source)
-        self.processing_source = cv.CvSource("processing_source", cs.VideoMode.PixelFormat.kMJPEG,
-                                             robotmap.cameras.front_camera_width, robotmap.cameras.front_camera_height,
-                                             robotmap.cameras.front_camera_fps)
-        print("OpenCV output mjpg server listening at http://0.0.0.0:8082")
-
-        self.crosshair_frame = np.zeros(
+        self.frame = np.zeros(
             shape=(robotmap.cameras.front_camera_width, robotmap.cameras.front_camera_height, 3), dtype=np.uint8)
-        self.processing_frame = np.zeros(
             shape=(robotmap.cameras.front_camera_width, robotmap.cameras.front_camera_height, 3), dtype=np.uint8)
 
     def initDefaultCommand(self):

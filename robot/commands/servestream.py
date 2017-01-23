@@ -8,16 +8,16 @@ logging.basicConfig(level=logging.DEBUG)
 
 class ServeCrosshairStream(Command):
     '''
-    This command will serve the crosshair stream.
+    This command will serve the camera stream.
     '''
 
     def __init__(self):
-        super().__init__("Serve Camera Streams")
+        super().__init__("Serve Camera Stream")
 
         self.requires(subsystems.front_camera)
 
     def execute(self):
-        time, frame = subsystems.front_camera.cv_sink.grabFrame(subsystems.front_camera.crosshair_frame)
+        time, frame = subsystems.front_camera.cv_sink.grabFrame(subsystems.front_camera.frame)
         if time == 0:
             print("error:", subsystems.front_camera.cv_sink.getError())
             return
@@ -36,4 +36,4 @@ class ServeCrosshairStream(Command):
         frame[center_y - 10:center_y + 11][center_x][1] = 0
         frame[center_y - 10:center_y + 11][center_x][2] = 255
 
-        subsystems.front_camera.processing_source.putFrame(frame)
+        subsystems.front_camera.cv_source.putFrame(frame)
