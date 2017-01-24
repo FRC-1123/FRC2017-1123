@@ -35,5 +35,18 @@ class Camera(Subsystem):
             shape=(robotmap.cameras.front_camera_width, robotmap.cameras.front_camera_height, 3), dtype=np.uint8)
             shape=(robotmap.cameras.front_camera_width, robotmap.cameras.front_camera_height, 3), dtype=np.uint8)
 
+    def draw_crosshairs(self):
+        center_x = self.frame.shape[0] // 2
+        center_y = self.frame.shape[1] // 2
+        # horizontal line
+        self.frame[center_y][center_x-10:center_x+11][0] = 0
+        self.frame[center_y][center_x-10:center_x+11][1] = 0
+        self.frame[center_y][center_x-10:center_x+11][2] = 255
+        # vertical line
+        self.frame[center_y-10:center_y+11][center_x][0] = 0
+        self.frame[center_y-10:center_y+11][center_x][1] = 0
+        self.frame[center_y-10:center_y+11][center_x][2] = 255
+
+
     def initDefaultCommand(self):
         self.setDefaultCommand(ServeCrosshairStream())
