@@ -17,17 +17,12 @@ class ServeStream(Command):
         self.requires(subsystems.front_camera)
 
     def execute(self):
-        # grab frame
-        time, subsystems.front_camera.frame = subsystems.front_camera.cv_sink.grabFrame(subsystems.front_camera.frame)
-        if time == 0:
-            print("error:", subsystems.front_camera.cv_sink.getError())
-            return
-        print("got frame at time", time, frame.shape)
+        subsystems.front_camera.update_frame()
+        print("got frame at time", time)
 
         # draw shapes
         if subsystems.front_camera.tape_contours is not None:
             subsystems.front_camera.draw_tape_contours()
         subsystems.front_camera.draw_crosshairs()
 
-        # serve frame
-        subsystems.front_camera.cv_source.putFrame(frame)
+        subsystems.front_camera.serve_frame()

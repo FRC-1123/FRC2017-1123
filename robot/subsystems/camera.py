@@ -43,6 +43,9 @@ class Camera(Subsystem):
         if time == 0:
             print("error:", self.cv_sink.getError())
     
+    def serve_frame(self):
+        self.cv_source.putFrame(self.frame)
+    
     def get_rod_pos(self):
         '''
         Returns (x, y) coords of rod as fractions of width and height of frame, respectively.
