@@ -32,12 +32,11 @@ class DriveToRod(Command):
         self.requires(subsystems.motors)
 
     def execute(self):
-        center = self.get_center()
-        if not self.get_center:
+        rod_pos = subsystems.front_camera.get_rod_pos()
+        if not rod_pos:
             print("Couldn't find the rod!")
             return
-        center_x = center[0] / robotmap.cameras.front_camera_width
-        error = .5 - center_x
+        error = .5 - rod_pos[0]  # error as horizontal distance from center
         print("current rod error:", error)
         if abs(error) > .02:  # only use PID if error greater than 2%
             curve = self.calc_pid(error)

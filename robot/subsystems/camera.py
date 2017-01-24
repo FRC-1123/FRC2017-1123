@@ -50,6 +50,8 @@ class Camera(Subsystem):
         '''
         Returns (x, y) coords of rod as fractions of width and height of frame, respectively.
         '''
+        if self.tape_contours is None:  # no tape contours
+            return False
         moments1 = cv2.moments(self.tape_contours[0])
         center1 = (moments1['m10'] / moments1['m00'], moments1['m01'] / moments1['m00'])  # center of one tape strip
         moments2 = cv2.moments(self.tape_contours[1])
