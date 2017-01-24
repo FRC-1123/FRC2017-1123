@@ -53,42 +53,18 @@ class DriveToRod(Command):
         self.prev_time = time
         return self.kp * error + self.kd * e_deriv + self.ki * e_int
 
-    def get_center(self):
+    def get_rod_pos(self):
         time, frame = subsystems.front_camera.cv_sink.grabFrame(subsystems.front_camera.frame)
         if time == 0:
             print("error:", subsystems.front_camera.cv_sink.getError())
             return False
 
-        # filter only green
-        hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-        mask = cv2.inRange(hsv, np.array([45, 140, 100]), np.array([65, 210, 130]))
-
-        # find relevant retro-reflective tape contours
-        contours = cv2.findContours(mask, cv2.cv.CV_RETR_TREE, cv2.cv.CV_CHAIN_APPROX_SIMLE)[0]
-        # find two largest four-sided contours
-        largest = (0, 0)  # (contour, area)
-        second_largest = (0, 0)  # (contour, area)
-        for c in contours:
-            area = cv2.contourArea(c)
-            if area < 100:  # remove noise
-                continue
-            perim = cv2.arcLength(c, True)
-            approx = cv2.approxPolyDP(c, .05 * perim, True)
-            if len(approx) != 4:  # only consider quadrilaterals
-                continue
-            if area > largest[1]:
-                second_largest = largest
-                largest = (c, area)
-            elif area > second_largest[1]:
-                second_largest = (c, area)
-
-        if second_largest[0] == 0:  # if did not find the tape strips
-            return False
-
+        tape1, tape2 = subsystems.front_camera.get_tape_contours()
+        
         # find position of rod
-        moments1 = cv2.moments(largest[0])
+        moments1 = cv2.moments(tape1)
         center1 = (moments1['m10'] // moments1['m00'], moments1['m01'] // moments1['m00'])  # center of first tape strip
-        moments2 = cv2.moments(second_largest[0])
+        moments2 = cv2.moments(tape2)
         center2 = (
             moments2['m10'] // moments2['m00'], moments2['m01'] // moments2['m00'])  # center of second tape strip
 

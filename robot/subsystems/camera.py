@@ -1,5 +1,6 @@
 import cscore as cs
 import numpy as np
+import cv2
 import robotmap
 from wpilib.command.subsystem import Subsystem
 
@@ -48,5 +49,39 @@ class Camera(Subsystem):
         self.frame[center_y-10:center_y+11][center_x][2] = 255
 
 
+    def get_tape_contours(self):
+        '''
+        Returns two largest four-sided contours and draws them on the frame.
+        '''
+        # filter green
+        hsv = cv2.cvtColor(self.frame, cv2.COLOR_BGR2HSV)
+        mask = cv2.inRange(hsv, np.array([45, 140, 100]), np.array([65, 210, 130]))
+        
+        # find two most likely retro-reflective tape contours
+        contours = cv2.findContours(mask, cv2.cv.CV_RETR_TREE, cv2.cv.CV_CHAIN_APPROX_SIMPLE)[0]
+        # two largest four-sided contours
+        largest = (0, 0)  # (contour, area)
+        second_largest = (0, 0)
+        for c in contours:
+            area = cv2.contourArea(c)
+            if area < 100:  # remove noise
+                continue
+            perim = cv2.arcLength(c, True)
+            approx = cv2.approxPolyDP(c, .05*perim, True)
+            if len(approx) != 4:  # only consider quadrilaterals
+                continue
+            if area > largest[1]:
+                second_largest = largest
+                largest = (c, area)
+            elif area > second_largest[1]:
+                second_largest = (c, area)
+
+        if second_largest[0] == 0:  # if did not find two tape strips
+            return False
+
+        cv2.drawContours(self.frame, [largest[0], second_largest[0]], -1, (100, 255, 100), 2)  # draw contours on frame
+
+        return largest[0], second_largest[0]
+    
     def initDefaultCommand(self):
         self.setDefaultCommand(ServeCrosshairStream())
