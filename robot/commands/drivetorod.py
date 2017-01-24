@@ -52,20 +52,3 @@ class DriveToRod(Command):
         self.prev_error = error
         self.prev_time = time
         return self.kp * error + self.kd * e_deriv + self.ki * e_int
-
-    def get_rod_pos(self):
-        time, frame = subsystems.front_camera.cv_sink.grabFrame(subsystems.front_camera.frame)
-        if time == 0:
-            print("error:", subsystems.front_camera.cv_sink.getError())
-            return False
-
-        tape1, tape2 = subsystems.tape_contours
-        
-        # find position of rod
-        moments1 = cv2.moments(tape1)
-        center1 = (moments1['m10'] // moments1['m00'], moments1['m01'] // moments1['m00'])  # center of first tape strip
-        moments2 = cv2.moments(tape2)
-        center2 = (
-            moments2['m10'] // moments2['m00'], moments2['m01'] // moments2['m00'])  # center of second tape strip
-
-        return (center1[0] + center2[0]) // 2, (center1[1] + center2[1]) // 2
