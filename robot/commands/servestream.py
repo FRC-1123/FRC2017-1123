@@ -18,7 +18,6 @@ class ServeStream(Command):
 
     def execute(self):
         subsystems.front_camera.update_frame()
-        print("got frame at time", time)
 
         # draw shapes
         if subsystems.front_camera.tape_contours is not None:

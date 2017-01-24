@@ -36,14 +36,15 @@ class FollowJoystick(Command):
         if self.init_forward and self.forward_timer.get() < 1:  # check if move forward command sent within 1 second
             subsystems.motors.setSpeed(.2)
         else:
-            subsystems.motors.robot_drive.tankDrive(subsystems.oi.joystick, robotmap.joystick.left_port, subsystems.oi.joystick, robotmap.joystick.right_port, True)
-        
+            subsystems.motors.robot_drive.tankDrive(subsystems.oi.joystick, robotmap.joystick.left_port,
+                                                    subsystems.oi.joystick, robotmap.joystick.right_port, True)
+
         if subsystems.oi.controller.getAButton():  # piston out
             subsystems.gear_mech.double_solenoid.set(subsystems.gear_mech.double_solenoid.kForward)
             self.sd.putBoolean("pneumatic", True)
         elif subsystems.oi.controller.getBButton():  # piston in
             subsystems.gear_mech.double_solenoid.set(subsystems.gear_mech.double_solenoid.kReverse)
             self.sd.putBoolean("pneumatic", False)
-            
+
         self.sd.putNumber("leftOutput", subsystems.motors.left_motor.getSetpoint())
         self.sd.putNumber("rightOutput", subsystems.motors.right_motor.getSetpoint())

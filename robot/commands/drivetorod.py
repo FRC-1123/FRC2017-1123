@@ -1,7 +1,5 @@
 import logging
 
-import cv2
-import robotmap
 import subsystems
 import wpilib
 from wpilib.command import Command
@@ -33,7 +31,7 @@ class DriveToRod(Command):
 
     def execute(self):
         rod_pos = subsystems.front_camera.get_rod_pos()
-        if not rod_pos:
+        if rod_pos is None:
             print("Couldn't find the rod!")
             return
         error = .5 - rod_pos[0]  # error as horizontal distance from center
