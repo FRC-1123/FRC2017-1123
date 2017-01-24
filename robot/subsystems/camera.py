@@ -36,7 +36,12 @@ class Camera(Subsystem):
             shape=(robotmap.cameras.front_camera_width, robotmap.cameras.front_camera_height, 3), dtype=np.uint8)
             shape=(robotmap.cameras.front_camera_width, robotmap.cameras.front_camera_height, 3), dtype=np.uint8)
 
+        self.tape_contours = None
+
     def draw_crosshairs(self):
+        '''
+        Draws red crosshairs.
+        '''
         center_x = self.frame.shape[0] // 2
         center_y = self.frame.shape[1] // 2
         # horizontal line
@@ -49,9 +54,15 @@ class Camera(Subsystem):
         self.frame[center_y-10:center_y+11][center_x][2] = 255
 
 
-    def get_tape_contours(self):
+    def draw_tape_contours(self):
         '''
-        Returns two largest four-sided contours and draws them on the frame.
+        Draws the tape contours in green.
+        '''
+        cv2.drawContours(self.frame, self.tape_contours, -1, (100, 255, 100), 2)
+
+    def find_tape_contours(self):
+        '''
+        Finds the two largest green four-sided contours.
         '''
         # filter green
         hsv = cv2.cvtColor(self.frame, cv2.COLOR_BGR2HSV)
@@ -77,11 +88,8 @@ class Camera(Subsystem):
                 second_largest = (c, area)
 
         if second_largest[0] == 0:  # if did not find two tape strips
-            return False
+            self.tape_contours = None
+        self.tape_contours = (largest[0], second_largest[0])
 
-        cv2.drawContours(self.frame, [largest[0], second_largest[0]], -1, (100, 255, 100), 2)  # draw contours on frame
-
-        return largest[0], second_largest[0]
-    
     def initDefaultCommand(self):
         self.setDefaultCommand(ServeCrosshairStream())

@@ -25,6 +25,8 @@ class ServeStream(Command):
         print("got frame at time", time, frame.shape)
 
         # draw shapes
+        if subsystems.front_camera.tape_contours is not None:
+            subsystems.front_camera.draw_tape_contours()
         subsystems.front_camera.draw_crosshairs()
 
         # serve frame

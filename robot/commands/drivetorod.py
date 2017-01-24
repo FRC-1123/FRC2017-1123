@@ -59,7 +59,7 @@ class DriveToRod(Command):
             print("error:", subsystems.front_camera.cv_sink.getError())
             return False
 
-        tape1, tape2 = subsystems.front_camera.get_tape_contours()
+        tape1, tape2 = subsystems.tape_contours
         
         # find position of rod
         moments1 = cv2.moments(tape1)
