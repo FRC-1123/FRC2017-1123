@@ -1,8 +1,9 @@
 import logging
 
-import subsystems
 import wpilib
 from wpilib.command import Command
+
+import subsystems
 
 logging.basicConfig(level=logging.INFO)
 
@@ -16,9 +17,10 @@ class DriveToRod(Command):
         super().__init__("Drive To Rod")
 
         # PID constants
-        self.kp = 15
+        self.kp = 0.06
         self.ki = 0
         self.kd = 0
+        self.ktolerance = 0.02
 
         # used for calculating PID derivative and integral
         self.timer = wpilib.Timer()
@@ -36,7 +38,7 @@ class DriveToRod(Command):
             return
         error = .5 - rod_pos[0]  # error as horizontal distance from center
         print("current rod error:", error)
-        if abs(error) > .02:  # only use PID if error greater than 2%
+        if abs(error) > self.ktolerance:  # only use PID if error greater than tolerance
             curve = self.calc_pid(error)
         else:
             curve = 0
