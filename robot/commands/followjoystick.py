@@ -8,7 +8,7 @@ from wpilib.command import Command
 import robotmap
 import subsystems
 
-import rotate
+from commands.rotate import Rotate
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -37,6 +37,6 @@ class FollowJoystick(Command):
             subsystems.gear_mech.double_solenoid.set(subsystems.gear_mech.double_solenoid.kReverse)
             self.sd.putBoolean("pneumatic", False)
         if subsystems.oi.controller.getXButton():  # turn 90 degrees left
-            rotate.Rotate(-90.0).start()
+            Rotate(-90.0).start()
         elif subsystems.oi.controller.getYButton():  # turn 90 degrees right
-            rotate.Rotate(90.0).start()
+            Rotate(90.0).start()
