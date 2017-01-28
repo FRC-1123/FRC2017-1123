@@ -10,6 +10,12 @@ var ui = {
         arm: document.getElementById('gyro-arm'),
         number: document.getElementById('gyro-number')
     },
+    navx: {
+        connected: document.getElementById('navx-connected'),
+        calibrating: document.getElementById('navx-calibrating'),
+        //angle: document.getElementById('navx-angle'),
+        yaw: document.getElementById('navx-yaw'),
+    },
     robotDiagram: {
         arm: document.getElementById('robot-arm')
     },
@@ -57,7 +63,14 @@ function onValueChanged(key, value, isNew) {
 
     // This switch statement chooses which UI element to update when a NetworkTables variable changes.
     switch (key) {
-        case '/SmartDashboard/drive/navX/yaw': // Gyro rotation
+        case '/SmartDashboard/navX/isConnected':
+            ui.navx.connected.innerHTML = value;
+            break;
+        case '/SmartDashboard/navX/isCalibrating':
+            ui.navx.calibrating.innerHTML = value;
+            break;
+        case '/SmartDashboard/navX/yaw': // Gyro rotation
+            // update gyro diagram
             ui.gyro.val = value;
             ui.gyro.visualVal = Math.floor(ui.gyro.val - ui.gyro.offset);
             if (ui.gyro.visualVal < 0) { // Corrects for negative values
@@ -65,24 +78,12 @@ function onValueChanged(key, value, isNew) {
             }
             ui.gyro.arm.style.transform = ('rotate(' + ui.gyro.visualVal + 'deg)');
             ui.gyro.number.innerHTML = ui.gyro.visualVal + 'º';
+            
+            // update yaw value
+            ui.navx.yaw.innerHTML = value;
             break;
-            // The following case is an example, for a robot with an arm at the front.
-            // Info on the actual robot that this works with can be seen at thebluealliance.com/team/1418/2016.
-        case '/SmartDashboard/arm/encoder':
-            // 0 is all the way back, 1200 is 45 degrees forward. We don't want it going past that.
-            if (value > 1140) {
-                value = 1140;
-            } else if (value < 0) {
-                value = 0;
-            }
-            // Calculate visual rotation of arm
-            var armAngle = value * 3 / 20 - 45;
-
-            // Rotate the arm in diagram to match real arm
-            ui.robotDiagram.arm.style.transform = 'rotate(' + armAngle + 'deg)';
-            break;
-            // This button moves the robot forward for 1 second.
         case '/SmartDashboard/forwardCommand':
+            // This button moves the robot forward for 1 second.
             if (value) { // If function is active:
                 // Add active class to button.
                 ui.forwardCommand.button.className = 'active';

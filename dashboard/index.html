@@ -66,11 +66,18 @@
     </div>
     <!-- Left and right motor outputs in amps -->
     <div id="outputs">
-        <p>Left Output:&nbsp;&nbsp;<span id="left-output"></span>%</p>
-        <p>Right Output:&nbsp;&nbsp;<span id="right-output"></span>%</p>
+        <p>Left Output:&ensp;<span id="left-output"></span>%</p>
+        <p>Right Output:&ensp;<span id="right-output"></span>%</p>
     </div>
     <div>
-        <p>Pneumatic:&nbsp;&nbsp;<span id="pneumatic"></span></p>
+        <p>Piston:&ensp;<span id="pneumatic"></span></p>
+    </div>
+    <div id="navx">
+        <h3>NavX</h3>
+        <p>Is Connected:&ensp;<span id="navx-connected"></span></p>
+        <p>Is Calibrating:&ensp;<span id="navx-calibrating"></span></p>
+        <!--<p>Angle:&ensp;<span id="navx-angle"></span></p>-->
+        <p>Yaw:&ensp;<span id="navx-yaw"></span>&deg;</p>
     </div>
 </aside>
 <script src="/networktables/networktables.js"></script>

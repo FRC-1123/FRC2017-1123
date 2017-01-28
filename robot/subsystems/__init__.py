@@ -6,15 +6,16 @@ for it in the global scope.
 
 from wpilib.robotbase import RobotBase
 
-#from .camera import Camera
+from .gearmech import GearMech
 from .motors import Motors
 from .oi import OI
-from .gearmech import GearMech
 
 motors = None
 oi = None
 gear_mech = None
-#front_camera = None
+
+
+# front_camera = None
 
 
 def init():
@@ -39,6 +40,6 @@ def init():
     '''
     oi = OI()
 
-#    front_camera = Camera()
+    #    front_camera = Camera()
 
     gear_mech = GearMech()

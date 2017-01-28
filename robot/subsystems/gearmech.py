@@ -3,6 +3,7 @@ from wpilib.command.subsystem import Subsystem
 
 import robotmap
 
+
 class GearMech(Subsystem):
     '''
     This subsystem controls the gear mechanism.

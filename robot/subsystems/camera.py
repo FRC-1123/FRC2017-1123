@@ -1,9 +1,10 @@
 import cscore as cs
 import cv2
 import numpy as np
+from wpilib.command.subsystem import Subsystem
+
 import robotmap
 from commands.servestream import ServeStream
-from wpilib.command.subsystem import Subsystem
 
 
 class Camera(Subsystem):
