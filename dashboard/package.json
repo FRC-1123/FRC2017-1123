@@ -17,6 +17,6 @@
   },
   "homepage": "http://frcdashboard.github.io",
   "devDependencies": {
-    "electron-prebuilt": "^1.2.0"
+    "electron": "^1.4.15"
   }
 }
