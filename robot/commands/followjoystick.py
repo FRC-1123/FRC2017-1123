@@ -8,6 +8,8 @@ from wpilib.command import Command
 import robotmap
 import subsystems
 
+import rotate
+
 logging.basicConfig(level=logging.DEBUG)
 
 
@@ -27,9 +29,14 @@ class FollowJoystick(Command):
     def execute(self):
         subsystems.motors.robot_drive.tankDrive(subsystems.oi.joystick, robotmap.joystick.left_port, subsystems.oi.joystick,
                                                 robotmap.joystick.right_port, True)
+        # respond to buttons
         if subsystems.oi.controller.getAButton():  # piston out
             subsystems.gear_mech.double_solenoid.set(subsystems.gear_mech.double_solenoid.kForward)
             self.sd.putBoolean("pneumatic", True)
         elif subsystems.oi.controller.getBButton():  # piston in
             subsystems.gear_mech.double_solenoid.set(subsystems.gear_mech.double_solenoid.kReverse)
             self.sd.putBoolean("pneumatic", False)
+        if subsystems.oi.controller.getXButton():  # turn 90 degrees left
+            rotate.Rotate(-90.0).start()
+        elif subsystems.oi.controller.getYButton():  # turn 90 degrees right
+            rotate.Rotate(90.0).start()
