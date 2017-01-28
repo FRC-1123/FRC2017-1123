@@ -12,4 +12,5 @@ class GearMech(Subsystem):
     def __init__(self):
         super().__init__('GearMech')
 
-        self.double_solenoid = wpilib.DoubleSolenoid(robotmap.gear_mech.forward_solenoid_channel, robotmap.gear_mech.reverse_solenoid_channel)
+        self.double_solenoid = wpilib.DoubleSolenoid(robotmap.gear_mech.forward_solenoid_channel,
+                                                     robotmap.gear_mech.reverse_solenoid_channel)

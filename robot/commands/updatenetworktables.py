@@ -38,8 +38,11 @@ class UpdateNetworkTables(Command):
                 self.sd.putBoolean("forwardCommand", False)
                 self.forward_timer.reset()
                 self.init_forward = True
+                subsystems.motors.ignore_joy = True
             if self.init_forward and self.forward_timer.get() < 1:  # check if move forward command sent within 1 second
-                subsystems.motors.setSpeed(.2)
+                subsystems.motors.setSpeed(0.5)
+            else:
+                subsystems.motors.ignore_joy = False
 
             # # update navX status
             # self.sd.putBoolean('navX/isConnected', self.navx.isConnected())
