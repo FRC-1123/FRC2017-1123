@@ -2,12 +2,13 @@
 
 import logging
 
-import subsystems
 import wpilib
 from commandbased import CommandBasedRobot
-from commands.autonomous import AutonomousProgram
-from commands.setspeed import SetSpeed
 from networktables import NetworkTables
+
+import subsystems
+from commands.autonomous import AutonomousProgram
+from commands.updatenetworktables import UpdateNetworkTables
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -30,10 +31,7 @@ class Robot(CommandBasedRobot):
 
         subsystems.init()
         self.autonomousProgram = AutonomousProgram()
-
-    def robotPeriodic(self):
-        self.sd.putNumber("leftOutput", subsystems.motors.left_motor.getSetpoint())
-        self.sd.putNumber("rightOutput", subsystems.motors.right_motor.getSetpoint())
+        self.updateNT = UpdateNetworkTables()
 
     def autonomousInit(self):
         '''
@@ -46,13 +44,7 @@ class Robot(CommandBasedRobot):
 
     def teleopInit(self):
         self.sd.putBoolean("timeRunning", True)
-
-    def testPeriodic(self):
-        # this is just proof-of-concept code, should really be in a subsystem
-        if self.sd.containsKey("forwardCommand") and self.sd.getBoolean(
-                "forwardCommand"):  # check if move forward button pressed
-            self.sd.putBoolean("forwardCommand", False)
-            SetSpeed(power=.5, timeoutInSeconds=1)
+        self.updateNT.start()
 
 
 if __name__ == '__main__':
