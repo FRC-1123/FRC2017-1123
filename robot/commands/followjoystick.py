@@ -25,6 +25,8 @@ class FollowJoystick(Command):
         self.sd = NetworkTables.getTable("SmartDashboard")
         self.forward_timer = wpilib.Timer()
         self.forward_timer.start()
+        self.nt_timer = wpilib.Timer()  # timer for updating NetworkTables
+        self.nt_timer.start()
         self.init_forward = False  # only needed the first time forward command is sent because forward_timer starts at 0
 
     def execute(self):
@@ -39,12 +41,17 @@ class FollowJoystick(Command):
             subsystems.motors.robot_drive.tankDrive(subsystems.oi.joystick, robotmap.joystick.left_port,
                                                     subsystems.oi.joystick, robotmap.joystick.right_port, True)
 
-        if subsystems.oi.controller.getAButton():  # piston out
-            subsystems.gear_mech.double_solenoid.set(subsystems.gear_mech.double_solenoid.kForward)
-            self.sd.putBoolean("pneumatic", True)
-        elif subsystems.oi.controller.getBButton():  # piston in
-            subsystems.gear_mech.double_solenoid.set(subsystems.gear_mech.double_solenoid.kReverse)
-            self.sd.putBoolean("pneumatic", False)
+        if self.nt_time.hasPeriodPassed(.2):  # update NetworkTables every 0.2 seconds
+            
+            # update pneumatics status
+            if subsystems.oi.controller.getAButton():  # piston out
+                subsystems.gear_mech.double_solenoid.set(subsystems.gear_mech.double_solenoid.kForward)
+                self.sd.putBoolean("pneumatic", True)
+            elif subsystems.oi.controller.getBButton():  # piston in
+                subsystems.gear_mech.double_solenoid.set(subsystems.gear_mech.double_solenoid.kReverse)
+                self.sd.putBoolean("pneumatic", False)
 
-        self.sd.putNumber("leftOutput", subsystems.motors.left_motor.getSetpoint())
-        self.sd.putNumber("rightOutput", subsystems.motors.right_motor.getSetpoint())
+            # update motor output statuses
+            self.sd.putNumber("leftOutput", subsystems.motors.left_motor.getSetpoint())
+            self.sd.putNumber("rightOutput", subsystems.motors.right_motor.getSetpoint())
+
