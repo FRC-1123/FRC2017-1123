@@ -42,15 +42,7 @@ class UpdateNetworkTables(Command):
                 self.init_forward = True
             if self.init_forward and self.forward_timer.get() < 1:  # check if move forward command sent within 1 second
                 subsystems.motors.setSpeed(.2)
-
-            # update pneumatics status
-            if subsystems.oi.controller.getAButton():  # piston out
-                subsystems.gear_mech.double_solenoid.set(subsystems.gear_mech.double_solenoid.kForward)
-                self.sd.putBoolean("pneumatic", True)
-            elif subsystems.oi.controller.getBButton():  # piston in
-                subsystems.gear_mech.double_solenoid.set(subsystems.gear_mech.double_solenoid.kReverse)
-                self.sd.putBoolean("pneumatic", False)
-
+ 
             # update navX status
             self.sd.putBoolean('navX/isConnected', self.navx.isConnected())
             self.sd.putBoolean('navX/isCalibrating', self.navx.isCalibrating())
