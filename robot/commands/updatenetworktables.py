@@ -2,7 +2,7 @@ import logging
 
 import wpilib
 from networktables import NetworkTables
-from robotpy_ext.common_drivers import navx
+# from robotpy_ext.common_drivers import navx
 from wpilib.command import Command
 
 import subsystems
@@ -19,11 +19,9 @@ class UpdateNetworkTables(Command):
     def __init__(self):
         super().__init__('Update NetworkTables')
 
-        self.requires(subsystems.motors)
-        self.requires(subsystems.oi)
-        self.requires(subsystems.gear_mech)
+        # self.requires(subsystems.motors)
 
-        self.navx = navx.AHRS.create_spi()
+        # self.navx = navx.AHRS.create_spi()
 
         self.sd = NetworkTables.getTable("SmartDashboard")
         self.init_forward = False  # only needed the first time forward command is sent because forward_timer starts at 0
@@ -42,12 +40,12 @@ class UpdateNetworkTables(Command):
                 self.init_forward = True
             if self.init_forward and self.forward_timer.get() < 1:  # check if move forward command sent within 1 second
                 subsystems.motors.setSpeed(.2)
- 
-            # update navX status
-            self.sd.putBoolean('navX/isConnected', self.navx.isConnected())
-            self.sd.putBoolean('navX/isCalibrating', self.navx.isCalibrating())
-            # self.sd.putNumber('navX/angle', self.navx.getAngle())
-            self.sd.putNumber('navX/yaw', self.navx.getYaw())
+
+            # # update navX status
+            # self.sd.putBoolean('navX/isConnected', self.navx.isConnected())
+            # self.sd.putBoolean('navX/isCalibrating', self.navx.isCalibrating())
+            # # self.sd.putNumber('navX/angle', self.navx.getAngle())
+            # self.sd.putNumber('navX/yaw', self.navx.getYaw())
 
             # update motor output statuses
             self.sd.putNumber("leftOutput", subsystems.motors.left_motor.getSetpoint())

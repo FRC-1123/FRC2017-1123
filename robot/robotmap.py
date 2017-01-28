@@ -26,5 +26,5 @@ cameras.front_camera_height = 240
 cameras.front_camera_fps = 30
 
 gear_mech = PropertiesList()
-gear_mech.forward_solenoid_channel = 0
-gear_mech.reverse_solenoid_channel = 1
+gear_mech.forward_solenoid_channel = 1
+gear_mech.reverse_solenoid_channel = 0

@@ -31,12 +31,12 @@ class FollowJoystick(Command):
                                                 robotmap.joystick.right_port, True)
         # respond to buttons
         if subsystems.oi.controller.getAButton():  # piston out
-            subsystems.gear_mech.double_solenoid.set(subsystems.gear_mech.double_solenoid.kForward)
+            subsystems.gear_mech.double_solenoid.set(subsystems.gear_mech.double_solenoid.Value.kForward)
             self.sd.putBoolean("pneumatic", True)
         elif subsystems.oi.controller.getBButton():  # piston in
-            subsystems.gear_mech.double_solenoid.set(subsystems.gear_mech.double_solenoid.kReverse)
+            subsystems.gear_mech.double_solenoid.set(subsystems.gear_mech.double_solenoid.Value.kReverse)
             self.sd.putBoolean("pneumatic", False)
-        if subsystems.oi.controller.getXButton():  # turn 90 degrees left
-            Rotate(-90.0).start()
-        elif subsystems.oi.controller.getYButton():  # turn 90 degrees right
-            Rotate(90.0).start()
+        # if subsystems.oi.controller.getXButton():  # turn 90 degrees left
+        #     Rotate(-90.0).start()
+        # elif subsystems.oi.controller.getYButton():  # turn 90 degrees right
+        #     Rotate(90.0).start()

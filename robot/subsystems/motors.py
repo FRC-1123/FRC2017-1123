@@ -20,6 +20,7 @@ class Motors(Subsystem):
         self.right_motor = ctre.CANTalon(robotmap.motors.right_id)
         # self.left_motor = wpilib.Talon(robotmap.motors.left_id)
         # self.right_motor = wpilib.Talon(robotmap.motors.right_id)
+        self.left_motor.setInverted(True)
         self.robot_drive = wpilib.RobotDrive(self.left_motor, self.right_motor)
         self.robot_drive.setMaxOutput(1)
 
