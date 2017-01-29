@@ -7,6 +7,7 @@ from commandbased import CommandBasedRobot
 from networktables import NetworkTables
 
 import subsystems
+import oi
 from commands.autonomous import AutonomousProgram
 from commands.updatenetworktables import UpdateNetworkTables
 
@@ -27,11 +28,12 @@ class Robot(CommandBasedRobot):
         This is a good place to set up your subsystems and anything else that
         you will need to access later.
         '''
-        self.sd = NetworkTables.getTable("SmartDashboard")
 
         subsystems.init()
         self.autonomousProgram = AutonomousProgram()
         self.updateNT = UpdateNetworkTables()
+        
+        oi.init()
 
     def autonomousInit(self):
         '''
@@ -43,7 +45,8 @@ class Robot(CommandBasedRobot):
         self.autonomousProgram.start()
 
     def teleopInit(self):
-        self.sd.putBoolean("timeRunning", True)
+        sd = NetworkTables.getTable("SmartDashboard")
+        sd.putBoolean("timeRunning", True)
         self.updateNT.start()
 
 

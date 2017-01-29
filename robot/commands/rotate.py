@@ -13,7 +13,6 @@ class Rotate(Command):
     def __init__(self, angle):
         super().__init__("Rotate to angle {}".format(angle))
 
-        self.angle = angle
         self.requires(subsystems.motors)
 
         self.ahrs = AHRS.create_spi()
