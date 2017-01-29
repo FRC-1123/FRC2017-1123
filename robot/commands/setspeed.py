@@ -16,9 +16,7 @@ class SetSpeed(TimedCommand):
         self.requires(subsystems.motors)
 
     def initialize(self):
-        subsystems.motors.ignore_joy = True
         subsystems.motors.robot_drive.drive(self.power, 0)
 
     def end(self):
         subsystems.motors.setSpeed(0)
-        subsystems.motors.ignore_joy = False

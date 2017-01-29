@@ -24,8 +24,6 @@ class Motors(Subsystem):
         self.robot_drive = wpilib.RobotDrive(self.left_motor, self.right_motor)
         self.robot_drive.setMaxOutput(1)
 
-        self.ignore_joy = False
-
     def setSpeed(self, speed):
         self.robot_drive.drive(-speed, 0)
 

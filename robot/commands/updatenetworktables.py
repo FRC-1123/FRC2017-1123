@@ -2,10 +2,10 @@ import logging
 
 import wpilib
 from networktables import NetworkTables
-# from robotpy_ext.common_drivers import navx
 from wpilib.command import Command
 
 import subsystems
+from commands.setspeed import SetSpeed
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -24,25 +24,15 @@ class UpdateNetworkTables(Command):
         # self.navx = navx.AHRS.create_spi()
 
         self.sd = NetworkTables.getTable("SmartDashboard")
-        self.init_forward = False  # only needed the first time forward command is sent because forward_timer starts at 0
-        self.forward_timer = wpilib.Timer()
-        self.forward_timer.start()
         self.nt_timer = wpilib.Timer()  # timer for updating NetworkTables
         self.nt_timer.start()
 
     def execute(self):
         if self.nt_timer.hasPeriodPassed(.2):  # update NetworkTables every 0.2 seconds
             # dashboard forward button (for demonstration purposes)
-            if self.sd.containsKey("forwardCommand") and self.sd.getBoolean(
-                    "forwardCommand"):  # check if move forward button pressed
+            if self.sd.containsKey("forwardCommand") and self.sd.getBoolean("forwardCommand"):  # check if move forward button pressed
                 self.sd.putBoolean("forwardCommand", False)
-                self.forward_timer.reset()
-                self.init_forward = True
-                subsystems.motors.ignore_joy = True
-            if self.init_forward and self.forward_timer.get() < 1:  # check if move forward command sent within 1 second
-                subsystems.motors.setSpeed(0.5)
-            else:
-                subsystems.motors.ignore_joy = False
+                SetSpeed(0.5, 1).start()  # move forward at half speed for one second
 
             # # update navX status
             # self.sd.putBoolean('navX/isConnected', self.navx.isConnected())
