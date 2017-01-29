@@ -9,7 +9,7 @@ from commands.servestream import ServeStream
 
 class Camera(Subsystem):
     '''
-    This subsystem controls the USB camera.
+    This subsystem controls the USB camera and performs image processing.
     '''
 
     def __init__(self):
