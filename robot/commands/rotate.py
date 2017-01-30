@@ -42,7 +42,8 @@ class Rotate(Command):
         self.turnController.enable()
         currentRotationRate = self.rotateToAngleRate
 
-        subsystems.motors.robot_drive.drive(0.5, currentRotationRate)
+        # subsystems.motors.robot_drive.drive(0.5, currentRotationRate)
+        subsystems.motors.robot_drive.setLeftRightMotorOutputs(currentRotationRate, -currentRotationRate)
 
         # wpilib.Timer.delay(0.005) # wait for a motor update time
 
