@@ -32,6 +32,8 @@ class Robot(CommandBasedRobot):
         subsystems.init()
         self.autonomousProgram = AutonomousProgram()
         self.updateNT = UpdateNetworkTables()
+
+        self.logger = logging.getLogger("robot")
         
         oi.init()
 
@@ -43,11 +45,14 @@ class Robot(CommandBasedRobot):
         program chosen from the SmartDashboard.
         '''
         self.autonomousProgram.start()
+        self.logger.info("Started autonomous.")
+
 
     def teleopInit(self):
         sd = NetworkTables.getTable("SmartDashboard")
         sd.putBoolean("timeRunning", True)
         self.updateNT.start()
+        self.logger.info("Started teleop.")
 
 
 if __name__ == '__main__':

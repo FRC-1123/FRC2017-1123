@@ -9,7 +9,7 @@ logging.basicConfig(level=logging.DEBUG)
 
 class ServeStream(Command):
     '''
-    This command will serve the camera stream.
+    This command serves the camera stream.
     '''
 
     def __init__(self):
