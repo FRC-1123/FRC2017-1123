@@ -19,13 +19,14 @@ class FollowJoystick(Command):
         super().__init__('Follow Joystick')
 
         self.requires(subsystems.motors)
+        self.requires(subsystems.gear_mech)
 
         self.sd = NetworkTables.getTable("SmartDashboard")
 
     def execute(self):
-        if not subsystems.motors.ignore_joy:
-            subsystems.motors.robot_drive.tankDrive(oi.joystick, robotmap.joystick.left_port,
-                                                    oi.joystick, robotmap.joystick.right_port, True)
+        # tank drive
+        subsystems.motors.robot_drive.tankDrive(oi.joystick, robotmap.joystick.left_port, oi.joystick, robotmap.joystick.right_port, True)
+
         # respond to buttons
         if oi.controller.getAButton():  # piston out
             subsystems.gear_mech.double_solenoid.set(subsystems.gear_mech.double_solenoid.Value.kForward)
