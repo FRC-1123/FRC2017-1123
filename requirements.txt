@@ -11,6 +11,7 @@ robotpy-ctre
 robotpy-hal-base
 robotpy-hal-sim
 robotpy-wpilib-utilities
+robotpy-installer
 wpilib
 pygame
 coverage
