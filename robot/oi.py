@@ -1,5 +1,6 @@
 import wpilib
 
+from commands.respondtocontroller import RespondToController
 import robotmap
 
 joystick = None
@@ -15,3 +16,5 @@ def init():
 
     joystick = wpilib.Joystick(robotmap.joystick.port)
     controller = wpilib.XboxController(robotmap.joystick.port)
+
+    RespondToController().start()
