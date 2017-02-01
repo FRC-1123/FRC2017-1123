@@ -1,52 +1,51 @@
 import logging
 
 import wpilib
-from wpilib.command import Command
+from wpilib.command import PIDCommand
 
 import subsystems
 
 logging.basicConfig(level=logging.INFO)
 
 
-class DriveToRod(Command):
+class DriveToRod(PIDCommand):
     '''
     This command will find the rod and drive the robot towards it.
     '''
 
     def __init__(self):
-        super().__init__("Drive To Rod")
-
         # PID constants
-        self.kp = 0.06
-        self.ki = 0
-        self.kd = 0
-        self.ktolerance = 0.02
+        kp = 0.01
+        ki = 0.0
+        kd = 0.0
+        kf = 0.0
+        ktolerance = 0.02
+
+        # initialize PID controller with a period of 0.05 seconds
+        super().__init__(kp, ki, kd, 0.05, kf, "Drive To Rod")
+
+        self.requires(subsystems.motors)
+
+        turnController = self.getPIDController()
+        turnController.setInputRange(-1.0, 1.0)
+        turnController.setOutputRange(-1.0, 1.0)
+        turnController.setAbsoluteTolerance(ktolerance)
+        turnController.setContinuous(True)
+
+        self.logger = logging.getLogger("robot")
 
         # used for calculating PID derivative and integral
         self.timer = wpilib.Timer()
         self.timer.start()
-        self.prev_error = 0
-        self.prev_time = self.timer.get()
 
-        self.requires(subsystems.motors)
-
-    def execute(self):
+    def returnPIDInput(self):
         rod_pos = subsystems.front_camera.get_rod_pos()
         if rod_pos is None:
-            print("Couldn't find the rod!")
-            return
+            self.logger.info("Couldn't find the rod!")
+            return 0.0
         error = .5 - rod_pos[0]  # error as horizontal distance from center
-        print("current rod error:", error)
-        if abs(error) > self.ktolerance:  # only use PID if error greater than tolerance
-            curve = self.calc_pid(error)
-        else:
-            curve = 0
-        subsystems.motors.robot_drive.drive(.5, curve)
+        self.logger.info("current rod error: {}".format(error))
+        return error
 
-    def calc_pid(self, error):
-        time = self.timer.get()
-        e_deriv = (error - self.prev_error) / (time - self.prev_time)
-        e_int = (error + self.prev_error) / 2 * (time - self.prev_time)
-        self.prev_error = error
-        self.prev_time = time
-        return self.kp * error + self.kd * e_deriv + self.ki * e_int
+    def usePIDOutput(self, output):
+        subsystems.motors.robot_drive.drive(.5, output)

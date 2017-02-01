@@ -17,6 +17,7 @@ class Rotate(PIDCommand):
         kf = 0.0
         ktolerance = 2.0  # tolerance of 2 degrees
 
+        # initialize PID controller with a period of 0.05 seconds
         super().__init__(kp, ki, kd, 0.05, kf, "Rotate to angle {}".format(angle))
 
         self.requires(subsystems.motors)
