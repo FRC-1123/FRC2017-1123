@@ -5,10 +5,9 @@ import subsystems
 
 
 class SetSpeed(TimedCommand):
-    '''
-    Spins the motor at the given power for a given number of seconds, then
-    stops.
-    '''
+    """
+    Spins the motors at the given power for a given number of seconds and then stops.
+    """
 
     def __init__(self, power, timeoutInSeconds):
         super().__init__('Set Speed %d' % power, timeoutInSeconds)

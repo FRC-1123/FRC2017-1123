@@ -5,9 +5,9 @@ import robotmap
 
 
 class GearMech(Subsystem):
-    '''
+    """
     This subsystem controls the gear mechanism's piston.
-    '''
+    """
 
     def __init__(self):
         super().__init__('GearMech')

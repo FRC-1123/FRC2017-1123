@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 
-import wpilib
-import ctre
-from networktables import NetworkTables
-
-# Logging to see messages from networktables
 import logging
+
+import ctre
+import wpilib
+from networktables import NetworkTables
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -13,8 +12,7 @@ logging.basicConfig(level=logging.DEBUG)
 class Robot(wpilib.IterativeRobot):
     def robotInit(self):
         """
-        This function is called upon program startup and
-        should be used for any initialization code.
+        This function is called upon program startup and should be used for any initialization code.
         """
         self.left_motor = ctre.CANTalon(0)
         self.right_motor = ctre.CANTalon(1)

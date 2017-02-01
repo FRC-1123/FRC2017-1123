@@ -9,9 +9,9 @@ logging.basicConfig(level=logging.INFO)
 
 
 class DriveToRod(PIDCommand):
-    '''
+    """
     This command will find the rod and drive the robot towards it.
-    '''
+    """
 
     def __init__(self):
         # PID constants

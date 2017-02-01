@@ -8,9 +8,9 @@ from commands.servestream import ServeStream
 
 
 class Camera(Subsystem):
-    '''
+    """
     This subsystem controls the USB camera and performs image processing.
-    '''
+    """
 
     def __init__(self):
         '''Instantiates objects.'''
@@ -52,9 +52,9 @@ class Camera(Subsystem):
         self.cv_source.putFrame(self.frame)
 
     def get_rod_pos(self):
-        '''
+        """
         Returns (x, y) coords of rod as fractions of width and height of frame, respectively.
-        '''
+        """
         if self.tape_contours is None:  # no tape contours
             return None
         moments1 = cv2.moments(self.tape_contours[0])
@@ -66,9 +66,9 @@ class Camera(Subsystem):
             center1[1] + center2[1]) / 2 / robotmap.cameras.front_camera_height
 
     def draw_crosshairs(self):
-        '''
+        """
         Draws red crosshairs on frame.
-        '''
+        """
         center_x = self.frame.shape[0] // 2
         center_y = self.frame.shape[1] // 2
         # horizontal line
@@ -81,15 +81,15 @@ class Camera(Subsystem):
         self.frame[center_y - 10:center_y + 11][center_x][2] = 255
 
     def draw_tape_contours(self):
-        '''
+        """
         Draws tape contours in green on frame.
-        '''
+        """
         cv2.drawContours(self.frame, self.tape_contours, -1, (100, 255, 100), 2)
 
     def update_tape_contours(self):
-        '''
+        """
         Finds two largest green four-sided contours.
-        '''
+        """
         # filter green
         hsv = cv2.cvtColor(self.frame, cv2.COLOR_BGR2HSV)
         mask = cv2.inRange(hsv, np.array([self.min_h, self.min_s, self.min_v]), np.array([self.max_h, self.max_s, self.max_v]))

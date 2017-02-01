@@ -3,17 +3,17 @@ import logging
 from networktables import NetworkTables
 from wpilib.command import Command
 
+import oi
 import robotmap
 import subsystems
-import oi
 
 logging.basicConfig(level=logging.DEBUG)
 
 
 class FollowJoystick(Command):
-    '''
+    """
     This command will read the joysticks' y-axes and uses tank drive.
-    '''
+    """
 
     def __init__(self):
         super().__init__('Follow Joystick')

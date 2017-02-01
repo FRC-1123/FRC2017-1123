@@ -7,12 +7,14 @@ from commands.followjoystick import FollowJoystick
 
 
 class Motors(Subsystem):
-    '''
+    """
     This subsystem controls the CAN Talons.
-    '''
+    """
 
     def __init__(self):
-        '''Instantiates the motor objects.'''
+        """
+        Instantiates the motor objects.
+        """
 
         super().__init__('Motors')
 

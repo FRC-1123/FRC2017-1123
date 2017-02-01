@@ -13,10 +13,9 @@ logging.basicConfig(level=logging.DEBUG)
 
 
 class UpdateNetworkTables(Command):
-    '''
-    This command will read the joystick's y axis and use that value to control
-    the speed of the SingleMotor subsystem.
-    '''
+    """
+    This command updates NetworkTables variables.
+    """
 
     def __init__(self):
         super().__init__('Update NetworkTables')

@@ -11,9 +11,9 @@ logging.basicConfig(level=logging.DEBUG)
 
 
 class ReactToSwitch(Command):
-    '''
+    """
     This command drives the robot backwards when the switch is pressed.
-    '''
+    """
 
     def __init__(self):
         super().__init__('React to Switch')

@@ -6,7 +6,9 @@ import robotmap
 
 class Switches(Subsystem):
     def __init__(self):
-        '''Instantiates the switch objects.'''
+        """
+        Instantiates the switch objects.
+        """
 
         super().__init__('Switch')
 
