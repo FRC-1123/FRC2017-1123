@@ -15,8 +15,6 @@ class ServeStream(Command):
     def __init__(self):
         super().__init__("Serve Camera Stream")
 
-        self.requires(subsystems.front_camera)
-
     def execute(self):
         subsystems.front_camera.update_frame()
 

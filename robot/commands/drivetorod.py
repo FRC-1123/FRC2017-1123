@@ -28,7 +28,6 @@ class DriveToRod(Command):
         self.prev_error = 0
         self.prev_time = self.timer.get()
 
-        self.requires(subsystems.front_camera)
         self.requires(subsystems.motors)
 
     def execute(self):
