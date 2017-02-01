@@ -39,6 +39,10 @@ class Camera(Subsystem):
 
         self.tape_contours = None  # tuple of pixel coords of tape contours
 
+        # hsv range for tape contour detection
+        self.min_h, self.min_s, self.min_v = 45, 140, 100
+        self.max_h, self.max_s, self.max_v = 65, 210, 130
+
     def update_frame(self):
         time, self.frame = self.cv_sink.grabFrame(self.frame)
         if time == 0:
@@ -88,7 +92,7 @@ class Camera(Subsystem):
         '''
         # filter green
         hsv = cv2.cvtColor(self.frame, cv2.COLOR_BGR2HSV)
-        mask = cv2.inRange(hsv, np.array([45, 140, 100]), np.array([65, 210, 130]))
+        mask = cv2.inRange(hsv, np.array([self.min_h, self.min_s, self.min_v]), np.array([self.max_h, self.max_s, self.max_v]))
 
         # find two most likely retro-reflective tape contours
         contours = cv2.findContours(mask, cv2.cv.CV_RETR_TREE, cv2.cv.CV_CHAIN_APPROX_SIMPLE)[0]

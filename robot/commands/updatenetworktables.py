@@ -30,6 +30,14 @@ class UpdateNetworkTables(Command):
         self.nt_timer = wpilib.Timer()  # timer for updating NetworkTables
         self.nt_timer.start()
 
+        # put initial tape contour detection hsv range
+        # self.sd.putNumber("camera/minh", subsystems.front_camera.min_h)
+        # self.sd.putNumber("camera/mins", subsystems.front_camera.min_s)
+        # self.sd.putNumber("camera/minv", subsystems.front_camera.min_v)
+        # self.sd.putNumber("camera/maxh", subsystems.front_camera.max_h)
+        # self.sd.putNumber("camera/maxs", subsystems.front_camera.max_s)
+        # self.sd.putNumber("camera/maxv", subsystems.front_camera.max_v)
+
     def execute(self):
         if self.nt_timer.hasPeriodPassed(.2):  # update NetworkTables every 0.2 seconds
             # dashboard forward button (for demonstration purposes)
@@ -41,6 +49,20 @@ class UpdateNetworkTables(Command):
                 self.sd.putBoolean("turnCommand", False)
                 Rotate(90.0).start()
                 self.logger.info("Turning right 90 degrees.")
+
+            # update tape contour detection hsv range
+            # if self.sd.containsKey("camera/minh"):
+            #     subsystems.front_camera.min_h = self.sd.getNumber("camera/minh")
+            # if self.sd.containsKey("camera/mins"):
+            #     subsystems.front_camera.min_s = self.sd.getNumber("camera/mins")
+            # if self.sd.containsKey("camera/minv"):
+            #     subsystems.front_camera.min_v = self.sd.getNumber("camera/minv")
+            # if self.sd.containsKey("camera/maxh"):
+            #     subsystems.front_camera.max_h = self.sd.getNumber("camera/maxh")
+            # if self.sd.containsKey("camera/maxs"):
+            #     subsystems.front_camera.max_s = self.sd.getNumber("camera/maxs")
+            # if self.sd.containsKey("camera/maxv"):
+            #     subsystems.front_camera.max_v = self.sd.getNumber("camera/maxv")
 
             # update navX status
             self.sd.putBoolean('navX/isConnected', self.navx.isConnected())
