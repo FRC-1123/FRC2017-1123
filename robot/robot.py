@@ -6,8 +6,9 @@ import wpilib
 from commandbased import CommandBasedRobot
 from networktables import NetworkTables
 
-import subsystems
+import navx
 import oi
+import subsystems
 from commands.autonomous import AutonomousProgram
 from commands.updatenetworktables import UpdateNetworkTables
 
@@ -30,11 +31,10 @@ class Robot(CommandBasedRobot):
         '''
 
         subsystems.init()
-        self.autonomousProgram = AutonomousProgram()
-        self.updateNT = UpdateNetworkTables()
 
         self.logger = logging.getLogger("robot")
         
+        navx.init()
         oi.init()
 
     def autonomousInit(self):
@@ -44,14 +44,14 @@ class Robot(CommandBasedRobot):
         example. You can also use a SendableChooser to have the autonomous
         program chosen from the SmartDashboard.
         '''
-        self.autonomousProgram.start()
+        AutonomousProgram().start()
         self.logger.info("Started autonomous.")
 
 
     def teleopInit(self):
         sd = NetworkTables.getTable("SmartDashboard")
         sd.putBoolean("timeRunning", True)
-        self.updateNT.start()
+        UpdateNetworkTables().start()
         self.logger.info("Started teleop.")
 
 

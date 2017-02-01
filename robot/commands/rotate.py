@@ -1,6 +1,6 @@
-from robotpy_ext.common_drivers.navx import AHRS
 from wpilib.command import PIDCommand
 
+import navx
 import subsystems
 
 
@@ -22,7 +22,6 @@ class Rotate(PIDCommand):
 
         self.requires(subsystems.motors)
 
-        self.ahrs = AHRS.create_spi()
         self.rate = 1.0
 
         turnController = self.getPIDController()
@@ -40,7 +39,7 @@ class Rotate(PIDCommand):
         # wpilib.LiveWindow.addActuator("DriveSystem", "RotateController", self.turnController)
 
     def returnPIDInput(self):
-        return self.ahrs.getYaw()
+        return navx.ahrs.getYaw()
 
     def usePIDOutput(self, output):
         self.rate = output
