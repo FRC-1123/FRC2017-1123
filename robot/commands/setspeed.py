@@ -1,3 +1,4 @@
+import wpilib
 from wpilib.command import TimedCommand
 
 import subsystems
@@ -15,8 +16,12 @@ class SetSpeed(TimedCommand):
         self.power = power
         self.requires(subsystems.motors)
 
-    def initialize(self):
+        self.timer = wpilib.Timer()
+        self.timer.start()
+
+    def execute(self):
         subsystems.motors.setSpeed(self.power)
+        self.timer.delay(0.05)
 
     def end(self):
         subsystems.motors.setSpeed(0)
