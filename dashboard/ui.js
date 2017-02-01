@@ -23,6 +23,9 @@ var ui = {
         button: document.getElementById('forward-button'),
         //readout: document.getElementById('forward-readout')
     },
+    turnCommand: {
+        button: document.getElementById('turn-right-button')
+    },
     tuning: {
         list: document.getElementById('tuning'),
         button: document.getElementById('tuning-button'),
@@ -92,6 +95,14 @@ function onValueChanged(key, value, isNew) {
                 // Take it off
                 ui.fowardCommand.button.className = '';
                 //ui.forwardCommand.readout.innerHTML = "Forward command not being sent.";
+            }
+            break;
+        case '/SmartDashboard/turnCommand':
+            // This button turns the robot right 90 degrees.
+            if (value) {
+                ui.forwardCommand.button.classNmae = 'active';
+            } else {
+                ui.forwardCommand.button.className = '';
             }
             break;
         case '/SmartDashboard/timeRunning':
@@ -227,8 +238,11 @@ function onValueChanged(key, value, isNew) {
 
 // The rest of the doc is listeners for UI elements being clicked on
 ui.forwardCommand.button.onclick = function() {
-    // Set NetworkTables values to the opposite of whether button has active class.
     NetworkTables.setValue('/SmartDashboard/forwardCommand', true);
+};
+
+ui.turnCommand.button.onclick = function() {
+    NetworkTables.setValue('/SmartDashboard/turnCommand', true);
 };
 
 // Reset gyro value to 0 on click

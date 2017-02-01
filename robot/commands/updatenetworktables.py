@@ -8,6 +8,7 @@ from robotpy_ext.common_drivers.navx import AHRS
 
 import subsystems
 from commands.setspeed import SetSpeed
+from commands.rotate import Rotate
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -36,7 +37,10 @@ class UpdateNetworkTables(Command):
                 self.sd.putBoolean("forwardCommand", False)
                 SetSpeed(0.5, 1).start()  # move forward at half power for one second
                 self.logger.info("Moving forward at half power for one second.")
-
+            elif self.sd.containsKey("turnCommand") and self.sd.getBoolean("turnCommand"):
+                self.sd.putBoolean("turnCommand", False)
+                Rotate(90.0).start()
+                self.logger.info("Turning right 90 degrees.")
 
             # update navX status
             self.sd.putBoolean('navX/isConnected', self.navx.isConnected())

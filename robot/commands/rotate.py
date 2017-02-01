@@ -18,7 +18,7 @@ class Rotate(Command):
         self.ahrs = AHRS.create_spi()
 
         # PID constants
-        self.kp = 0.06
+        self.kp = 0.005
         self.ki = 0.0
         self.kd = 0.0
         self.kf = 0.0
@@ -36,14 +36,14 @@ class Rotate(Command):
         # Add the PID Controller to the Test-mode dashboard, allowing manual  */
         # tuning of the Turn Controller's P, I and D coefficients.            */
         # Typically, only the P value needs to be modified.                   */
-        wpilib.LiveWindow.addActuator("DriveSystem", "RotateController", turnController)
+        wpilib.LiveWindow.addActuator("DriveSystem", "RotateController", self.turnController)
 
     def execute(self):
         self.turnController.enable()
         currentRotationRate = self.rotateToAngleRate
 
         # subsystems.motors.robot_drive.drive(0.5, currentRotationRate)
-        subsystems.motors.robot_drive.setLeftRightMotorOutputs(currentRotationRate, -currentRotationRate)
+        subsystems.motors.robot_drive.setLeftRightMotorOutputs(-currentRotationRate, currentRotationRate)
 
         # wpilib.Timer.delay(0.005) # wait for a motor update time
 

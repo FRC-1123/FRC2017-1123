@@ -16,7 +16,7 @@ class SetSpeed(TimedCommand):
         self.requires(subsystems.motors)
 
     def initialize(self):
-        subsystems.motors.robot_drive.drive(self.power, 0)
+        subsystems.motors.setSpeed(self.power)
 
     def end(self):
         subsystems.motors.setSpeed(0)
