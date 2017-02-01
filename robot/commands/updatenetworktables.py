@@ -3,6 +3,8 @@ import logging
 import wpilib
 from networktables import NetworkTables
 from wpilib.command import Command
+from robotpy_ext.common_drivers.navx import AHRS
+
 
 import subsystems
 from commands.setspeed import SetSpeed
@@ -19,9 +21,7 @@ class UpdateNetworkTables(Command):
     def __init__(self):
         super().__init__('Update NetworkTables')
 
-        # self.requires(subsystems.motors)
-
-        # self.navx = navx.AHRS.create_spi()
+        self.navx = AHRS.create_spi()
 
         self.logger = logging.getLogger("robot")
 
@@ -38,11 +38,11 @@ class UpdateNetworkTables(Command):
                 self.logger.info("Moving forward at half power for one second.")
 
 
-            # # update navX status
-            # self.sd.putBoolean('navX/isConnected', self.navx.isConnected())
-            # self.sd.putBoolean('navX/isCalibrating', self.navx.isCalibrating())
-            # # self.sd.putNumber('navX/angle', self.navx.getAngle())
-            # self.sd.putNumber('navX/yaw', self.navx.getYaw())
+            # update navX status
+            self.sd.putBoolean('navX/isConnected', self.navx.isConnected())
+            self.sd.putBoolean('navX/isCalibrating', self.navx.isCalibrating())
+            # self.sd.putNumber('navX/angle', self.navx.getAngle())
+            self.sd.putNumber('navX/yaw', self.navx.getYaw())
 
             # update motor output statuses
             self.sd.putNumber("leftOutput", subsystems.motors.left_motor.getSetpoint())

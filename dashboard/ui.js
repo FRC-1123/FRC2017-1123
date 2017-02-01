@@ -14,7 +14,7 @@ var ui = {
         connected: document.getElementById('navx-connected'),
         calibrating: document.getElementById('navx-calibrating'),
         //angle: document.getElementById('navx-angle'),
-        yaw: document.getElementById('navx-yaw'),
+        yaw: document.getElementById('navx-yaw')
     },
     robotDiagram: {
         arm: document.getElementById('robot-arm')
