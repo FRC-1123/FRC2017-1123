@@ -8,3 +8,4 @@ node_modules/
 .cache/
 opkg_cache/
 pip_cache/
+.installer_config
