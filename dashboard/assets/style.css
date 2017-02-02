@@ -6,6 +6,10 @@
 ::-webkit-scrollbar {
     display: none;
 }
+@font-face {
+    font-family: steamwreck;
+    src: url(Steamwreck.otf);
+}
 body {
     font: 16px sans-serif;
     -webkit-user-select: none;
@@ -56,7 +60,8 @@ body > * {
     background: #222;
 }
 #timer {
-    font-family: monospace;
+    font-family: steamwreck;
+    letter-spacing: 10px;
     display: block;
     height: 20vh;
     width: 30vw;
