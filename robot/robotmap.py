@@ -11,8 +11,10 @@ motors.right_id = 0
 
 joystick = PropertiesList()
 joystick.port = 0
-joystick.left_port = 1
-joystick.right_port = 5
+joystick.top_left_port = 3
+joystick.top_right_port = 4
+#joystick.left_port = 1
+#joystick.right_port = 5
 
 cameras = PropertiesList()
 cameras.front_camera_port = 0

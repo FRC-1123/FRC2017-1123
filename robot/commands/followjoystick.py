@@ -25,7 +25,7 @@ class FollowJoystick(Command):
 
     def execute(self):
         # tank drive
-        subsystems.motors.robot_drive.tankDrive(oi.joystick, robotmap.joystick.left_port, oi.joystick, robotmap.joystick.right_port, True)
+        #subsystems.motors.robot_drive.tankDrive(oi.joystick, robotmap.joystick.left_port, oi.joystick, robotmap.joystick.right_port, True)
 
         # arcade drive
-        subsystems.motors.robot_drive.arcadeDrive()
+        subsystems.motors.robot_drive.arcadeDrive(oi.joystick)

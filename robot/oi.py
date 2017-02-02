@@ -15,6 +15,6 @@ def init():
     global joystick, controller
 
     joystick = wpilib.Joystick(robotmap.joystick.port)
-    controller = wpilib.XboxController(robotmap.joystick.port)
+    # controller = wpilib.XboxController(robotmap.joystick.port)
 
     RespondToController().start()
