@@ -164,22 +164,22 @@ aside > * {
     top: 13px;
     left: 23px;
     background: url(gear.png);
-    -webkit-animation: barrelRoll 2s infinite linear;
-    -webkit-animation-play-state: running;
+    animation: barrelRoll 3s infinite linear;
+    animation-play-state: running;
 }
 
 #gear-animation > i:last-of-type {
     top: 0px;
     left: 45px;
-    -webkit-animation-name: invertBarrelRoll;
+    animation-name: invertBarrelRoll;
 }
 
 @-webkit-keyframes barrelRoll {
-    0% { -webkit-transform: rotate(0deg); }
-    100% { -webkit-transform: rotate(360deg); }
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 @-webkit-keyframes invertBarrelRoll {
-    0% { -webkit-transform: rotate(0deg); }
-    100% { -webkit-transform: rotate(-360deg); }
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(-360deg); }
 }

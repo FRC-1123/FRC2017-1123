@@ -35,6 +35,7 @@ var ui = {
         get: document.getElementById('get')
     },
     autoSelect: document.getElementById('auto-select'),
+    gears: document.getElementsByClassName('gear'),
     outputs: {
         left: document.getElementById('left-output'),
         right: document.getElementById('right-output')
@@ -143,9 +144,11 @@ function onValueChanged(key, value, isNew) {
             break;
         case '/SmartDashboard/leftOutput':
             ui.outputs.left.innerHTML = Math.round(-value * 100);
+            ui.gears.style.animation = "barrelRoll " + (3 - (-parseInt(ui.outputs.left.innerHTML) + parseInt(ui.outputs.right.innerHTML)) / 100.0) "s infinite linear"
             break;
         case '/SmartDashboard/rightOutput':
             ui.outputs.right.innerHTML = Math.round(value * 100);
+            ui.gears.style.animation = "barrelRoll " + (3 - (-parseInt(ui.outputs.left.innerHTML) + parseInt(ui.outputs.right.innerHTML)) / 100.0) "s infinite linear"
             break;
         case '/SmartDashboard/pneumatic':
             if (value)
