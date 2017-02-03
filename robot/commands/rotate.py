@@ -39,7 +39,7 @@ class Rotate(PIDCommand):
         # wpilib.LiveWindow.addActuator("DriveSystem", "RotateController", self.turnController)
 
     def returnPIDInput(self):
-        return navx.ahrs.getYaw()
+        return navx.ahrs.getFusedHeading()
 
     def usePIDOutput(self, output):
         self.rate = output
