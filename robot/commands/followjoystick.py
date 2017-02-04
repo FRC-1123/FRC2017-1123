@@ -19,18 +19,12 @@ class FollowJoystick(Command):
         super().__init__('Follow Joystick')
 
         self.requires(subsystems.motors)
-        # self.requires(subsystems.gear_mech)
 
         self.sd = NetworkTables.getTable("SmartDashboard")
 
         self.logger = logging.getLogger("robot")
 
-        # PID constants
-        kp = 0.01
-        ki = 0.0
-        kd = 0.0
-        tolerance = 0.05  # tolerance for driving straight forward
-        self.drive = RectifiedDrive(kp, ki, kd, tolerance, 100)
+        self.drive = RectifiedDrive(100)
 
     def execute(self):
         # tank drive
@@ -44,5 +38,4 @@ class FollowJoystick(Command):
         power = oi.joystick.getY()
         angular_vel = -oi.joystick.getX()
         self.logger.info(angular_vel)
-        # self.logger.info(angular_vel)
         self.drive.rectified_drive(power, angular_vel)
