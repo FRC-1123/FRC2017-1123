@@ -24,7 +24,7 @@ class FollowJoystick(Command):
 
         self.logger = logging.getLogger("robot")
 
-        self.drive = RectifiedDrive(100)
+        self.drive = RectifiedDrive(100, period=0.02)
 
     def execute(self):
         # tank drive
