@@ -24,14 +24,13 @@ class Rotate(PIDCommand):
 
         self.rate = 1.0
 
-        turnController = self.getPIDController()
-        turnController.setInputRange(-180.0, 180.0)
-        turnController.setOutputRange(-1.0, 1.0)
-        turnController.setAbsoluteTolerance(ktolerance)
-        turnController.setContinuous(True)
-
+        turn_controller = self.getPIDController()
+        turn_controller.setInputRange(-180.0, 180.0)
+        turn_controller.setOutputRange(-1.0, 1.0)
+        turn_controller.setAbsoluteTolerance(ktolerance)
+        turn_controller.setContinuous(True)
         # self.rotateToAngleRate = 0.0
-        turnController.setSetpoint(angle)
+        turn_controller.setSetpoint(angle)
 
         # Add the PID Controller to the Test-mode dashboard, allowing manual  */
         # tuning of the Turn Controller's P, I and D coefficients.            */
