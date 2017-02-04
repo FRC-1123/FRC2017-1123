@@ -8,25 +8,27 @@ class RectifiedDrive:
     given a desired power and angular velocity using the NavX and a PID controller.
     """
 
-    def __init__(self, kp, ki, kd, tolerance, max_input_mag, squared_inputs=True, period=0.05):
+    def __init__(self, kp, ki, kd, tolerance, max_angular_speed, squared_inputs=True, period=0.05):
         self.kp = kp
         self.ki = ki
         self.kd = kd
-        self.tolerance = abs(tolerance)  # tolerance for angular velocity of driving straight forward
-        self.max_input_mag = abs(max_input_mag)  # maximum angular velocity input magnitude
+        # tolerance (as a fraction of max_angular_speed) for angular velocity of driving straight forward
+        self.tolerance = abs(tolerance)
+        self.max_angular_speed = abs(max_angular_speed)  # maximum angular velocity magnitude
         self.squared_inputs = squared_inputs  # squared inputs for angular velocity
         self.period = period
 
         self.prev_error = 0.0
 
-    def rectified_drive(self, power, angular_vel):
+    def rectified_drive(self, power, angular_vel_frac):
         """
-        Sets the motor outputs based on the given power and angular velocity (in degrees per second).
+        Sets the motor outputs based on the given power and angular velocity (as a fraction of max_angular_speed).
         """
         if self.squared_inputs:
-            angular_vel = angular_vel**2 / self.max_input_mag * angular_vel / abs(angular_vel)
-        if angular_vel < self.tolerance:
-            angular_vel = 0
+            angular_vel_frac = angular_vel_frac**2 * angular_vel_frac / abs(angular_vel_frac)
+        if angular_vel_frac < self.tolerance:
+            angular_vel_frac = 0
+        angular_vel = angular_vel_frac * self.max_angular_speed
         error = navx.ahrs.getRate() - angular_vel
         output = self.calc_pid(error)
         left_output = power - output

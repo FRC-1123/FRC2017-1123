@@ -29,7 +29,7 @@ class FollowJoystick(Command):
         kp = 0.01
         ki = 0.0
         kd = 0.0
-        tolerance = 10.0  # tolerance for driving straight forward
+        tolerance = 0.05  # tolerance for driving straight forward
         self.drive = RectifiedDrive(kp, ki, kd, tolerance, 100)
 
     def execute(self):
@@ -42,7 +42,7 @@ class FollowJoystick(Command):
 
         # rectified arcade drive
         power = oi.joystick.getY()
-        angular_vel = oi.joystick.getX() * -100  # scale to maximum of 100 degrees per second
+        angular_vel = -oi.joystick.getX()
         self.logger.info(angular_vel)
         # self.logger.info(angular_vel)
         self.drive.rectified_drive(power, angular_vel)
