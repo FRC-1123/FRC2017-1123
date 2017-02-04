@@ -7,4 +7,6 @@ def init():
     """
     Initialize NavX object.
     """
+    global ahrs
+
     ahrs = AHRS.create_spi()

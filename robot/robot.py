@@ -10,6 +10,7 @@ import navx
 import oi
 import subsystems
 from commands.autonomous import AutonomousProgram
+from commands.respondtocontroller import RespondToController
 from commands.updatenetworktables import UpdateNetworkTables
 
 logging.basicConfig(level=logging.DEBUG)
@@ -37,6 +38,7 @@ class Robot(CommandBasedRobot):
         sd = NetworkTables.getTable("SmartDashboard")
         sd.putBoolean("timeRunning", True)  # start dashboard timer
         UpdateNetworkTables().start()
+        RespondToController().start()
         self.logger.info("Started teleop.")
 
 

@@ -35,7 +35,10 @@ var ui = {
         get: document.getElementById('get')
     },
     autoSelect: document.getElementById('auto-select'),
-    gears: document.getElementsByClassName('gear'),
+    gears: {
+        left: document.getElementById('gear1'),
+        right: document.getElementById('gear2')
+    },
     outputs: {
         left: document.getElementById('left-output'),
         right: document.getElementById('right-output')
@@ -144,11 +147,17 @@ function onValueChanged(key, value, isNew) {
             break;
         case '/SmartDashboard/leftOutput':
             ui.outputs.left.innerHTML = Math.round(-value * 100);
-            ui.gears.style.animation = "barrelRoll " + (3 - (-parseInt(ui.outputs.left.innerHTML) + parseInt(ui.outputs.right.innerHTML)) / 100.0) "s infinite linear"
+            var period = 2.5 - Math.abs((parseInt(ui.outputs.left.innerHTML) + parseInt(ui.outputs.right.innerHTML)) / 100.0);
+            console.log(period);
+            ui.gears.left.style.animation = "barrelRoll " + period + "s infinite linear"
+            ui.gears.right.style.animation = "invertBarrelRoll " + period + "s infinite linear"
             break;
         case '/SmartDashboard/rightOutput':
             ui.outputs.right.innerHTML = Math.round(value * 100);
-            ui.gears.style.animation = "barrelRoll " + (3 - (-parseInt(ui.outputs.left.innerHTML) + parseInt(ui.outputs.right.innerHTML)) / 100.0) "s infinite linear"
+            var period = 2.5 - Math.abs((parseInt(ui.outputs.left.innerHTML) + parseInt(ui.outputs.right.innerHTML)) / 100.0);
+            console.log(period);
+            ui.gears.left.style.animation = "barrelRoll " + period + "s infinite linear"
+            ui.gears.right.style.animation = "invertBarrelRoll " + period + "s infinite linear"
             break;
         case '/SmartDashboard/pneumatic':
             if (value)
