@@ -14,6 +14,7 @@ joystick.port = 0
 joystick.top_left_port = 3
 joystick.top_right_port = 4
 
+# for xbox
 joystick.left_port = 1
 joystick.right_port = 5
 

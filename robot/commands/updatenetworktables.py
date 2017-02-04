@@ -64,7 +64,7 @@ class UpdateNetworkTables(Command):
             self.sd.putBoolean('navX/isConnected', navx.ahrs.isConnected())
             self.sd.putBoolean('navX/isCalibrating', navx.ahrs.isCalibrating())
             # self.sd.putNumber('navX/angle', self.navx.getAngle())
-            self.sd.putNumber('navX/yaw', navx.ahrs.getYaw())
+            self.sd.putNumber('navX/yaw', navx.ahrs.getFusedHeading())
 
             # update motor output statuses
             self.sd.putNumber("leftOutput", subsystems.motors.left_motor.getSetpoint())

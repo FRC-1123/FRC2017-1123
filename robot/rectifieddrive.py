@@ -16,11 +16,11 @@ class RectifiedDrive:
 
         self.prev_error = 0.0
 
-    def rectifiedDrive(self, power, angular_vel):
+    def rectified_drive(self, power, angular_vel):
         """
         Sets the motor outputs based on the given power and angular velocity (in degrees per second).
         """
-        error = angular_vel - navx.ahrs.getRate()
+        error = navx.ahrs.getRate() - angular_vel
         output = self.calc_pid(error)
         left_output = power - output
         if abs(left_output) > 1.0:  # normalize if magnitude greater than 1
