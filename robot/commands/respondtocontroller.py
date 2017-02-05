@@ -1,13 +1,9 @@
-import logging
-
 from networktables import NetworkTables
 from wpilib.command import Command
 
 import oi
 import robotmap
 import subsystems
-
-logging.basicConfig(level=logging.DEBUG)
 
 
 class RespondToController(Command):

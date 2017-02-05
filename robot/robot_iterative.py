@@ -1,12 +1,8 @@
 #!/usr/bin/env python3
 
-import logging
-
 import ctre
 import wpilib
 from networktables import NetworkTables
-
-logging.basicConfig(level=logging.DEBUG)
 
 
 class Robot(wpilib.IterativeRobot):

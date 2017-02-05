@@ -7,8 +7,7 @@ import oi
 import subsystems
 from rectifieddrive import RectifiedDrive
 
-logging.basicConfig(level=logging.DEBUG)
-
+logging.basicConfig(level=logging.INFO)
 
 class FollowJoystick(Command):
     """

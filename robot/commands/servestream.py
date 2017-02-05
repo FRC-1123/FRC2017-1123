@@ -1,10 +1,6 @@
-import logging
-
 from wpilib.command import Command
 
 import cameras
-
-logging.basicConfig(level=logging.DEBUG)
 
 
 class ServeStream(Command):

@@ -42,7 +42,6 @@ class DriveToRod(PIDCommand):
     def returnPIDInput(self):
         rod_pos = cameras.front_camera.get_rod_pos()
         if rod_pos is None:
-            self.logger.info("Couldn't find the rod!")
             return 0.0
         error = .5 - rod_pos[0]  # error as horizontal distance from center
         self.logger.info("current rod error: {}".format(error))

@@ -1,13 +1,9 @@
-import logging
-
 import wpilib
 from networktables import NetworkTables
 from wpilib.command import Command
 
 import subsystems
 from commands.setspeed import SetSpeed
-
-logging.basicConfig(level=logging.DEBUG)
 
 
 class ReactToSwitch(Command):

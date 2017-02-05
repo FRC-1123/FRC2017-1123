@@ -1,8 +1,12 @@
+import logging
+
 import cscore as cs
 import cv2
 import numpy as np
 
 import robotmap
+
+logging.basicConfig(level=logging.INFO)
 
 
 class Camera:
@@ -12,6 +16,8 @@ class Camera:
 
     def __init__(self, port, width, height, fps, httpport):
         '''Instantiates objects.'''
+
+        self.logger = logging.getLogger("robot")
 
         camera = cs.UsbCamera("usbcam", port)
         camera.setVideoMode(cs.VideoMode.PixelFormat.kMJPEG, width, height, fps)
@@ -23,7 +29,7 @@ class Camera:
         # set up image server
         mjpeg_server = cs.MjpegServer("httpserver", httpport)
         mjpeg_server.setSource(self.cv_source)
-        print("mjpg server listening at http://0.0.0.0:{}".format(httpport))
+        self.logger.info("mjpg server listening at http://0.0.0.0:{}".format(httpport))
 
         self.frame = np.zeros(shape=(width, height, 3), dtype=np.uint8)
 
@@ -33,10 +39,11 @@ class Camera:
         self.min_h, self.min_s, self.min_v = 45, 140, 100
         self.max_h, self.max_s, self.max_v = 65, 210, 130
 
+
     def update_frame(self):
         time, self.frame = self.cv_sink.grabFrame(self.frame)
         if time == 0:
-            print("error:", self.cv_sink.getError())
+            self.logger.error("error:", self.cv_sink.getError())
 
     def serve_frame(self):
         self.cv_source.putFrame(self.frame)
@@ -46,6 +53,7 @@ class Camera:
         Returns (x, y) coords of rod as fractions of width and height of frame, respectively.
         """
         if self.tape_contours is None:  # no tape contours
+            self.logger.critical("Couldn't find the rod!")
             return None
         moments1 = cv2.moments(self.tape_contours[0])
         center1 = (moments1['m10'] / moments1['m00'], moments1['m01'] / moments1['m00'])  # center of one tape strip

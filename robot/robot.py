@@ -15,8 +15,7 @@ from commands.respondtocontroller import RespondToController
 from commands.servestream import ServeStream
 from commands.updatenetworktables import UpdateNetworkTables
 
-logging.basicConfig(level=logging.DEBUG)
-
+self.logger = logging.getLogger("robot")
 
 class Robot(CommandBasedRobot):
     def robotInit(self):
