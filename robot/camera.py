@@ -52,7 +52,7 @@ class Camera:
 
     def update_rod_pos(self):
         """
-        Updates (x, y) coords of rod as fractions of width and height of frame, respectively.
+        Updates (x, y) pixel coords of rod.
         """
         if self.tape_contours is None:  # no tape contours
             self.logger.critical("Couldn't find the rod!")
@@ -65,11 +65,22 @@ class Camera:
         moments2 = cv2.moments(self.tape_contours[1])
         center2 = (moments2['m10'] / moments2['m00'], moments2['m01'] / moments2['m00'])  # center of other tape strip
 
-        self.rod_pos = ((center1[0] + center2[0]) / 2 / robotmap.cameras.front_camera_width, (
-            center1[1] + center2[1]) / 2 / robotmap.cameras.front_camera_height)
+        self.rod_pos = ((center1[0] + center2[0]) / 2, (center1[1] + center2[1]) / 2)
 
     def get_rod_pos(self):
-        return self.rod_pos
+        """
+        Returns (x, y) coords of rod as fractions of the frame's width and height, respectively.
+        """
+        if self.rod_pos is None:
+            return None
+        return self.rod_pos[0] / robotmap.cameras.front_camera_width, self.rod_pos[1] / robotmap.cameras.front_camera_height
+
+    def draw_rod_pos(self):
+        """
+        Draws a red point of radius 5 pixels on the frame at the rod's position.
+        """
+        if self.rod_pos is not None:
+            cv2.circle(self.frame, self.rod_pos, 5, (0, 0, 255), -1)
 
     def draw_crosshairs(self):
         """
@@ -91,7 +102,7 @@ class Camera:
         Draws tape contours in green on frame.
         """
         if self.tape_contours is not None:
-            cv2.drawContours(self.frame, self.tape_contours, -1, (100, 255, 100), 2)
+            cv2.drawContours(self.frame, self.tape_contours, -1, (0, 255, 0), 2)
 
     def update_tape_contours(self):
         """

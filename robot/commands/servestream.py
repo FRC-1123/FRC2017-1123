@@ -21,7 +21,8 @@ class ServeStream(Command):
         cameras.front_camera.update_rod_pos()
 
         # draw shapes
-        cameras.front_camera.draw_tape_contours()
         cameras.front_camera.draw_crosshairs()
+        cameras.front_camera.draw_tape_contours()
+        cameras.front_camera.draw_rod_pos()
 
         cameras.front_camera.serve_frame()
