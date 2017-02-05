@@ -3,8 +3,8 @@ import logging
 from networktables import NetworkTables
 from wpilib.command import Command
 
-import oi
 import subsystems
+from inputs import oi
 from rectifieddrive import RectifiedDrive
 
 logging.basicConfig(level=logging.INFO)

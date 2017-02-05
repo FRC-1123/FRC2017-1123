@@ -2,20 +2,19 @@
 
 import logging
 
+# from inputs import cameras
+from inputs import oi
 import wpilib
 from commandbased import CommandBasedRobot
 from networktables import NetworkTables
 
-import cameras
-import navx
-import oi
 import subsystems
 from commands.autonomous import AutonomousProgram
 from commands.respondtocontroller import RespondToController
-from commands.servestream import ServeStream
+# from commands.servestream import ServeStream
 from commands.updatenetworktables import UpdateNetworkTables
+from inputs import navx
 
-self.logger = logging.getLogger("robot")
 
 class Robot(CommandBasedRobot):
     def robotInit(self):
@@ -29,10 +28,10 @@ class Robot(CommandBasedRobot):
 
         navx.init()
         oi.init()
-        cameras.init()
+        # cameras.init()
 
         UpdateNetworkTables().start()
-        ServeStream().start()
+        # ServeStream().start()
 
     def autonomousInit(self):
         AutonomousProgram().start()

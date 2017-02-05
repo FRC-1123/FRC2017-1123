@@ -1,9 +1,9 @@
 from networktables import NetworkTables
 from wpilib.command import Command
 
-import oi
 import robotmap
 import subsystems
+from inputs import oi
 
 
 class RespondToController(Command):

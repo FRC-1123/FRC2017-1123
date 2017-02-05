@@ -1,6 +1,6 @@
 from wpilib.command import Command
 
-import cameras
+from inputs import cameras
 
 
 class ServeStream(Command):

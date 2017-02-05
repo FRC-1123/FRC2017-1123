@@ -4,10 +4,10 @@ import wpilib
 from networktables import NetworkTables
 from wpilib.command import Command
 
-import navx
 import subsystems
 from commands.rotate import Rotate
 from commands.setspeed import SetSpeed
+from inputs import navx
 
 logging.basicConfig(level=logging.INFO)
 

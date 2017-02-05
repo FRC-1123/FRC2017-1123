@@ -3,8 +3,8 @@ import logging
 import wpilib
 from wpilib.command import PIDCommand
 
-import cameras
 import subsystems
+from inputs import cameras
 
 logging.basicConfig(level=logging.INFO)
 

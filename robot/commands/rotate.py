@@ -1,7 +1,7 @@
 from wpilib.command import PIDCommand
 
-import navx
 import subsystems
+from inputs import navx
 
 
 class Rotate(PIDCommand):

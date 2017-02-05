@@ -1,5 +1,5 @@
-import navx
 import subsystems
+from inputs import navx
 
 
 class RectifiedDrive:

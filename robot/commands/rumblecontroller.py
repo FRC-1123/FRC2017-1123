@@ -1,7 +1,7 @@
 import wpilib
 from wpilib.command import TimedCommand
 
-import oi
+from inputs import oi
 
 
 class RumbleController(TimedCommand):
