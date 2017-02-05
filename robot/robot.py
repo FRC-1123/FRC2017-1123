@@ -32,6 +32,7 @@ class Robot(CommandBasedRobot):
         oi.init()
         cameras.init()
 
+        UpdateNetworkTables().start()
         ServeStream().start()
 
     def autonomousInit(self):
@@ -42,7 +43,6 @@ class Robot(CommandBasedRobot):
     def teleopInit(self):
         sd = NetworkTables.getTable("SmartDashboard")
         sd.putBoolean("timeRunning", True)  # start dashboard timer
-        UpdateNetworkTables().start()
         RespondToController().start()
         self.logger.info("Started teleop.")
 
