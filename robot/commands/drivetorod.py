@@ -1,6 +1,5 @@
 import logging
 
-import wpilib
 from wpilib.command import PIDCommand
 
 import subsystems
@@ -35,9 +34,6 @@ class DriveToRod(PIDCommand):
 
         self.logger = logging.getLogger("robot")
 
-        # used for calculating PID derivative and integral
-        self.timer = wpilib.Timer()
-        self.timer.start()
 
     def returnPIDInput(self):
         rod_pos = cameras.front_camera.get_rod_pos()
