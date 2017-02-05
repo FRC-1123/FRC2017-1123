@@ -15,15 +15,12 @@ gear_mech = None
 switches = None
 
 
-# front_camera = None
-
-
 def init():
     """
     Creates all subsystems. You must run this before any commands are
     instantiated. Do not run it more than once.
     """
-    global motors, gear_mech
+    global motors, gear_mech, switches
 
     '''
     Some tests call startCompetition multiple times, so don't throw an error if

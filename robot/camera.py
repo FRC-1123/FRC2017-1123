@@ -1,41 +1,31 @@
 import cscore as cs
 import cv2
 import numpy as np
-from wpilib.command.subsystem import Subsystem
 
 import robotmap
-from commands.servestream import ServeStream
 
 
-class Camera(Subsystem):
+class Camera:
     """
-    This subsystem controls the USB camera and performs image processing.
+    This subsystem controls a USB camera and performs image processing.
     """
 
-    def __init__(self):
+    def __init__(self, port, width, height, fps, httpport):
         '''Instantiates objects.'''
-        # TODO: combine into one server
 
-        super().__init__('Camera')
-
-        camera = cs.UsbCamera("usbcam", 0)
-        camera.setVideoMode(cs.VideoMode.PixelFormat.kMJPEG, robotmap.cameras.front_camera_width,
-                            robotmap.cameras.front_camera_height,
-                            robotmap.cameras.front_camera_fps)  # width, height, fps
+        camera = cs.UsbCamera("usbcam", port)
+        camera.setVideoMode(cs.VideoMode.PixelFormat.kMJPEG, width, height, fps)
 
         self.cv_sink = cs.CvSink("cvsink")
         self.cv_sink.setSource(camera)
-        self.cv_source = cs.CvSource("cvsource", cs.VideoMode.PixelFormat.kMJPEG, robotmap.cameras.front_camera_width,
-                                     robotmap.cameras.front_camera_height,
-                                     robotmap.cameras.front_camera_fps)
+        self.cv_source = cs.CvSource("cvsource", width, height, fps)
 
         # set up image server
-        mjpeg_server = cs.MjpegServer("httpserver", 8081)
+        mjpeg_server = cs.MjpegServer("httpserver", httpport)
         mjpeg_server.setSource(self.cv_source)
-        print("mjpg server listening at http://0.0.0.0:8081")
+        print("mjpg server listening at http://0.0.0.0:{}".format(httpport))
 
-        self.frame = np.zeros(
-            shape=(robotmap.cameras.front_camera_width, robotmap.cameras.front_camera_height, 3), dtype=np.uint8)
+        self.frame = np.zeros(shape=(width, height, 3), dtype=np.uint8)
 
         self.tape_contours = None  # tuple of pixel coords of tape contours
 
@@ -116,6 +106,3 @@ class Camera(Subsystem):
         if second_largest[0] == 0:  # if did not find two tape strips
             self.tape_contours = None
         self.tape_contours = (largest[0], second_largest[0])
-
-    def initDefaultCommand(self):
-        self.setDefaultCommand(ServeStream())

@@ -3,6 +3,7 @@ import logging
 import wpilib
 from wpilib.command import PIDCommand
 
+import cameras
 import subsystems
 
 logging.basicConfig(level=logging.INFO)
@@ -39,7 +40,7 @@ class DriveToRod(PIDCommand):
         self.timer.start()
 
     def returnPIDInput(self):
-        rod_pos = subsystems.front_camera.get_rod_pos()
+        rod_pos = cameras.front_camera.get_rod_pos()
         if rod_pos is None:
             self.logger.info("Couldn't find the rod!")
             return 0.0

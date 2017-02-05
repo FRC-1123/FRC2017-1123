@@ -6,11 +6,13 @@ import wpilib
 from commandbased import CommandBasedRobot
 from networktables import NetworkTables
 
+import cameras
 import navx
 import oi
 import subsystems
 from commands.autonomous import AutonomousProgram
 from commands.respondtocontroller import RespondToController
+from commands.servestream import ServeStream
 from commands.updatenetworktables import UpdateNetworkTables
 
 logging.basicConfig(level=logging.DEBUG)
@@ -28,6 +30,9 @@ class Robot(CommandBasedRobot):
 
         navx.init()
         oi.init()
+        cameras.init()
+
+        ServeStream().start()
 
     def autonomousInit(self):
         AutonomousProgram().start()

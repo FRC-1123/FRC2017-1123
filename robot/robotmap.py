@@ -25,6 +25,7 @@ cameras.front_camera_port = 0
 cameras.front_camera_width = 320
 cameras.front_camera_height = 240
 cameras.front_camera_fps = 30
+cameras.front_camera_httpport = 8081
 
 gear_mech = PropertiesList()
 gear_mech.forward_solenoid_channel = 1

@@ -2,7 +2,7 @@ import logging
 
 from wpilib.command import Command
 
-import subsystems
+import cameras
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -16,11 +16,11 @@ class ServeStream(Command):
         super().__init__("Serve Camera Stream")
 
     def execute(self):
-        subsystems.front_camera.update_frame()
+        cameras.front_camera.update_frame()
 
         # draw shapes
-        if subsystems.front_camera.tape_contours is not None:
-            subsystems.front_camera.draw_tape_contours()
-        subsystems.front_camera.draw_crosshairs()
+        if cameras.front_camera.tape_contours is not None:
+            cameras.front_camera.draw_tape_contours()
+        cameras.front_camera.draw_crosshairs()
 
-        subsystems.front_camera.serve_frame()
+        cameras.front_camera.serve_frame()
