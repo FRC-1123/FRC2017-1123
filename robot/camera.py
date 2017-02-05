@@ -5,6 +5,7 @@ import cv2
 import numpy as np
 
 import robotmap
+from commands.rumblecontroller import RumbleController
 
 logging.basicConfig(level=logging.INFO)
 
@@ -54,6 +55,7 @@ class Camera:
         """
         if self.tape_contours is None:  # no tape contours
             self.logger.critical("Couldn't find the rod!")
+            RumbleController(1).start()
             return None
         moments1 = cv2.moments(self.tape_contours[0])
         center1 = (moments1['m10'] / moments1['m00'], moments1['m01'] / moments1['m00'])  # center of one tape strip
