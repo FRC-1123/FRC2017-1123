@@ -8,6 +8,8 @@ class PropertiesList:
 motors = PropertiesList()
 motors.left_id = 1
 motors.right_id = 0
+motors.left_follower_id = 3
+motors.right_follower_id = 2
 
 joystick = PropertiesList()
 joystick.port = 0
