@@ -4,18 +4,20 @@ import subsystems
 
 class RectifiedDrive:
     """
-    This class implemented the rectifiedDrive function, which sets the motor outputs
-    given a desired power and angular velocity using the NavX and a PID controller.
+    This class implements rectified drive, which is essentially an enhanced version of arcade drive.
+    It sets the motor outputs given a desired power and angular velocity using the NavX and a PID controller.
     """
 
     def __init__(self, max_angular_speed, kp=0.01, ki=0.0, kd=0.0, period=0.05, tolerance=0.05, squared_inputs=True, ):
+        # PID values for angular velocity
         self.kp = kp
         self.ki = ki
         self.kd = kd
-        # tolerance (as a fraction of max_angular_speed) for angular velocity of driving straight forward
+        # tolerance (as a fraction of max_angular_speed) for driving straight forward
         self.tolerance = abs(tolerance)
         self.max_angular_speed = abs(max_angular_speed)  # maximum angular velocity magnitude
-        self.squared_inputs = squared_inputs  # squared inputs for angular velocity
+        # squared inputs for angular velocity cause rectified drive to be less responsive at small deviations from straight forward
+        self.squared_inputs = squared_inputs
         self.period = period  # period used for integral and derivative calculations
 
         self.prev_error = 0.0  # used for integral and derivative calculations
@@ -25,7 +27,7 @@ class RectifiedDrive:
         Sets the motor outputs based on the given power and angular velocity (as a fraction of max_angular_speed).
         """
         if angular_vel_frac < self.tolerance:
-            angular_vel_frac = 0
+            angular_vel_frac = 0  # just drive straight forward
         elif self.squared_inputs:
             angular_vel_frac = angular_vel_frac ** 2 * angular_vel_frac / abs(angular_vel_frac)
         angular_vel = angular_vel_frac * self.max_angular_speed
