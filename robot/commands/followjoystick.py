@@ -34,7 +34,7 @@ class FollowJoystick(Command):
         # subsystems.motors.robot_drive.arcadeDrive(oi.joystick)
 
         # rectified arcade drive
-        power = oi.joystick.getY()
-        angular_vel = -oi.joystick.getX()
+        power = oi.joystick.getRawAxis(4)
+        angular_vel = -oi.joystick.getRawAxis(5)
         self.logger.info(angular_vel)
         self.drive.rectified_drive(power, angular_vel)

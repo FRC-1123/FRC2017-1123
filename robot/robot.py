@@ -37,7 +37,6 @@ class Robot(CommandBasedRobot):
         AutonomousProgram().start()
         self.logger.info("Started autonomous.")
 
-
     def teleopInit(self):
         sd = NetworkTables.getTable("SmartDashboard")
         sd.putBoolean("timeRunning", True)  # start dashboard timer
