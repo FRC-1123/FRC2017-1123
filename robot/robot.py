@@ -40,7 +40,7 @@ class Robot(CommandBasedRobot):
     def teleopInit(self):
         sd = NetworkTables.getTable("SmartDashboard")
         sd.putBoolean("timeRunning", True)  # start dashboard timer
-        RespondToController().start()
+        # RespondToController().start()
         self.logger.info("Started teleop.")
 
 

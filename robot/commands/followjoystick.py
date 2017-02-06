@@ -9,6 +9,7 @@ from rectifieddrive import RectifiedDrive
 
 logging.basicConfig(level=logging.INFO)
 
+
 class FollowJoystick(Command):
     """
     This command will read the joysticks' y-axes and uses tank drive.
