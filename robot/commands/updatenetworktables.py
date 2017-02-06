@@ -11,6 +11,7 @@ from inputs import navx
 
 logging.basicConfig(level=logging.INFO)
 
+
 class UpdateNetworkTables(Command):
     """
     This command updates NetworkTables variables.

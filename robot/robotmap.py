@@ -13,12 +13,8 @@ motors.right_follower_id = 2
 
 joystick = PropertiesList()
 joystick.port = 0
-joystick.top_left_port = 3
-joystick.top_right_port = 4
-
-# for xbox
-joystick.left_port = 1
-joystick.right_port = 5
+joystick.forwardAxis = 4
+joystick.steeringAxis = 5
 
 cameras = PropertiesList()
 cameras.front_camera_port = 0

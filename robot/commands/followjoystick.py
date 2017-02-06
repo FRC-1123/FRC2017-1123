@@ -4,6 +4,7 @@ from networktables import NetworkTables
 from wpilib.command import Command
 
 import subsystems
+import robotmap
 from inputs import oi
 from rectifieddrive import RectifiedDrive
 
@@ -35,7 +36,7 @@ class FollowJoystick(Command):
         # subsystems.motors.robot_drive.arcadeDrive(oi.joystick)
 
         # rectified arcade drive
-        power = oi.joystick.getRawAxis(4)
-        angular_vel = -oi.joystick.getRawAxis(5)
+        power = oi.joystick.getRawAxis(robotmap.joystick.forwardAxis)
+        angular_vel = -oi.joystick.getRawAxis(robotmap.joystick.steeringAxis)
         self.logger.info(angular_vel)
         self.drive.rectified_drive(power, angular_vel)
