@@ -2,7 +2,9 @@ import logging
 
 from wpilib.command import PIDCommand
 
+import robot
 import subsystems
+from commands.followjoystick import FollowJoystick
 from inputs import cameras
 
 logging.basicConfig(level=logging.INFO)
@@ -34,13 +36,20 @@ class DriveToRod(PIDCommand):
 
         self.logger = logging.getLogger("robot")
 
+        self.prev_error = 0.5  # used in case the rod is lost and in autonomous
 
     def returnPIDInput(self):
         rod_pos = cameras.front_camera.get_rod_pos()
         if rod_pos is None:
-            return 0.0
-        error = .5 - rod_pos[0]  # error as horizontal distance from center
-        self.logger.info("current rod error: {}".format(error))
+            self.logger.critical("Couldn't find the rod!")
+            if robot.is_autonomous:
+                error = self.prev_error
+            else:
+                FollowJoystick().start()
+                return
+        else:
+            error = .5 - rod_pos[0]  # error as horizontal distance from center
+            self.logger.info("current rod error: {}".format(error))
         return error
 
     def usePIDOutput(self, output):
