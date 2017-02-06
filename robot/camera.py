@@ -35,6 +35,8 @@ class Camera:
 
         self.tape_contours = None  # tuple of pixel coords of tape contours
         self.rod_pos = None  # tuple of coords of rod as fraction of full width and height
+        self.no_rod_count = 0  # how many loops without being able to find the rod
+        self.no_round_count_max = 5  # how many loops of not being able to find the rod before setting rod_pos = None
 
         # hsv range for tape contour detection
         self.min_h, self.min_s, self.min_v = 45, 140, 100
@@ -54,8 +56,11 @@ class Camera:
         Updates (x, y) pixel coords of rod.
         """
         if self.tape_contours is None:  # no tape contours
-            self.rod_pos = None
+            self.no_rod_count += 1
+            if self.no_rod_count >= self.no_round_count_max:
+                self.rod_pos = None
         else:
+            self.no_rod_count = 0
             moments1 = cv2.moments(self.tape_contours[0])
             center1 = (moments1['m10'] / moments1['m00'], moments1['m01'] / moments1['m00'])  # center of one tape strip
             moments2 = cv2.moments(self.tape_contours[1])
