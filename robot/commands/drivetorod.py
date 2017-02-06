@@ -6,6 +6,7 @@ import robot
 import subsystems
 from commands.followjoystick import FollowJoystick
 from inputs import cameras
+from inputs import oi
 
 logging.basicConfig(level=logging.INFO)
 
@@ -39,6 +40,9 @@ class DriveToRod(PIDCommand):
         self.prev_error = 0.5  # used in case the rod is lost and in autonomous
 
     def returnPIDInput(self):
+        if oi.controller.getStartButton():  # return control back to controller
+            FollowJoystick().start()
+            return
         rod_pos = cameras.front_camera.get_rod_pos()
         if rod_pos is None:
             self.logger.critical("Couldn't find the rod!")
@@ -53,4 +57,4 @@ class DriveToRod(PIDCommand):
         return error
 
     def usePIDOutput(self, output):
-        subsystems.motors.robot_drive.drive(.5, output)
+        subsystems.motors.robot_drive.drive(.2, output)
