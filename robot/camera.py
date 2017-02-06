@@ -5,7 +5,6 @@ import cv2
 import numpy as np
 
 import robotmap
-from commands.rumblecontroller import RumbleController
 
 logging.basicConfig(level=logging.INFO)
 
@@ -55,17 +54,15 @@ class Camera:
         Updates (x, y) pixel coords of rod.
         """
         if self.tape_contours is None:  # no tape contours
-            self.logger.critical("Couldn't find the rod!")
-            RumbleController(1).start()
             self.rod_pos = None
-            return
+        else:
+            moments1 = cv2.moments(self.tape_contours[0])
+            center1 = (moments1['m10'] / moments1['m00'], moments1['m01'] / moments1['m00'])  # center of one tape strip
+            moments2 = cv2.moments(self.tape_contours[1])
+            center2 = (
+            moments2['m10'] / moments2['m00'], moments2['m01'] / moments2['m00'])  # center of other tape strip
 
-        moments1 = cv2.moments(self.tape_contours[0])
-        center1 = (moments1['m10'] / moments1['m00'], moments1['m01'] / moments1['m00'])  # center of one tape strip
-        moments2 = cv2.moments(self.tape_contours[1])
-        center2 = (moments2['m10'] / moments2['m00'], moments2['m01'] / moments2['m00'])  # center of other tape strip
-
-        self.rod_pos = ((center1[0] + center2[0]) / 2, (center1[1] + center2[1]) / 2)
+            self.rod_pos = ((center1[0] + center2[0]) / 2, (center1[1] + center2[1]) / 2)
 
     def get_rod_pos(self):
         """
