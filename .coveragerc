@@ -1,0 +1,23 @@
+[run]
+branch = true
+omit =
+    robot/commands/reacttoswitch.py
+    robot/commands/drivetorod.py
+    robot/commands/rumblecontroller.py
+    robot/commands/servestream.py
+    robot/inputs/cameras.py
+    robot/camera.py
+
+[report]
+# Regexes for lines to exclude from consideration
+exclude_lines =
+    # Have to re-enable the standard pragma
+    pragma: no cover
+
+    # Don't complain if tests don't hit defensive assertion code:
+    raise AssertionError
+    raise NotImplementedError
+
+    # Don't complain if non-runnable code isn't run:
+    if 0:
+    if __name__ == .__main__.:

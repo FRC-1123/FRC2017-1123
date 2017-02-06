@@ -26,7 +26,7 @@ def init():
     Some tests call startCompetition multiple times, so don't throw an error if
     called more than once in that case.
     '''
-    if motors is not None and not RobotBase.isSimulation():
+    if motors is not None and not RobotBase.isSimulation():  # pragma: no cover
         raise RuntimeError('Subsystems have already been initialized')
 
     motors = Motors()
