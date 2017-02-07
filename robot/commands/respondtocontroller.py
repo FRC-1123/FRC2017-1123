@@ -4,9 +4,6 @@ from networktables import NetworkTables
 from wpilib.command import Command
 
 import subsystems
-from commands.drivetorod import DriveToRod
-from commands.rumblecontroller import RumbleController
-from inputs import cameras
 from inputs import oi
 
 logging.basicConfig(level=logging.INFO)
@@ -37,14 +34,14 @@ class RespondToController(Command):
             self.sd.putBoolean("pneumatic", False)
 
         # drive-to-rod control
-        if oi.controller.getStartButton():
-            rod_pos = cameras.front_camera.get_rod_pos()
-            if rod_pos is None:  # cannot find rod
-                self.logger.critical("Couldn't find the rod!")
-                RumbleController(1).start()
-            else:
-                self.logger.info("Driving to the rod!")
-                DriveToRod().start()
+            # if oi.controller.getStartButton():
+            #     rod_pos = cameras.front_camera.get_rod_pos()
+            #     if rod_pos is None:  # cannot find rod
+            #         self.logger.critical("Couldn't find the rod!")
+            #         RumbleController(1).start()
+            #     else:
+            #         self.logger.info("Driving to the rod!")
+            #         DriveToRod().start()
 
                 # for single joystick
         # if oi.joystick.getRawButton(robotmap.joystick.top_left_port):  # piston in
