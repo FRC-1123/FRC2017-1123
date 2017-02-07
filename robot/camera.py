@@ -24,7 +24,7 @@ class Camera:
 
         self.cv_sink = cs.CvSink("cvsink")
         self.cv_sink.setSource(camera)
-        self.cv_source = cs.CvSource("cvsource", width, height, fps)
+        self.cv_source = cs.CvSource("cvsource", cs.VideoMode.PixelFormat.kMJPEG, width, height, fps)
 
         # set up image server
         mjpeg_server = cs.MjpegServer("httpserver", httpport)
