@@ -8,9 +8,7 @@ from networktables import NetworkTables
 
 import subsystems
 from commands.autonomous import AutonomousProgram
-from commands.servestream import ServeStream
 from commands.updatenetworktables import UpdateNetworkTables
-from inputs import cameras
 from inputs import navx
 from inputs import oi
 
@@ -25,24 +23,28 @@ class Robot(CommandBasedRobot):
         subsystems.init()
 
         self.logger = logging.getLogger("robot")
+        self.sd = NetworkTables.getTable("SmartDashboard")
+
+        # set autonomous modes
+        self.sd.putStringArray("autonomous/options", ["left", "center", "right"])
+        self.sd.putString("autonomous/selected", "center")
 
         navx.init()
         oi.init()
-        cameras.init()
+        # cameras.init()
 
-        ServeStream().start()
+        # ServeStream().start()
 
     def autonomousInit(self):
         global is_autonomous
         is_autonomous = True
-        AutonomousProgram().start()
+        AutonomousProgram(self.sd.getString("autonomous/selected")).start()
         self.logger.info("Started autonomous.")
 
     def teleopInit(self):
         global is_autonomous
         is_autonomous = False
-        sd = NetworkTables.getTable("SmartDashboard")
-        sd.putBoolean("timeRunning", True)  # start dashboard timer
+        self.sd.putBoolean("timeRunning", True)  # start dashboard timer
         # RespondToController().start()
         UpdateNetworkTables().start()
         self.logger.info("Started teleop.")

@@ -39,7 +39,7 @@ select {
 }
 select {
     border: none;
-    background: none;
+    background: #444;
     color: white;
     height: 25px;
 }
