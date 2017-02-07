@@ -10,12 +10,12 @@ class AutonomousProgram(CommandGroup):
         super().__init__('Autonomous Program')
 
         if mode == "left":
-            self.addSequential(Rotate(90))
+            self.addSequential(Rotate(30))
             self.addSequential(WaitCommand(timeout=1))
-            self.addSequential(SetSpeed(power=-0.7, timeoutInSeconds=1))
+            self.addSequential(SetSpeed(power=-0.2, timeoutInSeconds=1))
         elif mode == "right":
-            self.addSequential(Rotate(-90))
+            self.addSequential(Rotate(-30))
             self.addSequential(WaitCommand(timeout=1))
-            self.addSequential(SetSpeed(power=-0.7, timeoutInSeconds=1))
+            self.addSequential(SetSpeed(power=-0.2, timeoutInSeconds=1))
         else:
-            self.addSequential(SetSpeed(power=-0.7, timeoutInSeconds=1))
+            self.addSequential(SetSpeed(power=-0.2, timeoutInSeconds=1))

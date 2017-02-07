@@ -2,11 +2,6 @@
 branch = true
 omit =
     robot/commands/reacttoswitch.py
-    robot/commands/drivetorod.py
-    robot/commands/rumblecontroller.py
-    robot/commands/servestream.py
-    robot/inputs/cameras.py
-    robot/camera.py
 
 [report]
 # Regexes for lines to exclude from consideration
