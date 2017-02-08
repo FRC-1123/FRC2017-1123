@@ -22,6 +22,7 @@ class Motors(Subsystem):
         self.left_motor = ctre.CANTalon(robotmap.motors.left_id)
         self.right_motor = ctre.CANTalon(robotmap.motors.right_id)
         self.left_motor.setInverted(True)
+        self.right_motor.setInverted(True)
 
         # follower motors
         left_motor_follower = ctre.CANTalon(robotmap.motors.left_follower_id)

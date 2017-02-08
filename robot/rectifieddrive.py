@@ -33,10 +33,10 @@ class RectifiedDrive:
         angular_vel = angular_vel_frac * self.max_angular_speed
         error = navx.ahrs.getRate() - angular_vel
         output = self.calc_pid(error)
-        left_output = power - output
+        left_output = power + output
         if abs(left_output) > 1.0:  # normalize if magnitude greater than 1
             left_output /= abs(left_output)
-        right_output = power + output
+        right_output = power - output
         if abs(right_output) > 1.0:  # normalize if magnitude greater than 1
             right_output /= abs(right_output)
         subsystems.motors.robot_drive.setLeftRightMotorOutputs(left_output, right_output)

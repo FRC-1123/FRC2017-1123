@@ -25,7 +25,7 @@ class FollowJoystick(Command):
 
         self.logger = logging.getLogger("robot")
 
-        self.drive = RectifiedDrive(100, period=0.02)
+        self.drive = RectifiedDrive(30, period=0.02)
 
     def execute(self):
         # tank drive
@@ -37,6 +37,7 @@ class FollowJoystick(Command):
 
         # rectified arcade drive
         power = oi.joystick.getRawAxis(robotmap.joystick.forwardAxis)
+        power /= 4
         angular_vel = -oi.joystick.getRawAxis(robotmap.joystick.steeringAxis)
         if power > 0:  # if moving backwards, negate angular velocity
             angular_vel *= -1
