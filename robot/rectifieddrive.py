@@ -8,7 +8,7 @@ class RectifiedDrive:
     It sets the motor outputs given a desired power and angular velocity using the NavX and a PID controller.
     """
 
-    def __init__(self, max_angular_speed, kp=0.01, ki=0.0, kd=0.0, period=0.05, tolerance=0.1, squared_inputs=True):
+    def __init__(self, max_angular_speed, kp=0.01, ki=0.01, kd=0.0, period=0.05, tolerance=0.1, squared_inputs=True):
         # PID values for angular velocity
         self.kp = kp
         self.ki = ki
@@ -18,13 +18,14 @@ class RectifiedDrive:
         self.max_angular_speed = abs(max_angular_speed)  # maximum angular velocity magnitude
         # squared inputs for angular velocity cause rectified drive to be less responsive at small deviations from straight forward
         self.squared_inputs = squared_inputs
-        self.period = period  # period used for integral and derivative calculations
-
-        self.prev_error = 0.0  # used for integral and derivative calculations
+        self.period = period  # period used for derivative calculation
+        self.integral = 0  # total time elapsed used for integral calculation
+        self.prev_error = 0  # previous error used for integral and derivative calculations
 
     def rectified_drive(self, power, angular_vel_frac):
         """
         Sets the motor outputs based on the given power and angular velocity (as a fraction of max_angular_speed).
+        Returns the new integral term.
         """
         if abs(angular_vel_frac) < self.tolerance:
             angular_vel_frac = 0  # just drive straight forward
@@ -43,6 +44,6 @@ class RectifiedDrive:
 
     def calc_pid(self, error):
         e_deriv = (error - self.prev_error) / self.period
-        e_int = (error + self.prev_error) / 2 * self.period
+        self.integral += (error + self.prev_error) / 2 * self.period
         self.prev_error = error
-        return self.kp * error + self.kd * e_deriv + self.ki * e_int
+        return self.kp * error + self.kd * e_deriv + self.ki * self.integral
