@@ -19,7 +19,7 @@ class DriveToRod(PIDCommand):
     def __init__(self):
         # PID constants
         kp = 0.01
-        ki = 0.0
+        ki = 0.005
         kd = 0.0
         kf = 0.0
         ktolerance = 0.02

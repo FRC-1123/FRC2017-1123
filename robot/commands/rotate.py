@@ -12,7 +12,7 @@ class Rotate(PIDCommand):
     def __init__(self, angle):
         # PID constants
         kp = 0.005
-        ki = 0.0
+        ki = 0.001
         kd = 0.0
         kf = 0.0
         ktolerance = 2.0  # tolerance of 2 degrees
