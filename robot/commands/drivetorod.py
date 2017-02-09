@@ -54,9 +54,10 @@ class DriveToRod(PIDCommand):
         else:
             error = .5 - rod_pos[0]  # error as horizontal distance from center
             self.logger.info("current rod error: {}".format(error))
-        return error
+            return error
 
     def usePIDOutput(self, output):
         if self.is_lost:  # if lost, slowly spin in circle
             subsystems.motors.robot_drive.setLeftRightMotorOutputs(0.1, 0.1)
-        subsystems.motors.robot_drive.drive(.2, output)
+        else:
+            subsystems.motors.robot_drive.drive(.2, output)
