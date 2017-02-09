@@ -1,6 +1,5 @@
 import logging
 
-from networktables import NetworkTables
 from wpilib.command import Command
 
 import robotmap
@@ -20,8 +19,6 @@ class FollowJoystick(Command):
         super().__init__('Follow Joystick')
 
         self.requires(subsystems.motors)
-
-        self.sd = NetworkTables.getTable("SmartDashboard")
 
         self.logger = logging.getLogger("robot")
 

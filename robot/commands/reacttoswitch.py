@@ -1,5 +1,4 @@
 import wpilib
-from networktables import NetworkTables
 from wpilib.command import Command
 
 import subsystems
@@ -17,7 +16,6 @@ class ReactToSwitch(Command):
         self.requires(subsystems.switches)
         self.requires(subsystems.motors)
 
-        self.sd = NetworkTables.getTable("SmartDashboard")
         self.timer = wpilib.Timer()  # timer for checking the switches' states
         self.timer.start()
 
