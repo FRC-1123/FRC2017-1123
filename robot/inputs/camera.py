@@ -3,28 +3,17 @@ import logging
 
 import cv2
 import numpy as np
+from networktables import NetworkTables
 
 import robotmap
 from cscore import CameraServer
 
 
 class Camera:
-    def main(self):
-        cs = CameraServer.getInstance()
-        cs.enableLogging()
-
-        # Capture from the first USB Camera on the system
-        camera = cs.startAutomaticCapture()
-        camera.setResolution(robotmap.cameras.camera_width, robotmap.cameras.camera_height)
-
-        # Get a CvSink. This will capture images from the camera
-        cv_sink = cs.getVideo()
-
-        # (optional) Setup a CvSource. This will send images back to the Dashboard
-        output_stream = cs.putVideo("Camera Feed", robotmap.cameras.camera_width, robotmap.cameras.camera_height)
-
+    def __init__(self, width, height):
         # Allocating new images is very expensive, always try to preallocate
-        self.frame = np.zeros(shape=(robotmap.cameras.camera_height, robotmap.cameras.camera_width, 3), dtype=np.uint8)
+        self.width, self.height = width, height
+        self.frame = np.zeros(shape=(self.height, self.width, 3), dtype=np.uint8)
 
         self.tape_contours = None  # tuple of pixel coords of tape contours
         self.rod_pos = None  # tuple of coords of rod as fraction of full width and height
@@ -36,7 +25,24 @@ class Camera:
         self.min_h, self.min_s, self.min_v = 35, 100, 100
         self.max_h, self.max_s, self.max_v = 80, 255, 255
 
+        self.sd = NetworkTables.getTable("SmartDashboard")
+        self.sd.putNumber("rod_x", -1)  # rod position unknown
+
         self.logger = logging.getLogger("robot")
+
+    def main(self):
+        cs = CameraServer.getInstance()
+        cs.enableLogging()
+
+        # Capture from the first USB Camera on the system
+        camera = cs.startAutomaticCapture()
+        camera.setResolution(self.width, self.height)
+
+        # Get a CvSink. This will capture images from the camera
+        cv_sink = cs.getVideo()
+
+        # (optional) Setup a CvSource. This will send images back to the Dashboard
+        output_stream = cs.putVideo("Camera Feed", self.width, self.height)
 
         while True:
             # Tell the CvSink to grab a frame from the camera and put it
@@ -64,6 +70,7 @@ class Camera:
             self.no_rod_count += 1
             if self.no_rod_count >= self.no_rod_count_max:
                 self.rod_pos = None
+                self.sd.putNumber("rod_x", -1)
         else:
             self.no_rod_count = 0
             moments1 = cv2.moments(self.tape_contours[0])
@@ -72,6 +79,8 @@ class Camera:
             center2 = (moments2['m10'] / moments2['m00'], moments2['m01'] / moments2['m00'])  # center of other tape strip
 
             self.rod_pos = (int((center1[0] + center2[0]) / 2), int((center1[1] + center2[1]) / 2))
+            self.sd.putNumber("rod_x", self.rod_pos[0])
+            self.sd.putNumber("rod_y", self.rod_pos[1])
 
     def get_rod_pos(self):
         """
@@ -139,6 +148,19 @@ class Camera:
             self.tape_contours = (largest[0], second_largest[0])
 
 
+def get_rod_pos():
+    """
+    Returns (x, y) coords of rod as fractions of the frame's width and height, respectively.
+    """
+    sd = NetworkTables.getTable("SmartDashboard")
+    if not sd.containsKey("rod_x") or not sd.containsKey("rod_y"):
+        return None
+    rod_pos = (sd.getNumber("rod_x"), sd.getNumber("rod_y"))
+    if rod_pos[0] == -1:  # rod position unknown
+        return None
+    return rod_pos[0] / robotmap.cameras.camera_width, rod_pos[1] / robotmap.cameras.camera_height
+
+
 def start():
-    front_camera = Camera()
+    front_camera = Camera(robotmap.cameras.camera_width, robotmap.cameras.camera_height)
     front_camera.main()

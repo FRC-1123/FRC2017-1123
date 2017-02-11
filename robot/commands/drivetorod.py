@@ -5,7 +5,7 @@ from wpilib.command import PIDCommand
 import robot
 import subsystems
 from commands.followjoystick import FollowJoystick
-from inputs import cameras
+from inputs import camera
 from inputs import oi
 
 logging.basicConfig(level=logging.INFO)
@@ -20,7 +20,7 @@ class DriveToRod(PIDCommand):
         # PID constants
         kp = 0.01
         ki = 0.005
-        kd = 0.0
+        kd = 0.002
         kf = 0.0
         ktolerance = 0.02
 
@@ -43,7 +43,7 @@ class DriveToRod(PIDCommand):
         if oi.controller.getStartButton():  # return control back to controller
             FollowJoystick().start()
             return 0
-        rod_pos = cameras.front_camera.get_rod_pos()
+        rod_pos = camera.get_rod_pos()
         if rod_pos is None:
             self.logger.critical("Couldn't find the rod!")
             self.is_lost = True
@@ -58,6 +58,6 @@ class DriveToRod(PIDCommand):
 
     def usePIDOutput(self, output):
         if self.is_lost:  # if lost, slowly spin in circle
-            subsystems.motors.robot_drive.setLeftRightMotorOutputs(0.1, 0.1)
+            subsystems.motors.robot_drive.setLeftRightMotorOutputs(0.2, 0.2)
         else:
-            subsystems.motors.robot_drive.drive(.2, output)
+            subsystems.motors.robot_drive.drive(.4, output)
