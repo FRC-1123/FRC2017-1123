@@ -1,11 +1,11 @@
 # Import the camera server
-from cscore import CameraServer
-import robotmap
 import logging
 
-# Import OpenCV and NumPy
 import cv2
 import numpy as np
+
+import robotmap
+from cscore import CameraServer
 
 
 class Camera:
@@ -104,10 +104,10 @@ class Camera:
 
     def draw_tape_contours(self):
         """
-        Draws tape contours in green on frame.
+        Draws tape contours in blue on frame.
         """
         if self.tape_contours is not None:
-            cv2.drawContours(self.frame, self.tape_contours, -1, (0, 255, 0), 2)
+            cv2.drawContours(self.frame, self.tape_contours, -1, (255, 0, 0), 2)
 
     def update_tape_contours(self):
         """
