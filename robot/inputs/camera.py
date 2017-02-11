@@ -29,11 +29,12 @@ class Camera:
         self.tape_contours = None  # tuple of pixel coords of tape contours
         self.rod_pos = None  # tuple of coords of rod as fraction of full width and height
         self.no_rod_count = 0  # how many loops without being able to find the rod
-        self.no_rod_count_max = 5  # how many loops of not being able to find the rod before setting rod_pos = None
+        self.no_rod_count_max = 10  # how many loops of not being able to find the rod before setting rod_pos = None
 
         # hsv range for tape contour detection
-        self.min_h, self.min_s, self.min_v = 65, 100, 100
-        self.max_h, self.max_s, self.max_v = 115, 255, 255
+        # h: [0, 179], s: [0, 255], v: [0, 255]
+        self.min_h, self.min_s, self.min_v = 35, 100, 100
+        self.max_h, self.max_s, self.max_v = 80, 255, 255
 
         self.logger = logging.getLogger("robot")
 
@@ -42,10 +43,8 @@ class Camera:
             # in the source image.  If there is an error notify the output.
             time, self.frame = cv_sink.grabFrame(self.frame)
             if time == 0:
-                # Send the output the error.
-                output_stream.notifyError(cv_sink.getError())
-                # skip the rest of the current iteration
-                continue
+                output_stream.notifyError(cv_sink.getError())  # send the output the error
+                continue  # skip the rest of the current iteration
 
             self.update_tape_contours()
             self.update_rod_pos()
@@ -55,9 +54,7 @@ class Camera:
             self.draw_tape_contours()
             self.draw_rod_pos()
 
-            # (optional) send some image back to the dashboard
             output_stream.putFrame(self.frame)
-
 
     def update_rod_pos(self):
         """
