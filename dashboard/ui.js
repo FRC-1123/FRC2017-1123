@@ -148,14 +148,12 @@ function onValueChanged(key, value, isNew) {
         case '/SmartDashboard/leftOutput':
             ui.outputs.left.innerHTML = Math.round(-value * 100);
             var period = 2.5 - Math.abs((parseInt(ui.outputs.left.innerHTML) + parseInt(ui.outputs.right.innerHTML)) / 100.0);
-            console.log(period);
             ui.gears.left.style.animation = "barrelRoll " + period + "s infinite linear"
             ui.gears.right.style.animation = "invertBarrelRoll " + period + "s infinite linear"
             break;
         case '/SmartDashboard/rightOutput':
             ui.outputs.right.innerHTML = Math.round(value * 100);
             var period = 2.5 - Math.abs((parseInt(ui.outputs.left.innerHTML) + parseInt(ui.outputs.right.innerHTML)) / 100.0);
-            console.log(period);
             ui.gears.left.style.animation = "barrelRoll " + period + "s infinite linear"
             ui.gears.right.style.animation = "invertBarrelRoll " + period + "s infinite linear"
             break;

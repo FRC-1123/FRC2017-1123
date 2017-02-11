@@ -38,5 +38,5 @@ class FollowJoystick(Command):
         angular_vel = -oi.joystick.getRawAxis(robotmap.joystick.steeringAxis)
         if power > 0:  # if moving backwards, negate angular velocity
             angular_vel *= -1
-        self.logger.info("{}\t{}".format(angular_vel, power))
+        # self.logger.info("{}\t{}".format(angular_vel, power))
         self.drive.rectified_drive(power, angular_vel)
