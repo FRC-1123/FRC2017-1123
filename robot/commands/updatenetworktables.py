@@ -7,6 +7,7 @@ from wpilib.command import Command
 import subsystems
 from commands.rotate import Rotate
 from commands.setspeed import SetSpeed
+from inputs import cameras
 from inputs import navx
 
 logging.basicConfig(level=logging.INFO)
@@ -27,12 +28,12 @@ class UpdateNetworkTables(Command):
         self.nt_timer.start()
 
         # put initial tape contour detection hsv range
-        # self.sd.putNumber("camera/minh", cameras.front_camera.min_h)
-        # self.sd.putNumber("camera/mins", cameras.front_camera.min_s)
-        # self.sd.putNumber("camera/minv", cameras.front_camera.min_v)
-        # self.sd.putNumber("camera/maxh", cameras.front_camera.max_h)
-        # self.sd.putNumber("camera/maxs", cameras.front_camera.max_s)
-        # self.sd.putNumber("camera/maxv", cameras.front_camera.max_v)
+        self.sd.putNumber("camera/minh", cameras.front_camera.min_h)
+        self.sd.putNumber("camera/mins", cameras.front_camera.min_s)
+        self.sd.putNumber("camera/minv", cameras.front_camera.min_v)
+        self.sd.putNumber("camera/maxh", cameras.front_camera.max_h)
+        self.sd.putNumber("camera/maxs", cameras.front_camera.max_s)
+        self.sd.putNumber("camera/maxv", cameras.front_camera.max_v)
 
     def execute(self):
         if self.nt_timer.hasPeriodPassed(.2):  # update NetworkTables every 0.2 seconds
@@ -47,18 +48,18 @@ class UpdateNetworkTables(Command):
                 self.logger.info("Turning right 90 degrees.")
 
             # update tape contour detection hsv range
-            # if self.sd.containsKey("camera/minh"):
-            #     cameras.front_camera.min_h = self.sd.getNumber("camera/minh")
-            # if self.sd.containsKey("camera/mins"):
-            #     cameras.front_camera.min_s = self.sd.getNumber("camera/mins")
-            # if self.sd.containsKey("camera/minv"):
-            #     cameras.front_camera.min_v = self.sd.getNumber("camera/minv")
-            # if self.sd.containsKey("camera/maxh"):
-            #     cameras.front_camera.max_h = self.sd.getNumber("camera/maxh")
-            # if self.sd.containsKey("camera/maxs"):
-            #     cameras.front_camera.max_s = self.sd.getNumber("camera/maxs")
-            # if self.sd.containsKey("camera/maxv"):
-            #     cameras.front_camera.max_v = self.sd.getNumber("camera/maxv")
+            if self.sd.containsKey("camera/minh"):
+                cameras.front_camera.min_h = self.sd.getNumber("camera/minh")
+            if self.sd.containsKey("camera/mins"):
+                cameras.front_camera.min_s = self.sd.getNumber("camera/mins")
+            if self.sd.containsKey("camera/minv"):
+                cameras.front_camera.min_v = self.sd.getNumber("camera/minv")
+            if self.sd.containsKey("camera/maxh"):
+                cameras.front_camera.max_h = self.sd.getNumber("camera/maxh")
+            if self.sd.containsKey("camera/maxs"):
+                cameras.front_camera.max_s = self.sd.getNumber("camera/maxs")
+            if self.sd.containsKey("camera/maxv"):
+                cameras.front_camera.max_v = self.sd.getNumber("camera/maxv")
 
             # update navX status
             self.sd.putBoolean('navX/isConnected', navx.ahrs.isConnected())

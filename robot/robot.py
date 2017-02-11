@@ -8,7 +8,9 @@ from networktables import NetworkTables
 
 import subsystems
 from commands.autonomous import AutonomousProgram
+from commands.servestream import ServeStream
 from commands.updatenetworktables import UpdateNetworkTables
+from inputs import cameras
 from inputs import navx
 from inputs import oi
 
@@ -31,9 +33,9 @@ class Robot(CommandBasedRobot):
 
         navx.init()
         oi.init()
-        # cameras.init()
+        cameras.init()
 
-        # ServeStream().start()
+        ServeStream().start()
 
     def autonomousInit(self):
         global is_autonomous

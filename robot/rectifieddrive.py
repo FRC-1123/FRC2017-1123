@@ -8,7 +8,7 @@ class RectifiedDrive:
     It sets the motor outputs given a desired power and angular velocity using the NavX and a PID controller.
     """
 
-    def __init__(self, max_angular_speed, kp=0.01, ki=0.005, kd=0.0, period=0.05, tolerance=0.1, squared_inputs=True):
+    def __init__(self, max_angular_speed, kp=0.01, ki=0.005, kd=0.002, period=0.05, tolerance=0.1, squared_inputs=True):
         # PID values for angular velocity
         self.kp = kp
         self.ki = ki

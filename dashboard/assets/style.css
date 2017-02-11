@@ -88,7 +88,7 @@ header {
     background-color: #333;
     /* You'll need to mess with this a bit to get your camera to work. Replace the url with a live-updating image feed from your camera. Using other camera streaming systems will require some tweaking. */
 
-    background-image: url('roborio-1123-frc.local:5800/?action=stream');
+    background-image: url('roborio-1123-frc.local:1180/?action=stream');
 }
 #tuning {
     width: 50vw;
