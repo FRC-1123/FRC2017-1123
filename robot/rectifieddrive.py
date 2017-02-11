@@ -27,6 +27,8 @@ class RectifiedDrive:
         Sets the motor outputs based on the given power and angular velocity (as a fraction of max_angular_speed).
         """
         if abs(angular_vel_frac) < self.tolerance:
+            if power < 0.02:  # just reset integral if close to 0
+                self.integral = 0
             angular_vel_frac = 0  # just drive straight forward
         elif self.squared_inputs:
             angular_vel_frac = angular_vel_frac ** 2 * angular_vel_frac / abs(angular_vel_frac)
