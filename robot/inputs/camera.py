@@ -3,10 +3,10 @@ import logging
 
 import cv2
 import numpy as np
+from cscore import CameraServer
 from networktables import NetworkTables
 
 import robotmap
-from cscore import CameraServer
 
 
 class Camera:
@@ -130,12 +130,17 @@ class Camera:
         second_largest = (None, 0)
         for c in contours:
             area = cv2.contourArea(c)
-            if area < 100:  # remove noise
+            if area < 30:  # remove noise
                 continue
             perim = cv2.arcLength(c, True)
             approx = cv2.approxPolyDP(c, .05 * perim, True)
-            if len(approx) != 4:  # only consider quadrilaterals
+            hull = cv2.convexHull(approx)
+            hull_area = cv2.contourArea(hull)
+            solidity = area / hull_area
+            if solidity < 0.6:  # don't consider if it's some weird concave polygon
                 continue
+            # if len(approx) != 4:  # only consider quadrilaterals
+            #     continue
             if area > largest[1]:
                 second_largest = largest
                 largest = (c, area)
