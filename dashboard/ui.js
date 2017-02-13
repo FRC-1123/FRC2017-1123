@@ -3,7 +3,8 @@ var drivesetpoint = new TimeSeries();
 var driveactual = new TimeSeries();
 var drive_smoothie = new SmoothieChart({
   grid: { strokeStyle:'rgb(255, 255, 255)', fillStyle:'rgb(0, 0, 0)',
-          lineWidth: 1, millisPerLine: 1000, verticalSections: 10, }
+          lineWidth: 1, millisPerLine: 1000, verticalSections: 10, },
+  maxValue:100, minValue:-100
 });
 drive_smoothie.addTimeSeries(drivesetpoint,
   { strokeStyle:'rgb(0, 255, 0)', fillStyle:'rgba(0, 255, 0, 0.3)', lineWidth:2 });
@@ -16,7 +17,8 @@ var rodsetpoint = new TimeSeries();
 var rodactual = new TimeSeries();
 var rod_smoothie = new SmoothieChart({
   grid: { strokeStyle:'rgb(255, 255, 255)', fillStyle:'rgb(0, 0, 0)',
-          lineWidth: 1, millisPerLine: 1000, verticalSections: 10, }
+          lineWidth: 1, millisPerLine: 1000, verticalSections: 10, },
+  maxValue:1, minValue:-1
 });
 rod_smoothie.addTimeSeries(rodsetpoint,
   { strokeStyle:'rgb(0, 255, 0)', fillStyle:'rgba(0, 255, 0, 0.3)', lineWidth:2 });
