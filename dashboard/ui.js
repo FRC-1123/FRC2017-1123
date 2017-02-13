@@ -264,22 +264,22 @@ ui.turnCommand.button.onclick = function() {
 };
 
 ui.camera.minh.onchange = function() {
-    NetworkTables.setValue('camera/minh', parseInt(ui.camera.minh.value));
+    NetworkTables.setValue('camera/minh', parseFloat(ui.camera.minh.value));
 }
 ui.camera.mins.onchange = function() {
-    NetworkTables.setValue('camera/mins', parseInt(ui.camera.mins.value));
+    NetworkTables.setValue('camera/mins', parseFloat(ui.camera.mins.value));
 }
 ui.camera.minv.onchange = function() {
-    NetworkTables.setValue('camera/minv', parseInt(ui.camera.minv.value));
+    NetworkTables.setValue('camera/minv', parseFloat(ui.camera.minv.value));
 }
 ui.camera.maxh.onchange = function() {
-    NetworkTables.setValue('camera/maxh', parseInt(ui.camera.maxh.value));
+    NetworkTables.setValue('camera/maxh', parseFloat(ui.camera.maxh.value));
 }
 ui.camera.maxs.onchange = function() {
-    NetworkTables.setValue('camera/maxs', parseInt(ui.camera.maxs.value));
+    NetworkTables.setValue('camera/maxs', parseFloat(ui.camera.maxs.value));
 }
 ui.camera.maxv.onchange = function() {
-    NetworkTables.setValue('camera/maxv', parseInt(ui.camera.maxv.value));
+    NetworkTables.setValue('camera/maxv', parseFloat(ui.camera.maxv.value));
 }
 
 // Reset gyro value to 0 on click
