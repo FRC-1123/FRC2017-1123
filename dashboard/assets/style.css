@@ -122,10 +122,11 @@ text {
     fill: white;
 }
 #gyro {
-    width: 175px;
-    height: 175px;
-    margin-left: 30px;
-    margin-top: 15px;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    bottom: 10px;
+    left: 1vw;
 }
 #gyro-arm {
     -webkit-transform-origin: bottom;
