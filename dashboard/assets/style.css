@@ -11,7 +11,7 @@
     src: url(Steamwreck.otf);
 }
 body {
-    font: 16px sans-serif;
+    font: 14px sans-serif;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -116,7 +116,7 @@ svg * {
     transform-origin: center;
 }
 text {
-    font-size: 16px;
+    font-size: 14px;
     letter-spacing: 2px;
     stroke: none;
     fill: white;

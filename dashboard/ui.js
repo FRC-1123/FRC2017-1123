@@ -4,12 +4,13 @@ var driveactual = new TimeSeries();
 var drive_smoothie = new SmoothieChart({
   grid: { strokeStyle:'rgb(255, 255, 255)', fillStyle:'rgb(0, 0, 0)',
           lineWidth: 1, millisPerLine: 1000, verticalSections: 10, },
-  maxValue:100, minValue:-100
+  labels: {fillStyle:'rgb(255, 255, 0)'},
+  maxValue: 100, minValue: -100
 });
 drive_smoothie.addTimeSeries(drivesetpoint,
-  { strokeStyle:'rgb(0, 255, 0)', fillStyle:'rgba(0, 255, 0, 0.3)', lineWidth:2 });
+  { strokeStyle:'rgb(100, 255, 100)', fillStyle:'rgba(100, 255, 100, 0.3)', lineWidth:2 });
 drive_smoothie.addTimeSeries(driveactual,
-  { strokeStyle:'rgb(255, 0, 0)', fillStyle:'rgba(255, 0, 0, 0.3)', lineWidth:2 });
+  { strokeStyle:'rgb(255, 100, 100)', fillStyle:'rgba(255, 100, 100, 0.3)', lineWidth:2 });
 drive_smoothie.streamTo(document.getElementById("drivegraph"));
 
 // drive-to-rod PID graph
@@ -18,12 +19,13 @@ var rodactual = new TimeSeries();
 var rod_smoothie = new SmoothieChart({
   grid: { strokeStyle:'rgb(255, 255, 255)', fillStyle:'rgb(0, 0, 0)',
           lineWidth: 1, millisPerLine: 1000, verticalSections: 10, },
-  maxValue:1, minValue:-1
+  labels: {fillStyle:'rgb(255, 255, 0)'},
+  maxValue: 1, minValue: -1
 });
 rod_smoothie.addTimeSeries(rodsetpoint,
-  { strokeStyle:'rgb(0, 255, 0)', fillStyle:'rgba(0, 255, 0, 0.3)', lineWidth:2 });
+  { strokeStyle:'rgb(100, 255, 100)', fillStyle:'rgba(100, 255, 100, 0.3)', lineWidth:2 });
 rod_smoothie.addTimeSeries(rodactual,
-  { strokeStyle:'rgb(255, 0, 0)', fillStyle:'rgba(255, 0, 0, 0.3)', lineWidth:2 });
+  { strokeStyle:'rgb(255, 100, 100)', fillStyle:'rgba(255, 100, 100, 0.3)', lineWidth:2 });
 rod_smoothie.streamTo(document.getElementById("rodgraph"));
 
 // Define UI elements
