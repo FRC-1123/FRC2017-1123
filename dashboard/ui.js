@@ -50,7 +50,14 @@ var ui = {
         minv: document.getElementById('minv'),
         maxh: document.getElementById('maxh'),
         maxs: document.getElementById('maxs'),
-        maxv: document.getElementById('maxv'),
+        maxv: document.getElementById('maxv')
+    },
+    rod: {
+        kp: document.getElementById('rodp'),
+        ki: document.getElementById('rodi'),
+        kd: document.getElementById('rodd'),
+        kf: document.getElementById('rodf'),
+        ktolerance: document.getElementById('rodtolerance')
     }
 };
 
@@ -93,7 +100,7 @@ function onValueChanged(key, value, isNew) {
             }
             ui.gyro.arm.style.transform = ('rotate(' + ui.gyro.visualVal + 'deg)');
             ui.gyro.number.innerHTML = ui.gyro.visualVal + 'º';
-            
+
             // update yaw value
             ui.navx.yaw.innerHTML = value;
             break;
@@ -265,22 +272,38 @@ ui.turnCommand.button.onclick = function() {
 
 ui.camera.minh.onchange = function() {
     NetworkTables.setValue('camera/minh', parseFloat(ui.camera.minh.value));
-}
+};
 ui.camera.mins.onchange = function() {
     NetworkTables.setValue('camera/mins', parseFloat(ui.camera.mins.value));
-}
+};
 ui.camera.minv.onchange = function() {
     NetworkTables.setValue('camera/minv', parseFloat(ui.camera.minv.value));
-}
+};
 ui.camera.maxh.onchange = function() {
     NetworkTables.setValue('camera/maxh', parseFloat(ui.camera.maxh.value));
-}
+};
 ui.camera.maxs.onchange = function() {
     NetworkTables.setValue('camera/maxs', parseFloat(ui.camera.maxs.value));
-}
+};
 ui.camera.maxv.onchange = function() {
     NetworkTables.setValue('camera/maxv', parseFloat(ui.camera.maxv.value));
-}
+};
+
+ui.rod.kp.onchange = function() {
+    NetworkTables.setValue('rod/kp', parseFloat(ui.rod.kp.value));
+};
+ui.rod.ki.onchange = function() {
+    NetworkTables.setValue('rod/ki', parseFloat(ui.rod.ki.value));
+};
+ui.rod.kd.onchange = function() {
+    NetworkTables.setValue('rod/kd', parseFloat(ui.rod.kd.value));
+};
+ui.rod.kf.onchange = function() {
+    NetworkTables.setValue('rod/kf', parseFloat(ui.rod.kf.value));
+};
+ui.rod.ktolerance.onchange = function() {
+    NetworkTables.setValue('rod/ktolerance', parseFloat(ui.rod.ktolerance.value));
+};
 
 // Reset gyro value to 0 on click
 ui.gyro.container.onclick = function() {

@@ -7,6 +7,7 @@ import subsystems
 from commands.followjoystick import FollowJoystick
 from inputs import camera
 from inputs import oi
+from networktables import NetworkTables
 
 logging.basicConfig(level=logging.INFO)
 
@@ -17,15 +18,24 @@ class DriveToRod(PIDCommand):
     """
 
     def __init__(self):
-        # PID constants
-        kp = 0.01
-        ki = 0.005
-        kd = 0.002
-        kf = 0.0
-        ktolerance = 0.02
+        self.sd = NetworkTables.getTable("SmartDashboard")
 
-        # initialize PID controller with a period of 0.05 seconds
-        super().__init__(kp, ki, kd, 0.05, kf, "Drive To Rod")
+        # PID constants
+        # kp = 0.01
+        # ki = 0.005
+        # kd = 0.002
+        # kf = 0.0
+        # ktolerance = 0.02
+
+        # NetworkTables variables for tuning
+        kp = self.sd.getNumber("rod/kp")
+        ki = self.sd.getNumber("rod/ki")
+        kd = self.sd.getNumber("rod/kd")
+        kf = self.sd.getNumber("rod/kf")
+        ktolerance = self.sd.getNumber("rod/ktolerance")
+
+        # initialize PID controller with a period of 0.02 seconds
+        super().__init__(kp, ki, kd, 0.02, kf, "Drive To Rod")
 
         self.requires(subsystems.motors)
 

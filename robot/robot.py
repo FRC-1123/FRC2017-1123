@@ -29,6 +29,13 @@ class Robot(CommandBasedRobot):
         self.sd.putStringArray("autonomous/options", ["left", "center", "right"])
         self.sd.putString("autonomous/selected", "center")
 
+        # drive-to-rod PID values (for tuning)
+        self.sd.putNumber("rod/kp", 0.01)
+        self.sd.putNumber("rod/ki", 0.005)
+        self.sd.putNumber("rod/kd", 0.002)
+        self.sd.putNumber("rod/kf", 0.0)
+        self.sd.putNumber("rod/ktolerance", 0.02)
+
         navx.init()
         oi.init()
         wpilib.CameraServer.launch('inputs/camera.py:start')
