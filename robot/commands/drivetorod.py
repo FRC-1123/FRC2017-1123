@@ -39,6 +39,8 @@ class DriveToRod(PIDCommand):
 
         self.is_lost = False  # can't find the rod
 
+        self.last_output = 0  # for if the rod is lost
+
     def returnPIDInput(self):
         if oi.controller.getStartButton():  # return control back to controller
             FollowJoystick().start()
@@ -58,6 +60,11 @@ class DriveToRod(PIDCommand):
 
     def usePIDOutput(self, output):
         if self.is_lost:  # if lost, slowly spin in circle
-            subsystems.motors.robot_drive.setLeftRightMotorOutputs(0.2, 0.2)
+            # TODO: check signs of motor outputs
+            if self.last_output > 0:  # keep turning right
+                subsystems.motors.robot_drive.setLeftRightMotorOutputs(0.1, 0.1)
+            else:  # keep turning left
+                subsystems.motors.robot_drive.setLeftRightMotorOutputs(-0.1, -0.1)
         else:
             subsystems.motors.robot_drive.drive(.4, output)
+            self.last_output = output
