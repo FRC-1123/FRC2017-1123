@@ -26,6 +26,12 @@ class Camera:
         self.max_h, self.max_s, self.max_v = 80, 255, 255
 
         self.sd = NetworkTables.getTable("SmartDashboard")
+        self.sd.putNumber("camera/minh", self.min_h)
+        self.sd.putNumber("camera/mins", self.min_s)
+        self.sd.putNumber("camera/minv", self.min_v)
+        self.sd.putNumber("camera/maxh", self.max_h)
+        self.sd.putNumber("camera/maxs", self.max_s)
+        self.sd.putNumber("camera/maxv", self.max_v)
         self.sd.putNumber("rod_x", -1)  # rod position unknown
 
         self.logger = logging.getLogger("robot")
@@ -119,6 +125,15 @@ class Camera:
         """
         Finds two largest green four-sided contours.
         """
+
+        # for tuning through the dashboard; should comment out when done tuning
+        self.min_h = self.sd.getNumber("camera/minh")
+        self.min_s = self.sd.getNumber("camera/mins")
+        self.min_v = self.sd.getNumber("camera/minv")
+        self.max_h = self.sd.getNumber("camera/maxh")
+        self.max_s = self.sd.getNumber("camera/maxs")
+        self.max_v = self.sd.getNumber("camera/maxv")
+
         # filter green
         hsv = cv2.cvtColor(self.frame, cv2.COLOR_BGR2HSV)
         mask = cv2.inRange(hsv, np.array([self.min_h, self.min_s, self.min_v]), np.array([self.max_h, self.max_s, self.max_v]))

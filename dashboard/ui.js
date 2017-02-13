@@ -43,7 +43,15 @@ var ui = {
         left: document.getElementById('left-output'),
         right: document.getElementById('right-output')
     },
-    pneumatic: document.getElementById('pneumatic')
+    pneumatic: document.getElementById('pneumatic'),
+    camera: {
+        minh: document.getElementById('minh'),
+        mins: document.getElementById('mins'),
+        minv: document.getElementById('minv'),
+        maxh: document.getElementById('maxh'),
+        maxs: document.getElementById('maxs'),
+        maxv: document.getElementById('maxv'),
+    }
 };
 
 // Sets function to be called on NetworkTables connect. Commented out because it's usually not necessary.
@@ -254,6 +262,25 @@ ui.forwardCommand.button.onclick = function() {
 ui.turnCommand.button.onclick = function() {
     NetworkTables.setValue('/SmartDashboard/turnCommand', true);
 };
+
+ui.camera.minh.onchange = function() {
+    NetworkTables.setValue('camera/minh', parseInt(ui.camera.minh.value));
+}
+ui.camera.mins.onchange = function() {
+    NetworkTables.setValue('camera/mins', parseInt(ui.camera.mins.value));
+}
+ui.camera.minv.onchange = function() {
+    NetworkTables.setValue('camera/minv', parseInt(ui.camera.minv.value));
+}
+ui.camera.maxh.onchange = function() {
+    NetworkTables.setValue('camera/maxh', parseInt(ui.camera.maxh.value));
+}
+ui.camera.maxs.onchange = function() {
+    NetworkTables.setValue('camera/maxs', parseInt(ui.camera.maxs.value));
+}
+ui.camera.maxv.onchange = function() {
+    NetworkTables.setValue('camera/maxv', parseInt(ui.camera.maxv.value));
+}
 
 // Reset gyro value to 0 on click
 ui.gyro.container.onclick = function() {
