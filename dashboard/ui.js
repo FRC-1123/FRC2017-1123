@@ -1,13 +1,28 @@
-var smoothie = new SmoothieChart();
-smoothie.streamTo(document.getElementById("pidgraph"));
+// RectifiedDrive PID graph
+var drivesetpoint = new TimeSeries();
+var driveactual = new TimeSeries();
+var drive_smoothie = new SmoothieChart({
+  grid: { strokeStyle:'rgb(255, 255, 255)', fillStyle:'rgb(0, 0, 0)',
+          lineWidth: 1, millisPerLine: 1000, verticalSections: 10, }
+});
+drive_smoothie.addTimeSeries(drivesetpoint,
+  { strokeStyle:'rgb(0, 255, 0)', fillStyle:'rgba(0, 255, 0, 0.3)', lineWidth:2 });
+drive_smoothie.addTimeSeries(driveactual,
+  { strokeStyle:'rgb(255, 0, 0)', fillStyle:'rgba(255, 0, 0, 0.3)', lineWidth:2 });
+drive_smoothie.streamTo(document.getElementById("drivegraph"));
 
-// Data
-var setpoint = new TimeSeries();
-var actual = new TimeSeries();
-
-// Add to SmoothieChart
-smoothie.addTimeSeries(line1);
-smoothie.addTimeSeries(line2);
+// drive-to-rod PID graph
+var rodsetpoint = new TimeSeries();
+var rodactual = new TimeSeries();
+var rod_smoothie = new SmoothieChart({
+  grid: { strokeStyle:'rgb(255, 255, 255)', fillStyle:'rgb(0, 0, 0)',
+          lineWidth: 1, millisPerLine: 1000, verticalSections: 10, }
+});
+rod_smoothie.addTimeSeries(rodsetpoint,
+  { strokeStyle:'rgb(0, 255, 0)', fillStyle:'rgba(0, 255, 0, 0.3)', lineWidth:2 });
+rod_smoothie.addTimeSeries(rodactual,
+  { strokeStyle:'rgb(255, 0, 0)', fillStyle:'rgba(255, 0, 0, 0.3)', lineWidth:2 });
+rod_smoothie.streamTo(document.getElementById("rodgraph"));
 
 // Define UI elements
 var ui = {
@@ -216,17 +231,17 @@ function onValueChanged(key, value, isNew) {
 
         // for tuning RectifiedDrive
         case '/SmartDashboard/drive/setpoint':
-            setpoint.append(new Date().getTime(), value);
+            drivesetpoint.append(new Date().getTime(), value);
             break;
         case '/SmartDashboard/drive/actual':
-            actual.append(new Date().getTime(), value);
+            driveactual.append(new Date().getTime(), value);
             break;
 
         // for tuning drive-to-rod
-//        case '/SmartDashboard/rod/actual':
-//            setpoint.append(new Date().getTime(), 0.5);
-//            actual.append(new Date().getTime(), value);
-//            break;
+        case '/SmartDashboard/rod/actual':
+            rodsetpoint.append(new Date().getTime(), 0.5);
+            rodactual.append(new Date().getTime(), value);
+            break;
     }
 
     // The following code manages tuning section of the interface.
