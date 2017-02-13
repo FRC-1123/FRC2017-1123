@@ -1,5 +1,6 @@
 import logging
 
+from networktables import NetworkTables
 from wpilib.command import PIDCommand
 
 import robot
@@ -7,7 +8,6 @@ import subsystems
 from commands.followjoystick import FollowJoystick
 from inputs import camera
 from inputs import oi
-from networktables import NetworkTables
 
 logging.basicConfig(level=logging.INFO)
 
@@ -64,6 +64,7 @@ class DriveToRod(PIDCommand):
                 FollowJoystick().start()
             return 0
         else:
+            self.sd.putNumber("rod/actual", rod_pos)
             error = .5 - rod_pos[0]  # error as horizontal distance from center
             self.logger.info("current rod error: {}".format(error))
             return error

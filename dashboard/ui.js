@@ -1,3 +1,14 @@
+var smoothie = new SmoothieChart();
+smoothie.streamTo(document.getElementById("pidgraph"));
+
+// Data
+var setpoint = new TimeSeries();
+var actual = new TimeSeries();
+
+// Add to SmoothieChart
+smoothie.addTimeSeries(line1);
+smoothie.addTimeSeries(line2);
+
 // Define UI elements
 var ui = {
     timer: document.getElementById('timer'),
@@ -202,6 +213,20 @@ function onValueChanged(key, value, isNew) {
         case '/SmartDashboard/autonomous/selected':
             ui.autoSelect.value = value;
             break;
+
+        // for tuning RectifiedDrive
+        case '/SmartDashboard/drive/setpoint':
+            setpoint.append(new Date().getTime(), value);
+            break;
+        case '/SmartDashboard/drive/actual':
+            actual.append(new Date().getTime(), value);
+            break;
+
+        // for tuning drive-to-rod
+//        case '/SmartDashboard/rod/actual':
+//            setpoint.append(new Date().getTime(), 0.5);
+//            actual.append(new Date().getTime(), value);
+//            break;
     }
 
     // The following code manages tuning section of the interface.

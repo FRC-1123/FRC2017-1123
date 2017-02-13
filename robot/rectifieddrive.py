@@ -43,7 +43,10 @@ class RectifiedDrive:
         elif self.squared_inputs:
             angular_vel_frac = angular_vel_frac ** 2 * angular_vel_frac / abs(angular_vel_frac)
         angular_vel = angular_vel_frac * self.max_angular_speed
-        error = navx.ahrs.getRate() - angular_vel
+        actual = navx.ahrs.getRate()
+        self.sd.putNumber("drive/setpoint", angular_vel)
+        self.sd.putNumber("drive/actual", actual)
+        error = actual - angular_vel
         output = self.calc_pid(error)
         left_output = power + output
         if abs(left_output) > 1.0:  # normalize if magnitude greater than 1
