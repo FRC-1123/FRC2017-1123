@@ -1,3 +1,5 @@
+from networktables import NetworkTables
+
 import subsystems
 from inputs import navx
 
@@ -8,13 +10,16 @@ class RectifiedDrive:
     It sets the motor outputs given a desired power and angular velocity using the NavX and a PID controller.
     """
 
-    def __init__(self, max_angular_speed, kp=0.01, ki=0.005, kd=0.002, period=0.05, tolerance=0.1, squared_inputs=True):
+    def __init__(self, max_angular_speed, period=0.02, tolerance=0.1, squared_inputs=True):
+        self.sd = NetworkTables.getTable("SmartDashboard")
+
         # PID values for angular velocity
-        self.kp = kp
-        self.ki = ki
-        self.kd = kd
+        self.kp = None
+        self.ki = None
+        self.kd = None
         # tolerance (as a fraction of max_angular_speed) for driving straight forward
         self.tolerance = abs(tolerance)
+
         self.max_angular_speed = abs(max_angular_speed)  # maximum angular velocity magnitude
         # squared inputs for angular velocity cause rectified drive to be less responsive at small deviations from straight forward
         self.squared_inputs = squared_inputs
@@ -26,6 +31,11 @@ class RectifiedDrive:
         """
         Sets the motor outputs based on the given power and angular velocity (as a fraction of max_angular_speed).
         """
+        self.kp = self.sd.getNumber("drive/kp")
+        self.ki = self.sd.getNumber("drive/ki")
+        self.kd = self.sd.getNumber("drive/kd")
+        self.tolerance = abs(self.sd.getNumber("drive/ktolerance"))
+
         if abs(angular_vel_frac) < self.tolerance:
             if power < 0.02:  # just reset integral if close to 0
                 self.integral = 0

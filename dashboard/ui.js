@@ -58,6 +58,13 @@ var ui = {
         kd: document.getElementById('rodd'),
         kf: document.getElementById('rodf'),
         ktolerance: document.getElementById('rodtolerance')
+    },
+    drive: {
+        kp: document.getElementById('drivep'),
+        ki: document.getElementById('drivei'),
+        kd: document.getElementById('drived'),
+        kf: document.getElementById('drivef'),
+        ktolerance: document.getElementById('drivetolerance')
     }
 };
 
@@ -303,6 +310,22 @@ ui.rod.kf.onchange = function() {
 };
 ui.rod.ktolerance.onchange = function() {
     NetworkTables.setValue('rod/ktolerance', parseFloat(ui.rod.ktolerance.value));
+};
+
+ui.drive.kp.onchange = function() {
+    NetworkTables.setValue('drive/kp', parseFloat(ui.drive.kp.value));
+};
+ui.drive.ki.onchange = function() {
+    NetworkTables.setValue('drive/ki', parseFloat(ui.drive.ki.value));
+};
+ui.drive.kd.onchange = function() {
+    NetworkTables.setValue('drive/kd', parseFloat(ui.drive.kd.value));
+};
+ui.drive.kf.onchange = function() {
+    NetworkTables.setValue('drive/kf', parseFloat(ui.drive.kf.value));
+};
+ui.drive.ktolerance.onchange = function() {
+    NetworkTables.setValue('drive/ktolerance', parseFloat(ui.drive.ktolerance.value));
 };
 
 // Reset gyro value to 0 on click
