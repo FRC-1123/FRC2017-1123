@@ -1,8 +1,7 @@
 from wpilib.command.commandgroup import CommandGroup
-from wpilib.command.waitcommand import WaitCommand
 
+from commands.drivetorod import DriveToRod
 from commands.rotate import Rotate
-from commands.setspeed import SetSpeed
 
 
 class AutonomousProgram(CommandGroup):
@@ -11,11 +10,10 @@ class AutonomousProgram(CommandGroup):
 
         if mode == "left":
             self.addSequential(Rotate(30))
-            self.addSequential(WaitCommand(timeout=1))
-            self.addSequential(SetSpeed(power=-0.2, timeoutInSeconds=1))
+            self.addSequential(DriveToRod())
         elif mode == "right":
-            self.addSequential(Rotate(-30))
-            self.addSequential(WaitCommand(timeout=1))
-            self.addSequential(SetSpeed(power=-0.2, timeoutInSeconds=1))
+            self.addSequential(Rotate(30))
+            self.addSequential(DriveToRod())
         else:
-            self.addSequential(SetSpeed(power=-0.2, timeoutInSeconds=1))
+            self.addSequential(Rotate(30))
+            self.addSequential(DriveToRod())

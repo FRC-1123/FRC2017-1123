@@ -18,7 +18,7 @@ class Camera:
         self.tape_contours = None  # tuple of pixel coords of tape contours
         self.rod_pos = None  # tuple of coords of rod as fraction of full width and height
         self.no_rod_count = 0  # how many loops without being able to find the rod
-        self.no_rod_count_max = 10  # how many loops of not being able to find the rod before setting rod_pos = None
+        self.no_rod_count_max = 30  # how many loops of not being able to find the rod before setting rod_pos = None
 
         # hsv range for tape contour detection
         # h: [0, 179], s: [0, 255], v: [0, 255]
@@ -120,7 +120,7 @@ class Camera:
         Draws tape contours in blue on frame.
         """
         if self.tape_contours is not None:
-            cv2.drawContours(self.frame, self.tape_contours, -1, (255, 50, 50), 2)
+            cv2.drawContours(self.frame, self.tape_contours, -1, (255, 100, 100), 2)
 
     def update_tape_contours(self):
         """
