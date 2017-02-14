@@ -6,6 +6,7 @@ from wpilib.command import PIDCommand
 import robot
 import subsystems
 from commands.followjoystick import FollowJoystick
+from commands.rumblecontroller import RumbleController
 from inputs import camera
 from inputs import oi
 
@@ -52,7 +53,7 @@ class DriveToRod(PIDCommand):
         self.last_output = 0  # for if the rod is lost
 
     def returnPIDInput(self):
-        if oi.controller.getStartButton():  # return control back to controller
+        if oi.controller.getBackButton():  # return control back to controller
             FollowJoystick().start()
             return 0
         rod_pos = camera.get_rod_pos()
@@ -60,13 +61,14 @@ class DriveToRod(PIDCommand):
             self.logger.critical("Couldn't find the rod!")
             self.is_lost = True
             if not robot.is_autonomous:  # return control to controller if not in autonomous
-                self.logger.critical("Returned control to the controller!")
+                self.logger.critical("Returning control to the controller!")
+                RumbleController(0.5).start()
                 FollowJoystick().start()
             return 0
         else:
-            self.sd.putNumber("rod/actual", rod_pos)
+            self.sd.putNumber("rod/actual", rod_pos[0])
             error = .5 - rod_pos[0]  # error as horizontal distance from center
-            self.logger.info("current rod error: {}".format(error))
+            # self.logger.info("current rod error: {}".format(error))
             return error
 
     def usePIDOutput(self, output):

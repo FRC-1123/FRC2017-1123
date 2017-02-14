@@ -3,10 +3,10 @@ import logging
 
 import cv2
 import numpy as np
-from cscore import CameraServer
 from networktables import NetworkTables
 
 import robotmap
+from cscore import CameraServer
 
 
 class Camera:
@@ -43,6 +43,7 @@ class Camera:
         # Capture from the first USB Camera on the system
         camera = cs.startAutomaticCapture()
         camera.setResolution(self.width, self.height)
+        camera.setExposureManual(2)
 
         # Get a CvSink. This will capture images from the camera
         cv_sink = cs.getVideo()
@@ -119,7 +120,7 @@ class Camera:
         Draws tape contours in blue on frame.
         """
         if self.tape_contours is not None:
-            cv2.drawContours(self.frame, self.tape_contours, -1, (255, 0, 0), 2)
+            cv2.drawContours(self.frame, self.tape_contours, -1, (255, 50, 50), 2)
 
     def update_tape_contours(self):
         """
@@ -151,7 +152,7 @@ class Camera:
             approx = cv2.approxPolyDP(c, .05 * perim, True)
             hull = cv2.convexHull(approx)
             hull_area = cv2.contourArea(hull)
-            solidity = area / hull_area
+            solidity = area / hull_area if hull_area > 0 else 0  # account for divide-by-zero
             if solidity < 0.6:  # don't consider if it's some weird concave polygon
                 continue
             # if len(approx) != 4:  # only consider quadrilaterals
