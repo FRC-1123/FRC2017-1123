@@ -12,7 +12,6 @@ from commands.updatenetworktables import UpdateNetworkTables
 from inputs import navx
 from inputs import oi
 
-is_autonomous = False
 
 class Robot(CommandBasedRobot):
     def robotInit(self):
@@ -28,6 +27,7 @@ class Robot(CommandBasedRobot):
         # set autonomous modes
         self.sd.putStringArray("autonomous/options", ["left", "center", "right"])
         self.sd.putString("autonomous/selected", "center")
+        self.sd.putBoolean("isautonomous", False)
 
         # drive-to-rod PID values (for tuning)
         self.sd.putNumber("rod/kp", 0.01)
@@ -48,8 +48,7 @@ class Robot(CommandBasedRobot):
         wpilib.CameraServer.launch('inputs/camera.py:start')
 
     def autonomousInit(self):
-        global is_autonomous
-        is_autonomous = True
+        self.sd.putBoolean("isautonomous", True)
         UpdateNetworkTables().start()
         if self.sd.containsKey("autonomous/selected"):
             AutonomousProgram(self.sd.getString("autonomous/selected")).start()
@@ -58,12 +57,10 @@ class Robot(CommandBasedRobot):
         self.logger.info("Started autonomous.")
 
     def teleopInit(self):
-        global is_autonomous
-        is_autonomous = False
+        self.sd.putBoolean("isautonomous", False)
         self.sd.putBoolean("timeRunning", True)  # start dashboard timer
         # RespondToController().start()
         UpdateNetworkTables().start()
-        # ServeStream().start()
         self.logger.info("Started teleop.")
 
 

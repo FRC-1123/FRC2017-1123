@@ -3,7 +3,6 @@ import logging
 from networktables import NetworkTables
 from wpilib.command import PIDCommand
 
-import robot
 import subsystems
 from commands.followjoystick import FollowJoystick
 from commands.rumblecontroller import RumbleController
@@ -48,6 +47,7 @@ class DriveToRod(PIDCommand):
 
         self.logger = logging.getLogger("robot")
 
+        self.is_autonomous = self.sd.getBoolean("isautonomous")
         self.is_lost = False  # can't find the rod
 
         self.last_output = 0  # for if the rod is lost
@@ -60,7 +60,7 @@ class DriveToRod(PIDCommand):
         if rod_pos is None:
             self.logger.critical("Couldn't find the rod!")
             self.is_lost = True
-            if not robot.is_autonomous:  # return control to controller if not in autonomous
+            if not self.is_autonomous:  # return control to controller if not in autonomous
                 self.logger.critical("Returning control to the controller!")
                 RumbleController(0.5).start()
                 FollowJoystick().start()
