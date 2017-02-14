@@ -50,11 +50,13 @@ var ui = {
         arm: document.getElementById('robot-arm')
     },
     forwardCommand: {
-        button: document.getElementById('forward-button'),
-        //readout: document.getElementById('forward-readout')
+        button: document.getElementById('forward-button')
     },
     turnCommand: {
         button: document.getElementById('turn-right-button')
+    },
+    getNT: {
+        button: document.getElementById('get-nt-button')
     },
     tuning: {
         list: document.getElementById('tuning'),
@@ -322,54 +324,54 @@ ui.turnCommand.button.onclick = function() {
 };
 
 ui.camera.minh.onchange = function() {
-    NetworkTables.setValue('camera/minh', parseFloat(ui.camera.minh.value));
+    NetworkTables.setValue('/SmartDashboard/camera/minh', parseFloat(ui.camera.minh.value));
 };
 ui.camera.mins.onchange = function() {
-    NetworkTables.setValue('camera/mins', parseFloat(ui.camera.mins.value));
+    NetworkTables.setValue('/SmartDashboard/camera/mins', parseFloat(ui.camera.mins.value));
 };
 ui.camera.minv.onchange = function() {
-    NetworkTables.setValue('camera/minv', parseFloat(ui.camera.minv.value));
+    NetworkTables.setValue('/SmartDashboard/camera/minv', parseFloat(ui.camera.minv.value));
 };
 ui.camera.maxh.onchange = function() {
-    NetworkTables.setValue('camera/maxh', parseFloat(ui.camera.maxh.value));
+    NetworkTables.setValue('/SmartDashboard/camera/maxh', parseFloat(ui.camera.maxh.value));
 };
 ui.camera.maxs.onchange = function() {
-    NetworkTables.setValue('camera/maxs', parseFloat(ui.camera.maxs.value));
+    NetworkTables.setValue('/SmartDashboard/camera/maxs', parseFloat(ui.camera.maxs.value));
 };
 ui.camera.maxv.onchange = function() {
-    NetworkTables.setValue('camera/maxv', parseFloat(ui.camera.maxv.value));
+    NetworkTables.setValue('/SmartDashboard/camera/maxv', parseFloat(ui.camera.maxv.value));
 };
 
 ui.rod.kp.onchange = function() {
-    NetworkTables.setValue('rod/kp', parseFloat(ui.rod.kp.value));
+    NetworkTables.setValue('/SmartDashboard/rod/kp', parseFloat(ui.rod.kp.value));
 };
 ui.rod.ki.onchange = function() {
-    NetworkTables.setValue('rod/ki', parseFloat(ui.rod.ki.value));
+    NetworkTables.setValue('/SmartDashboard/rod/ki', parseFloat(ui.rod.ki.value));
 };
 ui.rod.kd.onchange = function() {
-    NetworkTables.setValue('rod/kd', parseFloat(ui.rod.kd.value));
+    NetworkTables.setValue('/SmartDashboard/rod/kd', parseFloat(ui.rod.kd.value));
 };
 ui.rod.kf.onchange = function() {
-    NetworkTables.setValue('rod/kf', parseFloat(ui.rod.kf.value));
+    NetworkTables.setValue('/SmartDashboard/rod/kf', parseFloat(ui.rod.kf.value));
 };
 ui.rod.ktolerance.onchange = function() {
-    NetworkTables.setValue('rod/ktolerance', parseFloat(ui.rod.ktolerance.value));
+    NetworkTables.setValue('/SmartDashboard/rod/ktolerance', parseFloat(ui.rod.ktolerance.value));
 };
 
 ui.drive.kp.onchange = function() {
-    NetworkTables.setValue('drive/kp', parseFloat(ui.drive.kp.value));
+    NetworkTables.setValue('/SmartDashboard/drive/kp', parseFloat(ui.drive.kp.value));
 };
 ui.drive.ki.onchange = function() {
-    NetworkTables.setValue('drive/ki', parseFloat(ui.drive.ki.value));
+    NetworkTables.setValue('/SmartDashboard/drive/ki', parseFloat(ui.drive.ki.value));
 };
 ui.drive.kd.onchange = function() {
-    NetworkTables.setValue('drive/kd', parseFloat(ui.drive.kd.value));
+    NetworkTables.setValue('/SmartDashboard/drive/kd', parseFloat(ui.drive.kd.value));
 };
 ui.drive.kf.onchange = function() {
-    NetworkTables.setValue('drive/kf', parseFloat(ui.drive.kf.value));
+    NetworkTables.setValue('/SmartDashboard/drive/kf', parseFloat(ui.drive.kf.value));
 };
 ui.drive.ktolerance.onchange = function() {
-    NetworkTables.setValue('drive/ktolerance', parseFloat(ui.drive.ktolerance.value));
+    NetworkTables.setValue('/SmartDashboard/drive/ktolerance', parseFloat(ui.drive.ktolerance.value));
 };
 
 // Reset gyro value to 0 on click
@@ -403,4 +405,28 @@ ui.tuning.get.onclick = function() {
 // Update NetworkTables when autonomous selector is changed
 ui.autoSelect.onchange = function() {
     NetworkTables.setValue('/SmartDashboard/autonomous/selected', this.value);
+};
+
+ui.getNT.button.onclick = function() {
+    // get NetworkTables values
+    ui.camera.minh.value = NetworkTables.getValue('/SmartDashboard/camera/minh');
+    console.log(NetworkTables.getValue('/SmartDashboard/camera/minh'));
+    ui.camera.mins.value = NetworkTables.getValue('/SmartDashboard/camera/mins');
+    ui.camera.minv.value = NetworkTables.getValue('/SmartDashboard/camera/minv');
+    ui.camera.maxh.value = NetworkTables.getValue('/SmartDashboard/camera/maxh');
+    ui.camera.maxs.value = NetworkTables.getValue('/SmartDashboard/camera/maxs');
+    ui.camera.maxv.value = NetworkTables.getValue('/SmartDashboard/camera/maxv');
+
+    ui.rod.kp.value = NetworkTables.getValue('/SmartDashboard/rod/kp');
+    console.log(NetworkTables.getValue('/SmartDashboard/rod/kp'));
+    ui.rod.ki.value = NetworkTables.getValue('/SmartDashboard/rod/ki');
+    ui.rod.kd.value = NetworkTables.getValue('/SmartDashboard/rod/kd');
+    ui.rod.kf.value = NetworkTables.getValue('/SmartDashboard/rod/kf');
+    ui.rod.ktolerance.value = NetworkTables.getValue('/SmartDashboard/rod/ktolerance');
+
+    ui.drive.kp.value = NetworkTables.getValue('/SmartDashboard/drive/kp');
+    ui.drive.ki.value = NetworkTables.getValue('/SmartDashboard/drive/ki');
+    ui.drive.kd.value = NetworkTables.getValue('/SmartDashboard/drive/kd');
+    ui.drive.kf.value = NetworkTables.getValue('/SmartDashboard/drive/kf');
+    ui.drive.ktolerance.value = NetworkTables.getValue('/SmartDashboard/drive/ktolerance');
 };
