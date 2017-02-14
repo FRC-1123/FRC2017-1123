@@ -22,8 +22,8 @@ class Camera:
 
         # hsv range for tape contour detection
         # h: [0, 179], s: [0, 255], v: [0, 255]
-        self.min_h, self.min_s, self.min_v = 35, 100, 100
-        self.max_h, self.max_s, self.max_v = 80, 255, 255
+        self.min_h, self.min_s, self.min_v = 80, 0, 200
+        self.max_h, self.max_s, self.max_v = 90, 150, 255
 
         self.sd = NetworkTables.getTable("SmartDashboard")
         self.sd.putNumber("camera/minh", self.min_h)
@@ -138,6 +138,10 @@ class Camera:
         # filter green
         hsv = cv2.cvtColor(self.frame, cv2.COLOR_BGR2HSV)
         mask = cv2.inRange(hsv, np.array([self.min_h, self.min_s, self.min_v]), np.array([self.max_h, self.max_s, self.max_v]))
+
+        # just display the mask (for tuning)
+        # self.frame = mask
+        # return
 
         # find two most likely retro-reflective tape contours
         contours = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)[1]
