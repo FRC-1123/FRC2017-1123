@@ -22,8 +22,8 @@ class Camera:
 
         # hsv range for tape contour detection
         # h: [0, 179], s: [0, 255], v: [0, 255]
-        self.min_h, self.min_s, self.min_v = 80, 0, 200
-        self.max_h, self.max_s, self.max_v = 90, 150, 255
+        self.min_h, self.min_s, self.min_v = 70, 0, 200
+        self.max_h, self.max_s, self.max_v = 85, 150, 255
 
         self.sd = NetworkTables.getTable("SmartDashboard")
         self.sd.putNumber("camera/minh", self.min_h)
@@ -44,6 +44,8 @@ class Camera:
         camera = cs.startAutomaticCapture()
         camera.setResolution(self.width, self.height)
         camera.setExposureManual(2)
+        camera.setBrightness(50)
+        camera.setWhiteBalanceManual(1)
 
         # Get a CvSink. This will capture images from the camera
         cv_sink = cs.getVideo()
