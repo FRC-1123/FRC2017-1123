@@ -27,4 +27,5 @@ class SetSpeed(TimedCommand):
         self.timer.delay(0.05)
 
     def end(self):
-        subsystems.motors.setSpeed(0)
+        # set outputs to 0 on end
+        subsystems.motors.robot_drive.setLeftRightMotorOutputs(0, 0)
