@@ -8,11 +8,14 @@ from wpilib.robotbase import RobotBase
 
 from .gearmech import GearMech
 from .motors import Motors
-from .switches import Switches
+
+# from .switches import Switches
 
 motors = None
 gear_mech = None
-switches = None
+
+
+# switches = None
 
 
 def init():
@@ -31,8 +34,6 @@ def init():
 
     motors = Motors()
 
-    #    front_camera = Camera()
-
     gear_mech = GearMech()
 
-    switches = Switches()
+    # switches = Switches()
