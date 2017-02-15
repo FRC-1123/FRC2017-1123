@@ -8,6 +8,7 @@ from commands.followjoystick import FollowJoystick
 from commands.rumblecontroller import RumbleController
 from inputs import camera
 from inputs import oi
+from inputs import sonar
 
 logging.basicConfig(level=logging.INFO)
 
@@ -34,8 +35,8 @@ class DriveToRod(PIDCommand):
         kf = self.sd.getNumber("rod/kf")
         ktolerance = self.sd.getNumber("rod/ktolerance")
 
-        # initialize PID controller with a period of 0.02 seconds
-        super().__init__(kp, ki, kd, 0.02, kf, "Drive To Rod")
+        # initialize PID controller with a period of 0.03 seconds
+        super().__init__(kp, ki, kd, 0.03, kf, "Drive To Rod")
 
         self.requires(subsystems.motors)
 
@@ -82,6 +83,10 @@ class DriveToRod(PIDCommand):
         else:
             subsystems.motors.robot_drive.drive(self.power, output)
             self.last_output = output
+
+    def isFinished(self):
+        # stop when within 5 centimeters of the wall
+        return sonar.front.get() < 0.1
 
     def end(self):
         subsystems.motors.robot_drive.setLeftRightMotorOutputs(0, 0)
