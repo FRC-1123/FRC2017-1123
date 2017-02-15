@@ -15,5 +15,4 @@ class AutonomousProgram(CommandGroup):
             self.addSequential(Rotate(30))
             self.addSequential(DriveToRod())
         else:
-            self.addSequential(Rotate(30))
             self.addSequential(DriveToRod())

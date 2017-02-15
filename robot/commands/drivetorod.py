@@ -17,7 +17,7 @@ class DriveToRod(PIDCommand):
     This command will find the rod and drive the robot towards it.
     """
 
-    def __init__(self):
+    def __init__(self, power=0.3):
         self.sd = NetworkTables.getTable("SmartDashboard")
 
         # PID constants
@@ -50,6 +50,7 @@ class DriveToRod(PIDCommand):
         self.is_autonomous = self.sd.getBoolean("isautonomous")
         self.is_lost = False  # can't find the rod
 
+        self.power = power
         self.last_output = 0  # for if the rod is lost
 
     def returnPIDInput(self):
@@ -79,5 +80,8 @@ class DriveToRod(PIDCommand):
             else:  # keep turning left
                 subsystems.motors.robot_drive.setLeftRightMotorOutputs(-0.1, -0.1)
         else:
-            subsystems.motors.robot_drive.drive(.4, output)
+            subsystems.motors.robot_drive.drive(self.power, output)
             self.last_output = output
+
+    def end(self):
+        subsystems.motors.robot_drive.setLeftRightMotorOutputs(0, 0)
