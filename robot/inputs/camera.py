@@ -3,10 +3,10 @@ import logging
 
 import cv2
 import numpy as np
-from cscore import CameraServer
 from networktables import NetworkTables
 
 import robotmap
+from cscore import CameraServer
 
 
 class Camera:
@@ -22,8 +22,12 @@ class Camera:
 
         # hsv range for tape contour detection
         # h: [0, 179], s: [0, 255], v: [0, 255]
+        # green
         self.min_h, self.min_s, self.min_v = 70, 0, 200
         self.max_h, self.max_s, self.max_v = 85, 150, 255
+        # blue
+        self.min_h, self.min_s, self.min_v = 95, 230, 230
+        self.max_h, self.max_s, self.max_v = 115, 255, 255
 
         self.sd = NetworkTables.getTable("SmartDashboard")
         self.sd.putNumber("camera/minh", self.min_h)
@@ -119,10 +123,10 @@ class Camera:
 
     def draw_tape_contours(self):
         """
-        Draws tape contours in blue on frame.
+        Draws tape contours in yellow on frame.
         """
         if self.tape_contours is not None:
-            cv2.drawContours(self.frame, self.tape_contours, -1, (255, 100, 100), 2)
+            cv2.drawContours(self.frame, self.tape_contours, -1, (0, 255, 255), 2)
 
     def update_tape_contours(self):
         """
@@ -153,7 +157,7 @@ class Camera:
         for c in contours:
             # remove noise
             area = cv2.contourArea(c)
-            if area < 30:
+            if area < 10:
                 continue
 
             # make sure height > width
