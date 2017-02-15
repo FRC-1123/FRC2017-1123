@@ -158,7 +158,7 @@ aside {
     height: 100vh;
 }
 aside > * {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 #gear-animation > i {

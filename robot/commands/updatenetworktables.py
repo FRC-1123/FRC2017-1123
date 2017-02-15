@@ -8,6 +8,7 @@ import subsystems
 from commands.rotate import Rotate
 from commands.setspeed import SetSpeed
 from inputs import navx
+from inputs import sonar
 
 logging.basicConfig(level=logging.INFO)
 
@@ -47,3 +48,6 @@ class UpdateNetworkTables(Command):
             # update motor output statuses
             self.sd.putNumber("leftOutput", subsystems.motors.left_motor.getSetpoint())
             self.sd.putNumber("rightOutput", subsystems.motors.right_motor.getSetpoint())
+
+            # update sonar readings
+            self.sd.putNumber("sonar/front", sonar.front.get())

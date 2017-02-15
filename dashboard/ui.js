@@ -46,6 +46,9 @@ var ui = {
         //angle: document.getElementById('navx-angle'),
         yaw: document.getElementById('navx-yaw')
     },
+    sonar: {
+        front: document.getElementById('sonar-front')
+    },
     robotDiagram: {
         arm: document.getElementById('robot-arm')
     },
@@ -142,6 +145,9 @@ function onValueChanged(key, value, isNew) {
 
             // update yaw value
             ui.navx.yaw.innerHTML = value;
+            break;
+        case '/SmartDashboard/sonar/front':
+            ui.sonar.front.innerHTML = value;
             break;
         case '/SmartDashboard/forwardCommand':
             // This button moves the robot forward for 1 second.

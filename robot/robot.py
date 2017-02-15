@@ -11,6 +11,7 @@ from commands.autonomous import AutonomousProgram
 from commands.updatenetworktables import UpdateNetworkTables
 from inputs import navx
 from inputs import oi
+from inputs import sonar
 
 
 class Robot(CommandBasedRobot):
@@ -44,6 +45,7 @@ class Robot(CommandBasedRobot):
         self.sd.putNumber("drive/ktolerance", 0.1)
 
         navx.init()
+        sonar.init()
         oi.init()
         wpilib.CameraServer.launch('inputs/camera.py:start')
 

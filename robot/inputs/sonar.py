@@ -3,13 +3,13 @@ from robotpy_ext.common_drivers.xl_max_sonar_ez import MaxSonarEZPulseWidth
 
 import robotmap
 
-sonar = None
+front = None
 
 
 def init():
     """
     Initialize sonar object.
     """
-    global sonar
+    global front
 
-    sonar = MaxSonarEZPulseWidth(robotmap.sonar.channel, meter)
+    front = MaxSonarEZPulseWidth(robotmap.sonar.front_channel, meter)
