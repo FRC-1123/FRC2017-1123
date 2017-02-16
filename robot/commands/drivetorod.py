@@ -45,6 +45,7 @@ class DriveToRod(PIDCommand):
         turnController.setOutputRange(-1.0, 1.0)
         turnController.setAbsoluteTolerance(ktolerance)
         turnController.setContinuous(True)
+        turnController.setSetpoint(0.5)  # want rod to be at center
 
         self.logger = logging.getLogger("robot")
 
@@ -57,7 +58,7 @@ class DriveToRod(PIDCommand):
     def returnPIDInput(self):
         if oi.controller.getBackButton():  # return control back to controller
             FollowJoystick().start()
-            return 0
+            return 0.5
         rod_pos = camera.get_rod_pos()
         if rod_pos is None:
             self.logger.critical("Couldn't find the rod!")
@@ -66,12 +67,10 @@ class DriveToRod(PIDCommand):
                 self.logger.critical("Returning control to the controller!")
                 RumbleController(0.5).start()
                 FollowJoystick().start()
-            return 0
+            return 0.5
         else:
             self.sd.putNumber("rod/actual", rod_pos[0])
-            error = .5 - rod_pos[0]  # error as horizontal distance from center
-            # self.logger.info("current rod error: {}".format(error))
-            return error
+            return rod_pos[0]
 
     def usePIDOutput(self, output):
         if self.is_lost:  # if lost, slowly spin in circle
