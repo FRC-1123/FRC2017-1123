@@ -2,30 +2,34 @@
 var drivesetpoint = new TimeSeries();
 var driveactual = new TimeSeries();
 var drive_smoothie = new SmoothieChart({
-  grid: { strokeStyle:'rgb(255, 255, 255)', fillStyle:'rgb(0, 0, 0)',
-          lineWidth: 1, millisPerLine: 1000, verticalSections: 10, },
-  labels: {fillStyle:'rgb(255, 255, 0)'},
-  maxValue: 100, minValue: -100
+    grid: {
+        strokeStyle: 'rgb(255, 255, 255)', fillStyle: 'rgb(0, 0, 0)',
+        lineWidth: 1, millisPerLine: 1000, verticalSections: 10,
+    },
+    labels: {fillStyle: 'rgb(255, 255, 0)'},
+    maxValue: 100, minValue: -100
 });
 drive_smoothie.addTimeSeries(drivesetpoint,
-  { strokeStyle:'rgb(100, 255, 100)', lineWidth:2 });
+    {strokeStyle: 'rgb(100, 255, 100)', lineWidth: 2});
 drive_smoothie.addTimeSeries(driveactual,
-  { strokeStyle:'rgb(255, 100, 100)', lineWidth:2 });
+    {strokeStyle: 'rgb(255, 100, 100)', lineWidth: 2});
 drive_smoothie.streamTo(document.getElementById("drivegraph"));
 
 // drive-to-rod PID graph
 var rodsetpoint = new TimeSeries();
 var rodactual = new TimeSeries();
 var rod_smoothie = new SmoothieChart({
-  grid: { strokeStyle:'rgb(255, 255, 255)', fillStyle:'rgb(0, 0, 0)',
-          lineWidth: 1, millisPerLine: 1000, verticalSections: 10, },
-  labels: {fillStyle:'rgb(255, 255, 0)'},
-  maxValue: 1, minValue: 0
+    grid: {
+        strokeStyle: 'rgb(255, 255, 255)', fillStyle: 'rgb(0, 0, 0)',
+        lineWidth: 1, millisPerLine: 1000, verticalSections: 10,
+    },
+    labels: {fillStyle: 'rgb(255, 255, 0)'},
+    maxValue: 1, minValue: 0
 });
 rod_smoothie.addTimeSeries(rodsetpoint,
-  { strokeStyle:'rgb(100, 255, 100)', lineWidth:2 });
+    {strokeStyle: 'rgb(100, 255, 100)', lineWidth: 2});
 rod_smoothie.addTimeSeries(rodactual,
-  { strokeStyle:'rgb(255, 100, 100)', lineWidth:2 });
+    {strokeStyle: 'rgb(255, 100, 100)', lineWidth: 2});
 rod_smoothie.streamTo(document.getElementById("rodgraph"));
 
 // Define UI elements
@@ -177,7 +181,7 @@ function onValueChanged(key, value, isNew) {
                 // Make sure timer is reset to black when it starts
                 ui.timer.style.color = 'white';
                 // Function below adjusts time left every second
-                var countdown = setInterval(function() {
+                var countdown = setInterval(function () {
                     s--; // Subtract one second
                     // Minutes (m) is equal to the total seconds divided by sixty with the decimal removed.
                     var m = Math.floor(s / 60);
@@ -286,7 +290,7 @@ function onValueChanged(key, value, isNew) {
                 input.type = 'text';
             }
             // Create listener for value of input being modified
-            input.onchange = function() {
+            input.onchange = function () {
                 switch (input.type) { // Figure out how to pass data based on data type
                     case 'checkbox':
                         // For booleans, send bool of whether or not checkbox is checked
@@ -321,67 +325,67 @@ function onValueChanged(key, value, isNew) {
 }
 
 // The rest of the doc is listeners for UI elements being clicked on
-ui.forwardCommand.button.onclick = function() {
+ui.forwardCommand.button.onclick = function () {
     NetworkTables.setValue('/SmartDashboard/forwardCommand', true);
 };
 
-ui.turnCommand.button.onclick = function() {
+ui.turnCommand.button.onclick = function () {
     NetworkTables.setValue('/SmartDashboard/turnCommand', true);
 };
 
-ui.camera.minh.onchange = function() {
+ui.camera.minh.onchange = function () {
     NetworkTables.setValue('/SmartDashboard/camera/minh', parseFloat(ui.camera.minh.value));
 };
-ui.camera.mins.onchange = function() {
+ui.camera.mins.onchange = function () {
     NetworkTables.setValue('/SmartDashboard/camera/mins', parseFloat(ui.camera.mins.value));
 };
-ui.camera.minv.onchange = function() {
+ui.camera.minv.onchange = function () {
     NetworkTables.setValue('/SmartDashboard/camera/minv', parseFloat(ui.camera.minv.value));
 };
-ui.camera.maxh.onchange = function() {
+ui.camera.maxh.onchange = function () {
     NetworkTables.setValue('/SmartDashboard/camera/maxh', parseFloat(ui.camera.maxh.value));
 };
-ui.camera.maxs.onchange = function() {
+ui.camera.maxs.onchange = function () {
     NetworkTables.setValue('/SmartDashboard/camera/maxs', parseFloat(ui.camera.maxs.value));
 };
-ui.camera.maxv.onchange = function() {
+ui.camera.maxv.onchange = function () {
     NetworkTables.setValue('/SmartDashboard/camera/maxv', parseFloat(ui.camera.maxv.value));
 };
 
-ui.rod.kp.onchange = function() {
+ui.rod.kp.onchange = function () {
     NetworkTables.setValue('/SmartDashboard/rod/kp', parseFloat(ui.rod.kp.value));
 };
-ui.rod.ki.onchange = function() {
+ui.rod.ki.onchange = function () {
     NetworkTables.setValue('/SmartDashboard/rod/ki', parseFloat(ui.rod.ki.value));
 };
-ui.rod.kd.onchange = function() {
+ui.rod.kd.onchange = function () {
     NetworkTables.setValue('/SmartDashboard/rod/kd', parseFloat(ui.rod.kd.value));
 };
-ui.rod.kf.onchange = function() {
+ui.rod.kf.onchange = function () {
     NetworkTables.setValue('/SmartDashboard/rod/kf', parseFloat(ui.rod.kf.value));
 };
-ui.rod.ktolerance.onchange = function() {
+ui.rod.ktolerance.onchange = function () {
     NetworkTables.setValue('/SmartDashboard/rod/ktolerance', parseFloat(ui.rod.ktolerance.value));
 };
 
-ui.drive.kp.onchange = function() {
+ui.drive.kp.onchange = function () {
     NetworkTables.setValue('/SmartDashboard/drive/kp', parseFloat(ui.drive.kp.value));
 };
-ui.drive.ki.onchange = function() {
+ui.drive.ki.onchange = function () {
     NetworkTables.setValue('/SmartDashboard/drive/ki', parseFloat(ui.drive.ki.value));
 };
-ui.drive.kd.onchange = function() {
+ui.drive.kd.onchange = function () {
     NetworkTables.setValue('/SmartDashboard/drive/kd', parseFloat(ui.drive.kd.value));
 };
-ui.drive.kf.onchange = function() {
+ui.drive.kf.onchange = function () {
     NetworkTables.setValue('/SmartDashboard/drive/kf', parseFloat(ui.drive.kf.value));
 };
-ui.drive.ktolerance.onchange = function() {
+ui.drive.ktolerance.onchange = function () {
     NetworkTables.setValue('/SmartDashboard/drive/ktolerance', parseFloat(ui.drive.ktolerance.value));
 };
 
 // Reset gyro value to 0 on click
-ui.gyro.container.onclick = function() {
+ui.gyro.container.onclick = function () {
     // Store previous gyro val, will now be subtracted from val for callibration
     ui.gyro.offset = ui.gyro.val;
     // Trigger the gyro to recalculate value.
@@ -389,7 +393,7 @@ ui.gyro.container.onclick = function() {
 };
 
 // Open tuning section when button is clicked
-ui.tuning.button.onclick = function() {
+ui.tuning.button.onclick = function () {
     if (ui.tuning.list.style.display === 'none') {
         ui.tuning.list.style.display = 'block';
     } else {
@@ -398,22 +402,22 @@ ui.tuning.button.onclick = function() {
 };
 
 // Manages get and set buttons at the top of the tuning pane
-ui.tuning.set.onclick = function() {
+ui.tuning.set.onclick = function () {
     // Make sure the inputs have content, if they do update the NT value
     if (ui.tuning.name.value && ui.tuning.value.value) {
         NetworkTables.setValue('/SmartDashboard/' + ui.tuning.name.value, ui.tuning.value.value);
     }
 };
-ui.tuning.get.onclick = function() {
+ui.tuning.get.onclick = function () {
     ui.tuning.value.value = NetworkTables.getValue(ui.tuning.name.value);
 };
 
 // Update NetworkTables when autonomous selector is changed
-ui.autoSelect.onchange = function() {
+ui.autoSelect.onchange = function () {
     NetworkTables.setValue('/SmartDashboard/autonomous/selected', this.value);
 };
 
-ui.getNT.button.onclick = function() {
+ui.getNT.button.onclick = function () {
     // get NetworkTables values
     ui.camera.minh.value = NetworkTables.getValue('/SmartDashboard/camera/minh');
     console.log(NetworkTables.getValue('/SmartDashboard/camera/minh'));

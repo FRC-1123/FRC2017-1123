@@ -3,13 +3,16 @@
     margin: 0;
     padding: 0;
 }
+
 ::-webkit-scrollbar {
     display: none;
 }
+
 @font-face {
     font-family: steamwreck;
     src: url(Steamwreck.otf);
 }
+
 body {
     font: 14px sans-serif;
     -webkit-user-select: none;
@@ -20,6 +23,7 @@ body {
     overflow: hidden;
     background: #222;
 }
+
 button,
 input[type="text"],
 input[type="number"],
@@ -33,24 +37,29 @@ select {
     cursor: pointer;
     outline: 0;
 }
+
 .select-container {
     padding: 0;
     display: inline-block;
 }
+
 select {
     border: none;
     background: #444;
     color: white;
     height: 25px;
 }
+
 input[type="text"],
 input[type="number"] {
     cursor: text;
 }
+
 input[type="checkbox"] {
     -webkit-filter: saturate(0);
     filter: saturate(0);
 }
+
 /* Major interface panes, aside, article, header, etc. */
 
 body > * {
@@ -59,6 +68,7 @@ body > * {
     overflow: scroll;
     background: #222;
 }
+
 #timer {
     font-family: steamwreck;
     letter-spacing: 10px;
@@ -70,6 +80,7 @@ body > * {
     font-size: 20vh;
     line-height: .8;
 }
+
 header {
     width: 20vw;
     height: 20vh;
@@ -77,6 +88,7 @@ header {
     left: 30vw;
     color: white;
 }
+
 #camera {
     padding: 0;
     position: fixed;
@@ -89,24 +101,29 @@ header {
     background-size: cover;
     background-image: url('http://roborio-1123-frc.local:1182/?action=stream');
 }
+
 #tuning {
     width: 50vw;
     height: 80vh;
     bottom: 0;
     left: 0;
 }
+
 #tuning div {
     margin: 20px 0;
 }
+
 #tuning p {
     margin-bottom: 10px;
 }
+
 article {
     top: 0;
     left: 50vw;
     height: 100vh;
     width: 35vw;
 }
+
 svg * {
     stroke: white;
     fill: #222;
@@ -115,12 +132,14 @@ svg * {
     -ms-transform-origin: center;
     transform-origin: center;
 }
+
 text {
     font-size: 14px;
     letter-spacing: 2px;
     stroke: none;
     fill: white;
 }
+
 #gyro {
     width: 100px;
     height: 100px;
@@ -128,35 +147,42 @@ text {
     bottom: 10px;
     left: 1vw;
 }
+
 #gyro-arm {
     -webkit-transform-origin: bottom;
     -ms-transform-origin: bottom;
     transform-origin: bottom;
 }
+
 #gyro-number {
     font-size: 25px;
     text-anchor: middle;
 }
+
 #robot-diagram {
     position: absolute;
     bottom: 1px;
     right: 1vw;
 }
+
 #robot-arm {
     -webkit-transform-origin: right;
     -ms-transform-origin: right;
     transform-origin: right;
 }
+
 #team {
     font-size: 28px;
     letter-spacing: -1px;
 }
+
 aside {
     right: 0;
     top: 0;
     width: 15vw;
     height: 100vh;
 }
+
 aside > * {
     margin-bottom: 10px;
 }
@@ -180,11 +206,19 @@ aside > * {
 }
 
 @-webkit-keyframes barrelRoll {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 @-webkit-keyframes invertBarrelRoll {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(-360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(-360deg);
+    }
 }
