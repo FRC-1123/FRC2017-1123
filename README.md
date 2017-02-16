@@ -1,15 +1,38 @@
 FRC 2017 - Team 1123
 ====================
 
-This is AIM Robotics' (Team 1123) code for the 2017 FIRST Robotics Competition (FRC). The robot code is written in Python using [RobotPy](https://robotpy.github.io/). The dashboard is written with Electron and is based on the [FRC Dashboard](https://frcdashboard.github.io/) project.
+This is AIM Robotics' (Team 1123) code for the 2017 FIRST Robotics Competition (FRC). The robot code is written in
+Python using [RobotPy](https://robotpy.github.io/). The dashboard is written with Electron and is based on the
+[FRC Dashboard](https://frcdashboard.github.io/) project.
 
 
 Requirements
 ------------
-
 * Python 3.x
 * OpenCV 3.x
-* Python dependencies (For Linux, run `python3 -m pip install -r requirements.txt` . For Windows, run `py -3 -m pip install -r requirements.txt`.)
 * Node.js and npm
 * nodejs-legacy (only for Debian/Ubuntu)
-* Node dependencies (`cd` into the `dashboard` directory and run `npm install`.)
+
+
+Local Installation
+------------------
+After satisfying the requirements above, run the `localinstall.sh` Bash script in the `useful_scripts/` directory (make sure your computer has 
+internet access). It will install the dashboard and everything needed to deploy the robot code.
+
+
+Robot Installation
+------------------
+From a computer with pyfrc installed (e.g. one that you have run `localinstall.sh` on), run the `robotinstall.sh`
+script in the `useful_scripts/` directory. Make sure the computer has internet access and that it is connected to
+the robot through ethernet or USB.
+
+
+Usage
+-----
+To start the dashboard, run `startdashboard.sh` in the `useful_scripts/` directory.
+To deploy the robot code, run `python robot.py deploy` in the `robot/` directory.
+If you encounter camera errors, run `preparecamera.sh` in the `useful_scripts/` directory.
+
+
+----------
+Questions? Email me at [czhao39@gmail.com](mailto:czhao39@gmail.com).
