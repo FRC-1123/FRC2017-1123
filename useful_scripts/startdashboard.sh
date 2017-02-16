@@ -1,4 +1,6 @@
-cd dashboard/
+# Starts the dashboard and cleans up on exit.
+
+cd ../dashboard/
 pynetworktables2js --robot=roborio-1123-frc.local &
 PID=$!
 
