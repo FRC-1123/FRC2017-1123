@@ -22,6 +22,7 @@ class Rotate(PIDCommand):
 
         self.requires(subsystems.motors)
 
+        self.initial_angle = navx.ahrs.getFusedHeading()
         self.rate = 1.0
 
         turn_controller = self.getPIDController()
@@ -38,7 +39,7 @@ class Rotate(PIDCommand):
         # wpilib.LiveWindow.addActuator("DriveSystem", "RotateController", self.turnController)
 
     def returnPIDInput(self):
-        return navx.ahrs.getFusedHeading()
+        return navx.ahrs.getFusedHeading() - self.initial_angle
 
     def usePIDOutput(self, output):
         self.rate = output
