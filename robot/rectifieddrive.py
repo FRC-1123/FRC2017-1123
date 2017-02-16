@@ -10,7 +10,7 @@ class RectifiedDrive:
     It sets the motor outputs given a desired power and angular velocity using the NavX and a PID controller.
     """
 
-    def __init__(self, max_angular_speed, period=0.02, tolerance=0.1, squared_inputs=True):
+    def __init__(self, max_angular_speed, period=0.03, tolerance=0.1, squared_inputs=True):
         self.sd = NetworkTables.getTable("SmartDashboard")
 
         # PID values for angular velocity
@@ -37,15 +37,17 @@ class RectifiedDrive:
         self.tolerance = abs(self.sd.getNumber("drive/ktolerance"))
 
         if abs(angular_vel_frac) < self.tolerance:
-            if power < 0.02:  # just reset integral if close to 0
+            if power < 0.02:  # reset integral if close to 0
                 self.integral = 0
-            angular_vel_frac = 0  # just drive straight forward
+            angular_vel_frac = 0  # drive straight forward
         elif self.squared_inputs:
             angular_vel_frac = angular_vel_frac ** 2 * angular_vel_frac / abs(angular_vel_frac)
+
         angular_vel = angular_vel_frac * self.max_angular_speed
         actual = navx.ahrs.getRate()
         self.sd.putNumber("drive/setpoint", angular_vel)
         self.sd.putNumber("drive/actual", actual)
+
         error = actual - angular_vel
         output = self.calc_pid(error)
         left_output = power + output
