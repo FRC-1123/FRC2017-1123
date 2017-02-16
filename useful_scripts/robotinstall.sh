@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # Installs/updates RobotPy and all requirements on the robot.
 # Run this locally after you have run localinstall.sh.
 # Make sure you have internet access and that you are connected to the robot through ethernet or USB.

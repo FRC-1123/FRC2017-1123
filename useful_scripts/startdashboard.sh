@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # Starts the dashboard and cleans up on exit.
 
 cd ../dashboard/
