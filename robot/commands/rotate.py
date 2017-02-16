@@ -17,12 +17,14 @@ class Rotate(PIDCommand):
         kf = 0.0
         ktolerance = 2.0  # tolerance of 2 degrees
 
-        # initialize PID controller with a period of 0.05 seconds
-        super().__init__(kp, ki, kd, 0.05, kf, "Rotate to angle {}".format(angle))
+        # initialize PID controller with a period of 0.03 seconds
+        super().__init__(kp, ki, kd, 0.03, kf, "Rotate to angle {}".format(angle))
 
         self.requires(subsystems.motors)
 
         self.initial_angle = navx.ahrs.getFusedHeading()
+        if self.initial_angle > 180:  # adjust to -180 to +180 instead of 0 to 360
+            self.initial_angle -= 360
         self.rate = 1.0
 
         turn_controller = self.getPIDController()
@@ -39,7 +41,10 @@ class Rotate(PIDCommand):
         # wpilib.LiveWindow.addActuator("DriveSystem", "RotateController", self.turnController)
 
     def returnPIDInput(self):
-        return navx.ahrs.getFusedHeading() - self.initial_angle
+        angle = navx.ahrs.getFusedHeading()
+        if angle > 180:
+            angle -= 360
+        return angle
 
     def usePIDOutput(self, output):
         self.rate = output
