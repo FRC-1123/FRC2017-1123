@@ -156,7 +156,7 @@ function onValueChanged(key, value, isNew) {
             if (ui.gyro.visualVal < 0) { // Corrects for negative values
                 ui.gyro.visualVal += 360;
             }
-            ui.gyro.arm.style.transform = 'rotate(' + ui.gyro.visualVal + 'deg)';
+            ui.gyro.arm.style.transform = 'rotate3d(0, 0, 1, ' + ui.gyro.visualVal + 'deg)';
             ui.gyro.number.innerHTML = ui.gyro.visualVal + 'º';
 
             // update yaw value
