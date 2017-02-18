@@ -23,11 +23,11 @@ class Camera:
         # hsv range for tape contour detection
         # h: [0, 179], s: [0, 255], v: [0, 255]
         # green
-        self.min_h, self.min_s, self.min_v = 70, 0, 200
-        self.max_h, self.max_s, self.max_v = 85, 150, 255
+        self.min_h, self.min_s, self.min_v = 80, 10, 235
+        self.max_h, self.max_s, self.max_v = 100, 85, 255
         # blue
-        self.min_h, self.min_s, self.min_v = 95, 230, 230
-        self.max_h, self.max_s, self.max_v = 115, 255, 255
+        # self.min_h, self.min_s, self.min_v = 95, 230, 230
+        # self.max_h, self.max_s, self.max_v = 115, 255, 255
 
         self.sd = NetworkTables.getTable("SmartDashboard")
         self.sd.putNumber("camera/minh", self.min_h)

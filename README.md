@@ -31,7 +31,7 @@ Usage
 -----
 To start the dashboard, run `startdashboard.sh` in the `useful_scripts/` directory.
 To deploy the robot code, run `python robot.py deploy` in the `robot/` directory.
-If you encounter camera errors, run `preparecamera.sh` in the `useful_scripts/` directory.
+If you encounter camera errors, run `preparecamera.sh` in the `useful_scripts/` directory and then restart the robot code.
 
 
 ----------

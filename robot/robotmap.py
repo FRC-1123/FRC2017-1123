@@ -17,11 +17,8 @@ joystick.forwardAxis = 5
 joystick.steeringAxis = 4
 
 cameras = PropertiesList()
-cameras.front_camera_port = 0
 cameras.camera_width = 320
 cameras.camera_height = 240
-cameras.camera_fps = 15
-cameras.front_camera_httpport = 1182
 
 gear_mech = PropertiesList()
 gear_mech.forward_solenoid_channel = 1
