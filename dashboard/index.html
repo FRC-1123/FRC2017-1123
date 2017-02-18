@@ -14,6 +14,7 @@
             if (ev.key === "R")
                 location.reload(true);
         });
+
     </script>
 </head>
 
@@ -38,25 +39,37 @@
 
 <article>
     <h3>Rectified Drive PID</h3>
-    <canvas id="drivegraph" width="400" height="150"></canvas>
+    <canvas id="drivegraph" width="400" height="130"></canvas>
     <h3>Drive-to-Rod PID</h3>
-    <canvas id="rodgraph" width="400" height="150"></canvas>
+    <canvas id="rodgraph" width="400" height="130"></canvas>
     <!-- Gyroscope -->
-    <svg id="gyro" viewBox="0 0 170 170">
-        <circle cx="85" cy="85" r="83"/>
-        <circle cx="85" cy="85" r="50"/>
-        <rect id="gyro-arm" x="80" y="5" width="10" height="80"/>
+    <svg id="gyro" viewBox="0 0 180 180">
+        <circle cx="90" cy="90" r="90"/>
+        <circle cx="90" cy="90" r="45"/>
+        <rect id="gyro-arm" x="90" y="5" width="10" height="85"/>
         <text id="gyro-number" x="90" y="115">0º</text>
     </svg>
-    <svg id="robot-diagram" width="332" height="450">
-        <text x="40" y="340">Da Bot</text>
-        <rect x="75" y="360" width="230" height="40"/>
-        <rect x="85" y="370" width="210" height="40"/>
-        <circle cx="100" cy="410" r="25"/>
-        <circle cx="260" cy="410" r="25"/>
-        <rect x="60" y="380" width="250" height="30"/>
-        <text x="185" y="405" id="team" text-anchor="middle">1123</text>
+    <svg id="sonar-diagram" viewBox="0 0 180 180">
+        <polygon points="45 0, 135 0, 180 45, 180 135, 135 180, 45 180, 0 135, 0 45"/>
+        <polygon points="80 70, 100 70, 110 80, 110 100, 100 110, 80 110, 70 100, 70 80"/>
+        <line id="front-line" x1="80" y1="70" x2="100" y2="70"/>
+        <line id="front-right-line" x1="100" y1="70" x2="110" y2="80"/>
+        <line id="right-line" x1="110" y1="80" x2="110" y2="100"/>
+        <line id="back-right-line" x1="110" y1="100" x2="100" y2="110"/>
+        <line id="back-line" x1="100" y1="110" x2="80" y2="110"/>
+        <line id="back-left-line" x1="80" y1="110" x2="70" y2="100"/>
+        <line id="left-line" x1="70" y1="100" x2="70" y2="80"/>
+        <line id="front-left-line" x1="70" y1="80" x2="80" y2="70"/>
     </svg>
+    <!--<svg id="robot-diagram" width="332" height="450">-->
+    <!--<text x="40" y="340">Da Bot</text>-->
+    <!--<rect x="75" y="360" width="230" height="40"/>-->
+    <!--<rect x="85" y="370" width="210" height="40"/>-->
+    <!--<circle cx="100" cy="410" r="25"/>-->
+    <!--<circle cx="260" cy="410" r="25"/>-->
+    <!--<rect x="60" y="380" width="250" height="30"/>-->
+    <!--<text x="185" y="405" id="team" text-anchor="middle">1123</text>-->
+    <!--</svg>-->
 </article>
 <!-- The sidebar of the dashboard. Designed for smaller control elements like selection boxes and small buttons. -->
 <aside>

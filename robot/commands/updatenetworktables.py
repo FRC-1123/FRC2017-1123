@@ -51,5 +51,5 @@ class UpdateNetworkTables(Command):
 
             # update sonar readings
             self.sd.putNumber("sonar/front", sonar.front.get())
-            self.sd.putNumber("sonar/frontRight", sonar.front.get())
+            self.sd.putNumber("sonar/frontRight", sonar.front_right.get())
             self.sd.putNumber("sonar/back", sonar.back.get())

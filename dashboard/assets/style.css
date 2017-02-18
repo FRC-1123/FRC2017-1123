@@ -126,8 +126,7 @@ article {
 
 svg * {
     stroke: white;
-    fill: #222;
-    stroke-width: 2;
+    stroke-width: 2px;
     -webkit-transform-origin: center;
     -ms-transform-origin: center;
     transform-origin: center;
@@ -141,10 +140,10 @@ text {
 }
 
 #gyro {
-    width: 100px;
-    height: 100px;
+    width: 140px;
+    height: 140px;
     position: absolute;
-    bottom: 10px;
+    bottom: 5px;
     left: 1vw;
 }
 
@@ -159,16 +158,22 @@ text {
     text-anchor: middle;
 }
 
+#sonar-diagram {
+    width: 140px;
+    height: 140px;
+    position: absolute;
+    bottom: 5px;
+    right: 1vw;
+}
+
+#sonar-diagram line {
+    stroke: rgb(255, 50, 50);
+}
+
 #robot-diagram {
     position: absolute;
     bottom: 1px;
     right: 1vw;
-}
-
-#robot-arm {
-    -webkit-transform-origin: right;
-    -ms-transform-origin: right;
-    transform-origin: right;
 }
 
 #team {

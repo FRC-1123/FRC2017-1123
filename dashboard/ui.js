@@ -50,6 +50,16 @@ var ui = {
         //angle: document.getElementById('navx-angle'),
         yaw: document.getElementById('navx-yaw')
     },
+    sonarDiagram: {
+        front: document.getElementById('front-line'),
+        frontRight: document.getElementById('front-right-line'),
+        right: document.getElementById('right-line'),
+        backRight: document.getElementById('back-right-line'),
+        back: document.getElementById('back-line'),
+        backLeft: document.getElementById('back-left-line'),
+        left: document.getElementById('left-line'),
+        frontLeft: document.getElementById('front-left-line')
+    },
     sonar: {
         front: document.getElementById('sonar-front'),
         frontRight: document.getElementById('sonar-front-right'),
@@ -146,19 +156,22 @@ function onValueChanged(key, value, isNew) {
             if (ui.gyro.visualVal < 0) { // Corrects for negative values
                 ui.gyro.visualVal += 360;
             }
-            ui.gyro.arm.style.transform = ('rotate(' + ui.gyro.visualVal + 'deg)');
+            ui.gyro.arm.style.transform = 'rotate(' + ui.gyro.visualVal + 'deg)';
             ui.gyro.number.innerHTML = ui.gyro.visualVal + 'º';
 
             // update yaw value
             ui.navx.yaw.innerHTML = value;
             break;
         case '/SmartDashboard/sonar/front':
+            ui.sonarDiagram.front.style.transform = 'translate(0px, ' + (-10 - value) + 'px)';
             ui.sonar.front.innerHTML = Math.round(value * 100) / 100.0;
             break;
         case '/SmartDashboard/sonar/frontRight':
+            ui.sonarDiagram.frontRight.style.transform = 'translate(' + (7.07 + value/Math.sqrt(2)) + 'px ,' + (-7.07 - value/Math.sqrt(2)) + 'px)';
             ui.sonar.frontRight.innerHTML = Math.round(value * 100) / 100.0;
             break;
         case '/SmartDashboard/sonar/back':
+            ui.sonarDiagram.back.style.transform = 'translate(0px, ' + (10 + value) + 'px)';
             ui.sonar.back.innerHTML = Math.round(value * 100) / 100.0;
             break;
         case '/SmartDashboard/forwardCommand':
