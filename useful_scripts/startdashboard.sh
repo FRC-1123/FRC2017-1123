@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Starts the dashboard and cleans up on exit.
 
-cd ../dashboard/
+cd $(dirname $(readlink -f $0))/../dashboard/
 pynetworktables2js --robot=roborio-1123-frc.local &
 PID=$!
 
