@@ -68,7 +68,16 @@ var ui = {
         back: document.getElementById('sonar-back'),
         backLeft: document.getElementById('sonar-back-left'),
         left: document.getElementById('sonar-left'),
-        frontLeft: document.getElementById('sonar-front-left')
+        frontLeft: document.getElementById('sonar-front-left'),
+
+        front_speed: document.getElementById('sonar-front-speed'),
+        frontRight_speed: document.getElementById('sonar-front-right-speed'),
+        right_speed: document.getElementById('sonar-right-speed'),
+        backRight_speed: document.getElementById('sonar-back-right-speed'),
+        back_speed: document.getElementById('sonar-back-speed'),
+        backLeft_speed: document.getElementById('sonar-back-left-speed'),
+        left_speed: document.getElementById('sonar-left-speed'),
+        frontLeft_speed: document.getElementById('sonar-front-left-speed')
     },
     robotDiagram: {
         arm: document.getElementById('robot-arm')
@@ -206,6 +215,30 @@ function onValueChanged(key, value, isNew) {
             ui.sonarDiagram.frontLeft.style.transform = 'translate(' + (-(10 + value)/Math.sqrt(2)) + 'px ,' + (-(10 + value)/Math.sqrt(2)) + 'px)';
             ui.sonarDiagram.frontLeft.style.transform += ' scale(' + (((10 + value)/Math.sqrt(2))/130.0 * 9) + ', ' + (((10 + value)/Math.sqrt(2))/130.0 * 9) + ')';
             ui.sonar.frontLeft.innerHTML = Math.round(value * 100) / 100.0;
+            break;
+        case '/SmartDashboard/sonar/front_speed':
+            ui.sonar.front_speed.innerHTML = Math.round(value * 100) / 100.0;
+            break;
+        case '/SmartDashboard/sonar/frontRight_speed':
+            ui.sonar.frontRight_speed.innerHTML = Math.round(value * 100) / 100.0;
+            break;
+        case '/SmartDashboard/sonar/right_speed':
+            ui.sonar.right_speed.innerHTML = Math.round(value * 100) / 100.0;
+            break;
+        case '/SmartDashboard/sonar/backRight_speed':
+            ui.sonar.backRight_speed.innerHTML = Math.round(value * 100) / 100.0;
+            break;
+        case '/SmartDashboard/sonar/back_speed':
+            ui.sonar.back_speed.innerHTML = Math.round(value * 100) / 100.0;
+            break;
+        case '/SmartDashboard/sonar/backLeft_speed':
+            ui.sonar.backLeft_speed.innerHTML = Math.round(value * 100) / 100.0;
+            break;
+        case '/SmartDashboard/sonar/left_speed':
+            ui.sonar.left_speed.innerHTML = Math.round(value * 100) / 100.0;
+            break;
+        case '/SmartDashboard/sonar/frontLeft_speed':
+            ui.sonar.frontLeft_speed.innerHTML = Math.round(value * 100) / 100.0;
             break;
         case '/SmartDashboard/forwardCommand':
             // This button moves the robot forward for 1 second.
