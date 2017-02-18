@@ -155,6 +155,11 @@ class Camera:
         largest = (None, 0)  # (contour, area)
         second_largest = (None, 0)
         for c in contours:
+            # make sure the bottom of the contour is below 1/5th of the height
+            bottom = tuple(c[c[:, :, 1].argmax()][0])[1]
+            if bottom < self.height / 5:
+                continue
+
             # remove noise
             area = cv2.contourArea(c)
             if area < 10:
@@ -171,7 +176,7 @@ class Camera:
             hull = cv2.convexHull(approx)
             hull_area = cv2.contourArea(hull)
             solidity = area / hull_area if hull_area > 0 else 0  # account for divide-by-zero
-            if solidity < 0.8:
+            if solidity < 0.7:
                 continue
 
             if area > largest[1]:
