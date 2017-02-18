@@ -85,6 +85,7 @@ class DriveToRod(PIDCommand):
 
     def isFinished(self):
         # stop when within 8 inches of the wall
+        sonar.update_readings()
         return sonar.front.get() < 8.0
 
     def end(self):

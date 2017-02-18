@@ -33,6 +33,7 @@ sonar.back_channel = 4
 sonar.back_left_channel = 5
 sonar.left_channel = 6
 sonar.front_left_channel = 7
+sonar.pinger_channel = 9
 
 # switches = PropertiesList()
 # switches.limit_switch_channel = 0

@@ -50,6 +50,7 @@ class UpdateNetworkTables(Command):
             self.sd.putNumber("rightOutput", subsystems.motors.right_motor.getSetpoint())
 
             # update sonar readings
+            sonar.update_readings()
             self.sd.putNumber("sonar/front", sonar.front.get())
             self.sd.putNumber("sonar/frontRight", sonar.front_right.get())
             self.sd.putNumber("sonar/right", sonar.right.get())
