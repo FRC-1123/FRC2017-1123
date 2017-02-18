@@ -13,11 +13,10 @@ class SetSpeed(TimedCommand):
     def __init__(self, power, timeoutInSeconds):
         super().__init__('Set Speed %d' % power, timeoutInSeconds)
 
-        self.power = power
         self.requires(subsystems.motors)
-        
-        self.drive = RectifiedDrive(0)
 
+        self.power = power
+        self.drive = RectifiedDrive(0)
         self.timer = wpilib.Timer()
         self.timer.start()
 

@@ -12,8 +12,8 @@ class Rotate(PIDCommand):
     def __init__(self, angle):
         # PID constants
         kp = 0.005
-        ki = 0.001
-        kd = 0.0
+        ki = 0.002
+        kd = 0.001
         kf = 0.0
         ktolerance = 2.0  # tolerance of 2 degrees
 
@@ -34,11 +34,6 @@ class Rotate(PIDCommand):
         turn_controller.setContinuous(True)
         # self.rotateToAngleRate = 0.0
         turn_controller.setSetpoint(angle)
-
-        # Add the PID Controller to the Test-mode dashboard, allowing manual  */
-        # tuning of the Turn Controller's P, I and D coefficients.            */
-        # Typically, only the P value needs to be modified.                   */
-        # wpilib.LiveWindow.addActuator("DriveSystem", "RotateController", self.turnController)
 
     def returnPIDInput(self):
         angle = navx.ahrs.getFusedHeading()

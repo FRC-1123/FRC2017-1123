@@ -23,7 +23,7 @@ def init():
     Creates all subsystems. You must run this before any commands are
     instantiated. Do not run it more than once.
     """
-    global motors, gear_mech, switches
+    global motors, gear_mech
 
     '''
     Some tests call startCompetition multiple times, so don't throw an error if

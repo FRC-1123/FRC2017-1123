@@ -3,10 +3,10 @@ import logging
 
 import cv2
 import numpy as np
+from cscore import CameraServer
 from networktables import NetworkTables
 
 import robotmap
-from cscore import CameraServer
 
 
 class Camera:
@@ -54,7 +54,7 @@ class Camera:
         # Get a CvSink. This will capture images from the camera
         cv_sink = cs.getVideo()
 
-        # (optional) Setup a CvSource. This will send images back to the Dashboard
+        # Setup a CvSource. This will send images back to the Dashboard
         output_stream = cs.putVideo("Camera Feed", self.width, self.height)
 
         while True:
@@ -155,24 +155,25 @@ class Camera:
         largest = (None, 0)  # (contour, area)
         second_largest = (None, 0)
         for c in contours:
+            perim = cv2.arcLength(c, True)
+            approx = cv2.approxPolyDP(c, .05 * perim, True)
+
             # make sure the bottom of the contour is below 1/5th of the height
-            bottom = tuple(c[c[:, :, 1].argmax()][0])[1]
+            bottom = tuple(approx[approx[:, :, 1].argmax()][0])[1]
             if bottom < self.height / 5:
                 continue
 
             # remove noise
-            area = cv2.contourArea(c)
+            area = cv2.contourArea(approx)
             if area < 10:
                 continue
 
             # make sure height > width
-            x, y, w, h = cv2.boundingRect(c)
+            x, y, w, h = cv2.boundingRect(approx)
             if w > h:
                 continue
 
             # make sure the contour is mostly convex
-            perim = cv2.arcLength(c, True)
-            approx = cv2.approxPolyDP(c, .05 * perim, True)
             hull = cv2.convexHull(approx)
             hull_area = cv2.contourArea(hull)
             solidity = area / hull_area if hull_area > 0 else 0  # account for divide-by-zero

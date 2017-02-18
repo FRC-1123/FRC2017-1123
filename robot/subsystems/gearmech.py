@@ -4,6 +4,7 @@ from wpilib.command.subsystem import Subsystem
 import robotmap
 from commands.respondtocontroller import RespondToController
 
+
 class GearMech(Subsystem):
     """
     This subsystem controls the gear mechanism's piston.
@@ -12,8 +13,7 @@ class GearMech(Subsystem):
     def __init__(self):
         super().__init__('GearMech')
 
-        self.double_solenoid = wpilib.DoubleSolenoid(robotmap.gear_mech.forward_solenoid_channel,
-                                                     robotmap.gear_mech.reverse_solenoid_channel)
+        self.double_solenoid = wpilib.DoubleSolenoid(robotmap.gear_mech.forward_solenoid_channel, robotmap.gear_mech.reverse_solenoid_channel)
 
     def initDefaultCommand(self):
         self.setDefaultCommand(RespondToController())

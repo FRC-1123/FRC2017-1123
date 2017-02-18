@@ -65,8 +65,8 @@ class DriveToRod(PIDCommand):
             self.is_lost = True
             if not self.is_autonomous:  # return control to controller if not in autonomous
                 self.logger.critical("Returning control to the controller!")
-                RumbleController(0.5).start()
                 FollowJoystick().start()
+                RumbleController(0.5).start()
             return 0.5
         else:
             self.sd.putNumber("rod/actual", rod_pos[0])

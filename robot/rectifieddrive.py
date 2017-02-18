@@ -20,7 +20,7 @@ class RectifiedDrive:
         # tolerance (as a fraction of max_angular_speed) for driving straight forward
         self.tolerance = abs(tolerance)
 
-        self.max_angular_speed = abs(max_angular_speed)  # maximum angular velocity magnitude
+        self.max_angular_speed = abs(max_angular_speed)  # maximum angular velocity magnitude in degrees per second
         # squared inputs for angular velocity cause rectified drive to be less responsive at small deviations from straight forward
         self.squared_inputs = squared_inputs
         self.period = period  # period used for derivative calculation
@@ -36,9 +36,9 @@ class RectifiedDrive:
         self.kd = self.sd.getNumber("drive/kd")
         self.tolerance = abs(self.sd.getNumber("drive/ktolerance"))
 
+        if power < 0.02:  # reset integral if close to 0
+            self.integral = 0
         if abs(angular_vel_frac) < self.tolerance:
-            if power < 0.02:  # reset integral if close to 0
-                self.integral = 0
             angular_vel_frac = 0  # drive straight forward
         elif self.squared_inputs:
             angular_vel_frac = angular_vel_frac ** 2 * angular_vel_frac / abs(angular_vel_frac)
