@@ -163,15 +163,18 @@ function onValueChanged(key, value, isNew) {
             ui.navx.yaw.innerHTML = value;
             break;
         case '/SmartDashboard/sonar/front':
-            ui.sonarDiagram.front.style.transform = 'translate(0px, ' + (-10 - value) + 'px)';
+            ui.sonarDiagram.front.style.transform = 'translateY(' + (-10 - value) + 'px)';
+            ui.sonarDiagram.front.style.transform += ' scaleX(' + ((10 + value)/130.0 * 9) + ')';
             ui.sonar.front.innerHTML = Math.round(value * 100) / 100.0;
             break;
         case '/SmartDashboard/sonar/frontRight':
-            ui.sonarDiagram.frontRight.style.transform = 'translate(' + (7.07 + value/Math.sqrt(2)) + 'px ,' + (-7.07 - value/Math.sqrt(2)) + 'px)';
+            ui.sonarDiagram.frontRight.style.transform = 'translate(' + ((10 + value)/Math.sqrt(2)) + 'px ,' + (-(10 + value)/Math.sqrt(2)) + 'px)';
+            ui.sonarDiagram.frontRight.style.transform += ' scale(' + (((10 + value)/Math.sqrt(2))/130.0 * 9) + ', ' + (((10 + value)/Math.sqrt(2))/130.0 * 9) + ')';
             ui.sonar.frontRight.innerHTML = Math.round(value * 100) / 100.0;
             break;
         case '/SmartDashboard/sonar/back':
-            ui.sonarDiagram.back.style.transform = 'translate(0px, ' + (10 + value) + 'px)';
+            ui.sonarDiagram.back.style.transform = 'translateY(' + (10 + value) + 'px)';
+            ui.sonarDiagram.back.style.transform += ' scaleX(' + ((10 + value)/130.0 * 9) + ')';
             ui.sonar.back.innerHTML = Math.round(value * 100) / 100.0;
             break;
         case '/SmartDashboard/forwardCommand':
