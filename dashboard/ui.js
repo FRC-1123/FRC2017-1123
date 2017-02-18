@@ -52,6 +52,7 @@ var ui = {
     },
     sonar: {
         front: document.getElementById('sonar-front'),
+        frontRight: document.getElementById('sonar-front-right'),
         back: document.getElementById('sonar-back')
     },
     robotDiagram: {
@@ -153,6 +154,9 @@ function onValueChanged(key, value, isNew) {
             break;
         case '/SmartDashboard/sonar/front':
             ui.sonar.front.innerHTML = Math.round(value * 100) / 100.0;
+            break;
+        case '/SmartDashboard/sonar/frontRight':
+            ui.sonar.frontRight.innerHTML = Math.round(value * 100) / 100.0;
             break;
         case '/SmartDashboard/sonar/back':
             ui.sonar.back.innerHTML = Math.round(value * 100) / 100.0;

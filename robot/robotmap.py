@@ -26,6 +26,7 @@ gear_mech.reverse_solenoid_channel = 0
 
 sonar = PropertiesList()
 sonar.front_channel = 0
+sonar.front_right_channel = 1
 sonar.back_channel = 4
 
 # switches = PropertiesList()

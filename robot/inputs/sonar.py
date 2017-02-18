@@ -5,6 +5,7 @@ import robotmap
 from hrlv_max_sonar_ez import HRLVMaxSonarEZPulseWidth
 
 front = None
+front_right = None
 back = None
 
 
@@ -12,7 +13,8 @@ def init():
     """
     Initialize sonar object.
     """
-    global front, back
+    global front, front_right, back
 
-    front = HRLVMaxSonarEZPulseWidth(robotmap.sonar.front_channel, inch)
-    back = MaxSonarEZPulseWidth(robotmap.sonar.back_channel, inch)
+    front = MaxSonarEZPulseWidth(robotmap.sonar.front_channel, inch)
+    front_right = MaxSonarEZPulseWidth(robotmap.sonar.front_right_channel, inch)
+    back = HRLVMaxSonarEZPulseWidth(robotmap.sonar.back_channel, inch)
