@@ -23,7 +23,7 @@ class Camera:
         # hsv range for tape contour detection
         # h: [0, 179], s: [0, 255], v: [0, 255]
         # green
-        self.min_h, self.min_s, self.min_v = 80, 10, 215
+        self.min_h, self.min_s, self.min_v = 60, 10, 150
         self.max_h, self.max_s, self.max_v = 100, 100, 255
         # blue
         # self.min_h, self.min_s, self.min_v = 95, 230, 230
