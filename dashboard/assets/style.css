@@ -170,6 +170,41 @@ text {
     stroke: rgb(255, 50, 50);
 }
 
+#sonar-circle {
+    stroke: rgb(50, 255, 50);
+    fill: rgb(50, 255, 50);
+    -webkit-animation-duration: 3s;
+    animation-duration: 3s;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    -webkit-animation-name: zoomIn;
+    animation-name: zoomIn;
+}
+
+@-webkit-keyframes zoomIn {
+  from {
+    opacity: 0.8;
+  }
+
+  100% {
+    opacity: 0;
+    -webkit-transform: scale3d(18, 18, 18);
+    transform: scale3d(18, 18, 18);
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0.8;
+  }
+
+  100% {
+    opacity: 0;
+    -webkit-transform: scale3d(18, 18, 18);
+    transform: scale3d(18, 18, 18);
+  }
+}
+
 #robot-diagram {
     position: absolute;
     bottom: 1px;
