@@ -84,8 +84,8 @@ class DriveToRod(PIDCommand):
             self.last_output = output
 
     def isFinished(self):
-        # stop when within 5 centimeters of the wall
-        return sonar.front.get() < 0.1
+        # stop when within 8 inches of the wall
+        return sonar.front.get() < 8.0
 
     def end(self):
         subsystems.motors.robot_drive.setLeftRightMotorOutputs(0, 0)

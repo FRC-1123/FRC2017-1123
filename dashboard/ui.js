@@ -151,7 +151,7 @@ function onValueChanged(key, value, isNew) {
             ui.navx.yaw.innerHTML = value;
             break;
         case '/SmartDashboard/sonar/front':
-            ui.sonar.front.innerHTML = value;
+            ui.sonar.front.innerHTML = Math.round(value * 100) / 100.0;
             break;
         case '/SmartDashboard/forwardCommand':
             // This button moves the robot forward for 1 second.
