@@ -177,43 +177,36 @@ function onValueChanged(key, value, isNew) {
             ui.navx.yaw.innerHTML = value;
             break;
         case '/SmartDashboard/sonar/front':
-            ui.sonarDiagram.front.style.transform = 'translateY(' + (-10 - value) + 'px)';
-            ui.sonarDiagram.front.style.transform += ' scaleX(' + ((10 + value)/130.0 * 9) + ')';
+            ui.sonarDiagram.front.setAttribute('transform', 'translate(0, ' + (-value) + ') translate(90, 70) scale(' + ((20 + value)/90.0 * 4.5) + ', 1) translate(-90, -70)');
+            console.log(ui.sonarDiagram.front.getAttribute('transform'));
             ui.sonar.front.innerHTML = Math.round(value * 100) / 100.0;
             break;
         case '/SmartDashboard/sonar/frontRight':
-            ui.sonarDiagram.frontRight.style.transform = 'translate(' + ((10 + value)/Math.sqrt(2)) + 'px ,' + (-(10 + value)/Math.sqrt(2)) + 'px)';
-            ui.sonarDiagram.frontRight.style.transform += ' scale(' + (((10 + value)/Math.sqrt(2))/130.0 * 9) + ', ' + (((10 + value)/Math.sqrt(2))/130.0 * 9) + ')';
+            ui.sonarDiagram.frontRight.setAttribute('transform', 'translate(' + (value/Math.sqrt(2)) + ', ' + (-value/Math.sqrt(2)) + ') translate(105, 75) scale(' + ((20 + value)/Math.sqrt(2)/90.0 * 4.5) + ', ' + ((20 + value)/Math.sqrt(2)/90.0 * 4.5) + ') translate(-105, -75)');
             ui.sonar.frontRight.innerHTML = Math.round(value * 100) / 100.0;
             break;
         case '/SmartDashboard/sonar/right':
-            ui.sonarDiagram.right.style.transform = 'translateX(' + (10 + value) + 'px)';
-            ui.sonarDiagram.right.style.transform += ' scaleY(' + ((10 + value)/130.0 * 9) + ')';
+            ui.sonarDiagram.right.setAttribute('transform', 'translate(' + value + ', 0) translate(110, 90) scale(1, ' + ((20 + value)/90.0 * 4.5) + ') translate(-110, -90)');
             ui.sonar.right.innerHTML = Math.round(value * 100) / 100.0;
             break;
         case '/SmartDashboard/sonar/backRight':
-            ui.sonarDiagram.backRight.style.transform = 'translate(' + ((10 + value)/Math.sqrt(2)) + 'px ,' + ((10 + value)/Math.sqrt(2)) + 'px)';
-            ui.sonarDiagram.backRight.style.transform += ' scale(' + (((10 + value)/Math.sqrt(2))/130.0 * 9) + ', ' + (((10 + value)/Math.sqrt(2))/130.0 * 9) + ')';
+            ui.sonarDiagram.backRight.setAttribute('transform', 'translate(' + (value/Math.sqrt(2)) + ', ' + (value/Math.sqrt(2)) + ') translate(105, 105) scale(' + ((20 + value)/Math.sqrt(2)/90.0 * 4.5) + ', ' + ((20 + value)/Math.sqrt(2)/90.0 * 4.5) + ') translate(-105, -105)');
             ui.sonar.backRight.innerHTML = Math.round(value * 100) / 100.0;
             break;
         case '/SmartDashboard/sonar/back':
-            ui.sonarDiagram.back.style.transform = 'translateY(' + (10 + value) + 'px)';
-            ui.sonarDiagram.back.style.transform += ' scaleX(' + ((10 + value)/130.0 * 9) + ')';
+            ui.sonarDiagram.back.setAttribute('transform', 'translate(0, ' + value + ') translate(90, 110) scale(' + ((20 + value)/90.0 * 4.5) + ', 1) translate(-90, -110)');
             ui.sonar.back.innerHTML = Math.round(value * 100) / 100.0;
             break;
         case '/SmartDashboard/sonar/backLeft':
-            ui.sonarDiagram.backLeft.style.transform = 'translate(' + (-(10 + value)/Math.sqrt(2)) + 'px ,' + ((10 + value)/Math.sqrt(2)) + 'px)';
-            ui.sonarDiagram.backLeft.style.transform += ' scale(' + (((10 + value)/Math.sqrt(2))/130.0 * 9) + ', ' + (((10 + value)/Math.sqrt(2))/130.0 * 9) + ')';
+            ui.sonarDiagram.backLeft.setAttribute('transform', 'translate(' + (-value/Math.sqrt(2)) + ', ' + (value/Math.sqrt(2)) + ') translate(75, 105) scale(' + ((20 + value)/Math.sqrt(2)/90.0 * 4.5) + ', ' + ((20 + value)/Math.sqrt(2)/90.0 * 4.5) + ') translate(-75, -105)');
             ui.sonar.backLeft.innerHTML = Math.round(value * 100) / 100.0;
             break;
         case '/SmartDashboard/sonar/left':
-            ui.sonarDiagram.left.style.transform = 'translateX(' + (-(10 + value)) + 'px)';
-            ui.sonarDiagram.left.style.transform += ' scaleY(' + ((10 + value)/130.0 * 9) + ')';
+            ui.sonarDiagram.left.setAttribute('transform', 'translate(' + (-value) + ', 0) translate(70, 90) scale(1, ' + ((20 + value)/90.0 * 4.5) + ') translate(-70, -90)');
             ui.sonar.left.innerHTML = Math.round(value * 100) / 100.0;
             break;
         case '/SmartDashboard/sonar/frontLeft':
-            ui.sonarDiagram.frontLeft.style.transform = 'translate(' + (-(10 + value)/Math.sqrt(2)) + 'px ,' + (-(10 + value)/Math.sqrt(2)) + 'px)';
-            ui.sonarDiagram.frontLeft.style.transform += ' scale(' + (((10 + value)/Math.sqrt(2))/130.0 * 9) + ', ' + (((10 + value)/Math.sqrt(2))/130.0 * 9) + ')';
+            ui.sonarDiagram.frontLeft.setAttribute('transform', 'translate(' + (-value/Math.sqrt(2)) + ', ' + (-value/Math.sqrt(2)) + ') translate(75, 75) scale(' + ((20 + value)/Math.sqrt(2)/90.0 * 4.5) + ', ' + ((20 + value)/Math.sqrt(2)/90.0 * 4.5) + ') translate(-75, -75)');
             ui.sonar.frontLeft.innerHTML = Math.round(value * 100) / 100.0;
             break;
         case '/SmartDashboard/sonar/front_speed':
