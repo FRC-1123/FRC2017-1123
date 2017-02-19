@@ -121,7 +121,7 @@ article {
     top: 0;
     left: 50vw;
     height: 100vh;
-    width: 35vw;
+    width: 34vw;
 }
 
 svg * {
@@ -168,7 +168,7 @@ text {
 
 #sonar-diagram line {
     stroke: rgb(255, 50, 50);
-    stroke-width: 4px;
+    stroke-width: 5px;
 }
 
 #sonar-circle {
@@ -180,6 +180,7 @@ text {
     animation-iteration-count: infinite;
     -webkit-animation-name: zoomIn;
     animation-name: zoomIn;
+    animation-timing-function: ease-out;
 }
 
 @-webkit-keyframes zoomIn {
@@ -220,7 +221,7 @@ text {
 aside {
     right: 0;
     top: 0;
-    width: 15vw;
+    width: 16vw;
     height: 100vh;
 }
 
