@@ -168,6 +168,7 @@ text {
 
 #sonar-diagram line {
     stroke: rgb(255, 50, 50);
+    stroke-width: 4px;
 }
 
 #sonar-circle {

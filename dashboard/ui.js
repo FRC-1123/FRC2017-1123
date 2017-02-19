@@ -218,27 +218,75 @@ function onValueChanged(key, value, isNew) {
             break;
         case '/SmartDashboard/sonar/front_speed':
             ui.sonar.front_speed.innerHTML = Math.round(value * 100) / 100.0;
+            value *= 5;
+            if (value < 0)
+                value = 0;
+            else if (value > 255)
+                value = 255;
+            ui.sonarDiagram.front.style.stroke = 'rgb(' + value + ', 100, ' + (255-value) + ')';
             break;
         case '/SmartDashboard/sonar/frontRight_speed':
             ui.sonar.frontRight_speed.innerHTML = Math.round(value * 100) / 100.0;
+            value *= 5;
+            if (value < 0)
+                value = 0;
+            else if (value > 255)
+                value = 255;
+            ui.sonarDiagram.frontRight.style.stroke = 'rgb(' + value + ', 100, ' + (255-value) + ')';
             break;
         case '/SmartDashboard/sonar/right_speed':
             ui.sonar.right_speed.innerHTML = Math.round(value * 100) / 100.0;
+            value *= 5;
+            if (value < 0)
+                value = 0;
+            else if (value > 255)
+                value = 255;
+            ui.sonarDiagram.right.style.stroke = 'rgb(' + value + ', 100, ' + (255-value) + ')';
             break;
         case '/SmartDashboard/sonar/backRight_speed':
             ui.sonar.backRight_speed.innerHTML = Math.round(value * 100) / 100.0;
+            value *= 5;
+            if (value < 0)
+                value = 0;
+            else if (value > 255)
+                value = 255;
+            ui.sonarDiagram.backRight.style.stroke = 'rgb(' + value + ', 100, ' + (255-value) + ')';
             break;
         case '/SmartDashboard/sonar/back_speed':
             ui.sonar.back_speed.innerHTML = Math.round(value * 100) / 100.0;
+            value *= 5;
+            if (value < 0)
+                value = 0;
+            else if (value > 255)
+                value = 255;
+            ui.sonarDiagram.back.style.stroke = 'rgb(' + value + ', 100, ' + (255-value) + ')';
             break;
         case '/SmartDashboard/sonar/backLeft_speed':
             ui.sonar.backLeft_speed.innerHTML = Math.round(value * 100) / 100.0;
+            value *= 5;
+            if (value < 0)
+                value = 0;
+            else if (value > 255)
+                value = 255;
+            ui.sonarDiagram.backLeft.style.stroke = 'rgb(' + value + ', 100, ' + (255-value) + ')';
             break;
         case '/SmartDashboard/sonar/left_speed':
             ui.sonar.left_speed.innerHTML = Math.round(value * 100) / 100.0;
+            value *= 5;
+            if (value < 0)
+                value = 0;
+            else if (value > 255)
+                value = 255;
+            ui.sonarDiagram.left.style.stroke = 'rgb(' + value + ', 100, ' + (255-value) + ')';
             break;
         case '/SmartDashboard/sonar/frontLeft_speed':
             ui.sonar.frontLeft_speed.innerHTML = Math.round(value * 100) / 100.0;
+            value *= 5;
+            if (value < 0)
+                value = 0;
+            else if (value > 255)
+                value = 255;
+            ui.sonarDiagram.frontLeft.style.stroke = 'rgb(' + value + ', 100, ' + (255-value) + ')';
             break;
         case '/SmartDashboard/forwardCommand':
             // This button moves the robot forward for 1 second.
