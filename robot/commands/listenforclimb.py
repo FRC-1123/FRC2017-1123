@@ -7,7 +7,7 @@ from inputs import oi
 
 class ListenForClimb(Command):
     """
-    Spins the winch at the given power on Y button.
+    Control the winch through the X and Y buttons.
     """
 
     def __init__(self):
@@ -20,8 +20,10 @@ class ListenForClimb(Command):
 
     def execute(self):
         if self.timer.hasPeriodPassed(0.05):
-            if oi.controller.getYButton():  # activate winch
+            if oi.controller.getYButton():  # climb up
                 subsystems.climbing_mech.setSpeed(0.5)
+            elif oi.controller.getXButton():  # climb down
+                subsystems.climbing_mech.setSpeed(-0.1)
             else:
                 subsystems.climbing_mech.setSpeed(0)
 
