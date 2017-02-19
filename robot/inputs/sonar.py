@@ -51,5 +51,5 @@ def update_readings():
         if time_elapsed > 0.1:  # update speeds every 0.2 seconds
             global speeds, distances
             speeds = [(distances[i] - new_dists[i]) / time_elapsed for i in range(len(speeds))]
-            distances = new_dists
             prev_time = timer.get()
+        distances = new_dists
