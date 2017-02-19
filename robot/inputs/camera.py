@@ -160,7 +160,7 @@ class Camera:
 
             # make sure the bottom of the contour is below 1/5th of the height
             bottom = tuple(approx[approx[:, :, 1].argmax()][0])[1]
-            if bottom < self.height / 5:
+            if bottom < self.height / 3:
                 continue
 
             # remove noise

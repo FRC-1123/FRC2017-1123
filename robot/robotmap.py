@@ -24,6 +24,10 @@ gear_mech = PropertiesList()
 gear_mech.forward_solenoid_channel = 1
 gear_mech.reverse_solenoid_channel = 0
 
+climbing_mech = PropertiesList()
+climbing_mech.id = 4
+climbing_mech.follower_id = 5
+
 sonar = PropertiesList()
 sonar.front_channel = 0
 sonar.front_right_channel = 1
