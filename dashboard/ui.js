@@ -7,7 +7,7 @@ var drive_smoothie = new SmoothieChart({
         lineWidth: 1, millisPerLine: 1000, verticalSections: 10,
     },
     labels: {fillStyle: 'rgb(255, 255, 0)'},
-    maxValue: 100, minValue: -100
+    maxValue: 50, minValue: -50
 });
 drive_smoothie.addTimeSeries(drivesetpoint,
     {strokeStyle: 'rgb(100, 255, 100)', lineWidth: 2});
@@ -24,7 +24,7 @@ var rod_smoothie = new SmoothieChart({
         lineWidth: 1, millisPerLine: 1000, verticalSections: 10,
     },
     labels: {fillStyle: 'rgb(255, 255, 0)'},
-    maxValue: 1, minValue: 0
+    maxValue: 0.8, minValue: 0.2
 });
 rod_smoothie.addTimeSeries(rodsetpoint,
     {strokeStyle: 'rgb(100, 255, 100)', lineWidth: 2});
