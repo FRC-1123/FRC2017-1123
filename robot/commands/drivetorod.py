@@ -1,6 +1,7 @@
 import logging
 
 from networktables import NetworkTables
+from wpilib import GenericHID
 from wpilib.command import PIDCommand
 
 import subsystems
@@ -61,7 +62,7 @@ class DriveToRod(PIDCommand):
 
 
     def returnPIDInput(self):
-        if oi.controller.getBackButton():  # return control back to controller
+        if oi.controller.getBumper(GenericHID.Hand.kLeft):  # return control back to controller
             FollowJoystick().start()
             return 0.5
         rod_pos = camera.get_rod_pos()
@@ -87,7 +88,7 @@ class DriveToRod(PIDCommand):
         else:
             # self.logger.info("drive-to-rod output: {}".format(output))
             # subsystems.motors.robot_drive.drive(-self.power, -output)
-            self.drive.rectified_drive(self.power, output)
+            self.drive.rectified_drive(-self.power, -output)
             self.last_output = output
 
     def isFinished(self):

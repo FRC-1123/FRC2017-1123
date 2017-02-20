@@ -38,7 +38,7 @@ class Robot(CommandBasedRobot):
         self.sd.putNumber("rod/ktolerance", 0.02)
 
         # RectifiedDrive PID values (for tuning)
-        self.sd.putNumber("drive/kp", 0.1)
+        self.sd.putNumber("drive/kp", 0.3)
         self.sd.putNumber("drive/ki", 0.05)
         self.sd.putNumber("drive/kd", 0)
         self.sd.putNumber("drive/kf", 0.0)
@@ -62,6 +62,7 @@ class Robot(CommandBasedRobot):
         self.sd.putBoolean("isautonomous", False)
         self.sd.putBoolean("timeRunning", True)  # start dashboard timer
         # RespondToController().start()
+        self.sd.putNumber("drive/kp", 0.1)
         UpdateNetworkTables().start()
         self.logger.info("Started teleop.")
 

@@ -14,7 +14,7 @@ motors.right_follower_id = 2
 joystick = PropertiesList()
 joystick.port = 0
 joystick.forwardAxis = 5
-joystick.steeringAxis = 4
+joystick.steeringAxis = 0
 
 cameras = PropertiesList()
 cameras.camera_width = 320

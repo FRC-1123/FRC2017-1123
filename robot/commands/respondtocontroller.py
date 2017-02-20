@@ -1,6 +1,7 @@
 import logging
 
 from networktables import NetworkTables
+from wpilib import GenericHID
 from wpilib.command import Command
 
 import subsystems
@@ -37,7 +38,7 @@ class RespondToController(Command):
             self.sd.putBoolean("pneumatic", False)
 
         # drive-to-rod control
-        if oi.controller.getStartButton():
+        if oi.controller.getBumper(GenericHID.Hand.kRight):
             rod_pos = camera.get_rod_pos()
             if rod_pos is None:  # cannot find rod
                 self.logger.critical("Couldn't find the rod! {}".format(rod_pos))

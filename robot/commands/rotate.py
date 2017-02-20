@@ -13,8 +13,8 @@ class Rotate(PIDCommand):
 
     def __init__(self, angle):
         # PID constants
-        kp = 0.004
-        ki = 0
+        kp = 0.005
+        ki = 0.0005
         kd = 0.003
         kf = 0.0
         ktolerance = 1.0  # tolerance of 1.0 degrees
@@ -49,7 +49,7 @@ class Rotate(PIDCommand):
     def isFinished(self):
         # stop command if rate set to less than 0.1 or if it has been 3 seconds
         self.logger.info("Done rotating.")
-        return abs(self.rate) < 0.1 or self.timeSinceInitialized() > 3
+        return abs(self.rate) < 0.05 or self.timeSinceInitialized() > 3
 
     def end(self):
         # set outputs to 0 on end

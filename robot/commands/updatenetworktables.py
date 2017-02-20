@@ -32,7 +32,7 @@ class UpdateNetworkTables(Command):
             # dashboard forward button (for demonstration purposes)
             if self.sd.containsKey("forwardCommand") and self.sd.getBoolean("forwardCommand"):  # check if move forward button pressed
                 self.sd.putBoolean("forwardCommand", False)
-                SetSpeed(0.5, 1).start()  # move forward at half power for one second
+                SetSpeed(-0.5, 1).start()  # move forward at half power for one second
                 self.logger.info("Moving forward at half power for one second.")
             elif self.sd.containsKey("turnCommand") and self.sd.getBoolean("turnCommand"):
                 self.sd.putBoolean("turnCommand", False)
