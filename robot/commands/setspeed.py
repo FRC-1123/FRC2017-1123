@@ -16,7 +16,7 @@ class SetSpeed(TimedCommand):
         self.requires(subsystems.motors)
 
         self.power = power
-        self.drive = RectifiedDrive(0)
+        self.drive = RectifiedDrive(0, 0.05)
         self.timer = wpilib.Timer()
         self.timer.start()
 

@@ -36,8 +36,8 @@ class DriveToRod(PIDCommand):
         kf = self.sd.getNumber("rod/kf")
         ktolerance = self.sd.getNumber("rod/ktolerance")
 
-        # initialize PID controller with a period of 0.03 seconds
-        super().__init__(kp, ki, kd, 0.03, kf, "Drive To Rod")
+        # initialize PID controller with a period of 0.05 seconds
+        super().__init__(kp, ki, kd, 0.05, kf, "Drive To Rod")
 
         self.requires(subsystems.motors)
 
@@ -48,7 +48,7 @@ class DriveToRod(PIDCommand):
         turnController.setContinuous(True)
         turnController.setSetpoint(0.5)  # want rod to be at center
 
-        self.drive = RectifiedDrive(30)
+        self.drive = RectifiedDrive(30, 0.05)
 
         self.logger = logging.getLogger("robot")
 

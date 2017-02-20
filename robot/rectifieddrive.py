@@ -12,7 +12,7 @@ class RectifiedDrive:
     It sets the motor outputs given a desired power and angular velocity using the NavX and a PID controller.
     """
 
-    def __init__(self, max_angular_speed, period=0.03, tolerance=0.1, squared_inputs=True):
+    def __init__(self, max_angular_speed, period, tolerance=0.1, squared_inputs=True):
         self.sd = NetworkTables.getTable("SmartDashboard")
 
         # PID values for angular velocity
