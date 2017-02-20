@@ -16,7 +16,8 @@ class ClimbingMech(Subsystem):
         self.motor = ctre.CANTalon(robotmap.climbing_mech.id)
         follower = ctre.CANTalon(robotmap.climbing_mech.follower_id)
         follower.setControlMode(ctre.CANTalon.ControlMode.Follower)
-        follower.set(robotmap.motors.right_id)
+        follower.set(robotmap.climbing_mech.id)
+        follower.setInverted(True)
 
     def setSpeed(self, speed):
         self.motor.set(speed)
