@@ -28,6 +28,7 @@ class RectifiedDrive:
         self.period = period  # period used for derivative calculation
         self.integral = 0  # total time elapsed used for integral calculation
         self.prev_error = 0  # previous error used for integral and derivative calculations
+        self.prev_setpoint = 0
 
         self.logger = logging.getLogger('robot')
 
@@ -40,12 +41,17 @@ class RectifiedDrive:
         self.kd = self.sd.getNumber("drive/kd")
         self.tolerance = abs(self.sd.getNumber("drive/ktolerance"))
 
-        if power < 0.02:  # reset integral if close to 0
+        if power < 0.02:  # reset integral if power close to 0
             self.integral = 0
         if abs(angular_vel_frac) < self.tolerance:
             angular_vel_frac = 0  # drive straight forward
         elif self.squared_inputs:
             angular_vel_frac = angular_vel_frac ** 2 * angular_vel_frac / abs(angular_vel_frac)
+
+        # reset integral when setpoint changes by more than 10%
+        if abs(angular_vel_frac - self.prev_setpoint) > 0.1:
+            self.integral = 0
+        self.prev_setpoint = angular_vel_frac
 
         angular_vel = angular_vel_frac * self.max_angular_speed
         actual = navx.ahrs.getRate()
@@ -53,6 +59,9 @@ class RectifiedDrive:
         self.sd.putNumber("drive/actual", actual)
 
         error = actual - angular_vel
+        if abs(error) > self.max_angular_speed * 0.3:  # prevent integral windup
+            self.integral = 0
+        # self.logger.info("integral: {}".format(self.integral))
         output = self.calc_pid(error)
         left_output = power + output
         if abs(left_output) > 1.0:  # normalize if magnitude greater than 1

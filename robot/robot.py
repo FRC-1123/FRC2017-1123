@@ -39,7 +39,7 @@ class Robot(CommandBasedRobot):
 
         # RectifiedDrive PID values (for tuning)
         self.sd.putNumber("drive/kp", 0.1)
-        self.sd.putNumber("drive/ki", 0)
+        self.sd.putNumber("drive/ki", 0.05)
         self.sd.putNumber("drive/kd", 0)
         self.sd.putNumber("drive/kf", 0.0)
         self.sd.putNumber("drive/ktolerance", 0.1)

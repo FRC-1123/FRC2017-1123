@@ -13,24 +13,22 @@ class Rotate(PIDCommand):
 
     def __init__(self, angle):
         # PID constants
-        kp = 0.01
+        kp = 0.004
         ki = 0
-        kd = 0
+        kd = 0.003
         kf = 0.0
-        ktolerance = 2.0  # tolerance of 2 degrees
+        ktolerance = 1.0  # tolerance of 1.0 degrees
 
         # initialize PID controller with a period of 0.05 seconds
         super().__init__(kp, ki, kd, 0.05, kf, "Rotate to angle {}".format(angle))
 
         self.requires(subsystems.motors)
 
-        self.initial_angle = navx.ahrs.getFusedHeading()
-        if self.initial_angle > 180:  # adjust to -180 to +180 instead of 0 to 360
-            self.initial_angle -= 360
+        self.initial_angle = navx.ahrs.getAngle()
         self.rate = 1.0
 
         turn_controller = self.getPIDController()
-        turn_controller.setInputRange(-180.0, 180.0)
+        turn_controller.setInputRange(-180, 180)
         turn_controller.setOutputRange(-1.0, 1.0)
         turn_controller.setAbsoluteTolerance(ktolerance)
         turn_controller.setContinuous(True)
@@ -40,9 +38,7 @@ class Rotate(PIDCommand):
         self.logger = logging.getLogger('robot')
 
     def returnPIDInput(self):
-        angle = navx.ahrs.getFusedHeading()
-        if angle > 180:
-            angle -= 360
+        angle = navx.ahrs.getAngle() - self.initial_angle
         return angle
 
     def usePIDOutput(self, output):
@@ -52,6 +48,7 @@ class Rotate(PIDCommand):
 
     def isFinished(self):
         # stop command if rate set to less than 0.1 or if it has been 3 seconds
+        self.logger.info("Done rotating.")
         return abs(self.rate) < 0.1 or self.timeSinceInitialized() > 3
 
     def end(self):

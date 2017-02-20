@@ -12,12 +12,12 @@ class AutonomousProgram(CommandGroup):
 
         self.addParallel(UpdateNetworkTables())
         if mode == "left":
-            self.addSequential(SetSpeed(0.3, 1))
+            self.addSequential(SetSpeed(0.5, 1))
             self.addSequential(Rotate(30))
-            self.addSequential(DriveToRod())
+            self.addSequential(DriveToRod(5))
         elif mode == "right":
-            self.addSequential(SetSpeed(0.3, 1))
+            self.addSequential(SetSpeed(0.5, 1))
             self.addSequential(Rotate(-30))
-            self.addSequential(DriveToRod())
+            self.addSequential(DriveToRod(5))
         else:
-            self.addSequential(DriveToRod())
+            self.addSequential(DriveToRod(10))

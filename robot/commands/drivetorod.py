@@ -19,7 +19,7 @@ class DriveToRod(PIDCommand):
     This command will find the rod and drive the robot towards it.
     """
 
-    def __init__(self, power=0.3):
+    def __init__(self, timeout=20, power=0.3):
         self.sd = NetworkTables.getTable("SmartDashboard")
 
         # PID constants
@@ -49,6 +49,7 @@ class DriveToRod(PIDCommand):
         turnController.setSetpoint(0.5)  # want rod to be at center
 
         self.drive = RectifiedDrive(30, 0.05)
+        self.timeout = timeout
 
         self.logger = logging.getLogger("robot")
 
@@ -57,6 +58,7 @@ class DriveToRod(PIDCommand):
 
         self.power = power
         self.last_output = 0  # for if the rod is lost
+
 
     def returnPIDInput(self):
         if oi.controller.getBackButton():  # return control back to controller
@@ -89,9 +91,13 @@ class DriveToRod(PIDCommand):
             self.last_output = output
 
     def isFinished(self):
-        # stop when within 8 inches of the wall
+        # timeout after 10 seconds or stop when within 8 inches of the wall
+        if self.timeSinceInitialized() > self.timeout:
+            return True
         sonar.update_readings()
         return sonar.distances[0] < 8.0
 
     def end(self):
+        # stop and release gear
         subsystems.motors.robot_drive.setLeftRightMotorOutputs(0, 0)
+        subsystems.gear_mech.double_solenoid.set(subsystems.gear_mech.double_solenoid.Value.kForward)
