@@ -28,7 +28,7 @@ class UpdateNetworkTables(Command):
         self.nt_timer.start()
 
     def execute(self):
-        if self.nt_timer.hasPeriodPassed(.2):  # update NetworkTables every 0.2 seconds
+        if self.nt_timer.hasPeriodPassed(0.1):  # update NetworkTables every 0.1 seconds
             # dashboard forward button (for demonstration purposes)
             if self.sd.containsKey("forwardCommand") and self.sd.getBoolean("forwardCommand"):  # check if move forward button pressed
                 self.sd.putBoolean("forwardCommand", False)
