@@ -1,3 +1,5 @@
+import logging
+
 from wpilib.command import PIDCommand
 
 import subsystems
@@ -11,9 +13,9 @@ class Rotate(PIDCommand):
 
     def __init__(self, angle):
         # PID constants
-        kp = 0.005
-        ki = 0.002
-        kd = 0.001
+        kp = 0.01
+        ki = 0
+        kd = 0
         kf = 0.0
         ktolerance = 2.0  # tolerance of 2 degrees
 
@@ -35,6 +37,8 @@ class Rotate(PIDCommand):
         # self.rotateToAngleRate = 0.0
         turn_controller.setSetpoint(angle)
 
+        self.logger = logging.getLogger('robot')
+
     def returnPIDInput(self):
         angle = navx.ahrs.getFusedHeading()
         if angle > 180:
@@ -42,6 +46,7 @@ class Rotate(PIDCommand):
         return angle
 
     def usePIDOutput(self, output):
+        # self.logger.info("Rotate output: {}".format(output))
         self.rate = output
         subsystems.motors.robot_drive.setLeftRightMotorOutputs(-output, output)
 

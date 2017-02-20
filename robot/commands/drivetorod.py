@@ -9,6 +9,7 @@ from commands.rumblecontroller import RumbleController
 from inputs import camera
 from inputs import oi
 from inputs import sonar
+from rectifieddrive import RectifiedDrive
 
 logging.basicConfig(level=logging.INFO)
 
@@ -47,6 +48,8 @@ class DriveToRod(PIDCommand):
         turnController.setContinuous(True)
         turnController.setSetpoint(0.5)  # want rod to be at center
 
+        self.drive = RectifiedDrive(30)
+
         self.logger = logging.getLogger("robot")
 
         self.is_autonomous = self.sd.getBoolean("isautonomous")
@@ -80,7 +83,9 @@ class DriveToRod(PIDCommand):
             else:  # keep turning left
                 subsystems.motors.robot_drive.setLeftRightMotorOutputs(-0.1, -0.1)
         else:
-            subsystems.motors.robot_drive.drive(self.power, output)
+            # self.logger.info("drive-to-rod output: {}".format(output))
+            # subsystems.motors.robot_drive.drive(-self.power, -output)
+            self.drive.rectified_drive(self.power, output)
             self.last_output = output
 
     def isFinished(self):

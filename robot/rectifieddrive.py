@@ -1,3 +1,5 @@
+import logging
+
 from networktables import NetworkTables
 
 import subsystems
@@ -26,6 +28,8 @@ class RectifiedDrive:
         self.period = period  # period used for derivative calculation
         self.integral = 0  # total time elapsed used for integral calculation
         self.prev_error = 0  # previous error used for integral and derivative calculations
+
+        self.logger = logging.getLogger('robot')
 
     def rectified_drive(self, power, angular_vel_frac):
         """
@@ -59,6 +63,7 @@ class RectifiedDrive:
         subsystems.motors.robot_drive.setLeftRightMotorOutputs(left_output, right_output)
 
     def calc_pid(self, error):
+        # self.logger.info("RectifiedDrive error {}".format(error))
         e_deriv = (error - self.prev_error) / self.period
         self.integral += (error + self.prev_error) / 2 * self.period
         self.prev_error = error
