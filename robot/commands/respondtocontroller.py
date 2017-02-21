@@ -4,7 +4,7 @@ from networktables import NetworkTables
 from wpilib import GenericHID
 from wpilib.command import Command
 
-import subsystems
+from commands.controlgearmech import ControlGearMech
 from commands.drivetorod import DriveToRod
 from commands.rumblecontroller import RumbleController
 from inputs import camera
@@ -21,8 +21,6 @@ class RespondToController(Command):
     def __init__(self):
         super().__init__("Respond to Controller")
 
-        self.requires(subsystems.gear_mech)
-
         self.sd = NetworkTables.getTable("SmartDashboard")
         self.logger = logging.getLogger("robot")
 
@@ -30,12 +28,10 @@ class RespondToController(Command):
         # for xbox controller
 
         # piston control
-        if oi.controller.getAButton():  # piston out
-            subsystems.gear_mech.double_solenoid.set(subsystems.gear_mech.double_solenoid.Value.kForward)
-            self.sd.putBoolean("pneumatic", True)
-        elif oi.controller.getBButton():  # piston in
-            subsystems.gear_mech.double_solenoid.set(subsystems.gear_mech.double_solenoid.Value.kReverse)
-            self.sd.putBoolean("pneumatic", False)
+        if oi.controller.getAButton():  # open
+            ControlGearMech(False).start()
+        elif oi.controller.getBButton():  # close
+            ControlGearMech(True).start()
 
         # drive-to-rod control
         if oi.controller.getBumper(GenericHID.Hand.kRight):

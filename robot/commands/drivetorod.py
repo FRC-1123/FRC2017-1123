@@ -99,6 +99,4 @@ class DriveToRod(PIDCommand):
         return sonar.distances[0] < 8.0
 
     def end(self):
-        # stop and release gear
         subsystems.motors.robot_drive.setLeftRightMotorOutputs(0, 0)
-        subsystems.gear_mech.double_solenoid.set(subsystems.gear_mech.double_solenoid.Value.kForward)
