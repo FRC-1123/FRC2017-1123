@@ -350,10 +350,14 @@ function onValueChanged(key, value, isNew) {
             ui.gears.right.style.animation = "invertBarrelRoll " + period + "s infinite linear"
             break;
         case '/SmartDashboard/pneumatic':
-            if (value)
-                ui.pneumatic.innerHTML = "Out";
-            else
-                ui.pneumatic.innerHTML = "In";
+            if (value) {
+                ui.pneumatic.innerHTML = "Open";
+                ui.pneumatic.style.color = "rgb(100, 255, 100)";
+            }
+            else {
+                ui.pneumatic.innerHTML = "Closed";
+                ui.pneumatic.style.color = "rgb(255, 100, 100)";
+             }
             break;
         case '/SmartDashboard/autonomous/options': // Load list of prewritten autonomous modes
             // Clear previous list
