@@ -5,6 +5,7 @@ import subsystems
 from commands.setspeed import SetSpeed
 
 
+# FIXME: See fixme in switches subsystem
 class ReactToSwitch(Command):
     """
     This command drives the robot backwards when the switch is pressed.

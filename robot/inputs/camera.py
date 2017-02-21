@@ -1,12 +1,11 @@
-# Import the camera server
 import logging
 
 import cv2
 import numpy as np
+from cscore import CameraServer
 from networktables import NetworkTables
 
 import robotmap
-from cscore import CameraServer
 
 
 class Camera:

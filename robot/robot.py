@@ -52,7 +52,7 @@ class Robot(CommandBasedRobot):
 
     def autonomousInit(self):
         self.sd.putBoolean("isautonomous", True)
-        UpdateNetworkTables.start()
+        UpdateNetworkTables().start()
         if self.sd.containsKey("autonomous/selected"):
             AutonomousProgram(self.sd.getString("autonomous/selected")).start()
         else:  # if not set for some reason (bad!), just use center mode

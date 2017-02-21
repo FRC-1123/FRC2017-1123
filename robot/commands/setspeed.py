@@ -22,7 +22,6 @@ class SetSpeed(TimedCommand):
 
     def execute(self):
         self.drive.rectified_drive(self.power, 0)
-        # subsystems.motors.setSpeed(self.power)
         self.timer.delay(0.05)
 
     def end(self):

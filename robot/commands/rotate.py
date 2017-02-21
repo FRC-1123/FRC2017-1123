@@ -17,7 +17,7 @@ class Rotate(PIDCommand):
         ki = 0.0005
         kd = 0.003
         kf = 0.0
-        ktolerance = 1.0  # tolerance of 1.0 degrees
+        ktolerance = 1.0  # tolerance of 1.0 degree
 
         # initialize PID controller with a period of 0.05 seconds
         super().__init__(kp, ki, kd, 0.05, kf, "Rotate to angle {}".format(angle))
@@ -32,17 +32,14 @@ class Rotate(PIDCommand):
         turn_controller.setOutputRange(-1.0, 1.0)
         turn_controller.setAbsoluteTolerance(ktolerance)
         turn_controller.setContinuous(True)
-        # self.rotateToAngleRate = 0.0
         turn_controller.setSetpoint(angle)
 
         self.logger = logging.getLogger('robot')
 
     def returnPIDInput(self):
-        angle = navx.ahrs.getAngle() - self.initial_angle
-        return angle
+        return navx.ahrs.getAngle() - self.initial_angle
 
     def usePIDOutput(self, output):
-        # self.logger.info("Rotate output: {}".format(output))
         self.rate = output
         subsystems.motors.robot_drive.setLeftRightMotorOutputs(-output, output)
 
