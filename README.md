@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/FRC-1123/frc2017-1123.svg?branch=master)](https://travis-ci.org/FRC-1123/frc2017-1123)
-
 FRC 2017 - Team 1123
 ====================
 
