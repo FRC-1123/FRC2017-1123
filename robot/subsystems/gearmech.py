@@ -2,7 +2,6 @@ import wpilib
 from wpilib.command.subsystem import Subsystem
 
 import robotmap
-from commands.respondtocontroller import RespondToController
 
 
 class GearMech(Subsystem):
@@ -14,6 +13,3 @@ class GearMech(Subsystem):
         super().__init__('GearMech')
 
         self.double_solenoid = wpilib.DoubleSolenoid(robotmap.gear_mech.forward_solenoid_channel, robotmap.gear_mech.reverse_solenoid_channel)
-
-    def initDefaultCommand(self):
-        self.setDefaultCommand(RespondToController())

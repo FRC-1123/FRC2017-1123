@@ -5,14 +5,12 @@ from commands.controlgearmech import ControlGearMech
 from commands.drivetorod import DriveToRod
 from commands.rotate import Rotate
 from commands.setspeed import SetSpeed
-from commands.updatenetworktables import UpdateNetworkTables
 
 
 class AutonomousProgram(CommandGroup):
     def __init__(self, mode):
         super().__init__('Autonomous Program')
 
-        self.addParallel(UpdateNetworkTables())
         if mode == "left":
             self.addSequential(SetSpeed(-0.3, 0.5))
             self.addSequential(Rotate(-20))

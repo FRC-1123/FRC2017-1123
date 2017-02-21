@@ -8,6 +8,7 @@ from networktables import NetworkTables
 
 import subsystems
 from commands.autonomous import AutonomousProgram
+from commands.respondtocontroller import RespondToController
 from commands.updatenetworktables import UpdateNetworkTables
 from inputs import navx
 from inputs import oi
@@ -51,7 +52,7 @@ class Robot(CommandBasedRobot):
 
     def autonomousInit(self):
         self.sd.putBoolean("isautonomous", True)
-        # UpdateNetworkTables().start()
+        UpdateNetworkTables.start()
         if self.sd.containsKey("autonomous/selected"):
             AutonomousProgram(self.sd.getString("autonomous/selected")).start()
         else:  # if not set for some reason (bad!), just use center mode
@@ -61,8 +62,8 @@ class Robot(CommandBasedRobot):
     def teleopInit(self):
         self.sd.putBoolean("isautonomous", False)
         self.sd.putBoolean("timeRunning", True)  # start dashboard timer
-        # RespondToController().start()
         self.sd.putNumber("drive/kp", 0.1)
+        RespondToController().start()
         UpdateNetworkTables().start()
         self.logger.info("Started teleop.")
 

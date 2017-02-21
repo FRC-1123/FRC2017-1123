@@ -1,9 +1,7 @@
-import wpilib
 from wpilib.command.subsystem import Subsystem
 
-import robotmap
 
-
+# FIXME: Switches should be an input, not a subsystem. As we are not using them, I have not converted this over.
 class Switches(Subsystem):
     def __init__(self):
         """
@@ -12,4 +10,4 @@ class Switches(Subsystem):
 
         super().__init__('Switch')
 
-        self.limit_switch = wpilib.DigitalInput(robotmap.switches.limit_switch_channel)
+        # self.limit_switch = wpilib.DigitalInput(robotmap.switches.limit_switch_channel)
