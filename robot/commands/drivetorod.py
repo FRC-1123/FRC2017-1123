@@ -82,9 +82,9 @@ class DriveToRod(PIDCommand):
         if self.is_lost:  # if lost, slowly spin in circle
             # TODO: check signs of motor outputs
             if self.last_output > 0:  # keep turning right
-                subsystems.motors.robot_drive.setLeftRightMotorOutputs(0.1, 0.1)
+                subsystems.motors.robot_drive.setLeftRightMotorOutputs(0.15, 0.15)
             else:  # keep turning left
-                subsystems.motors.robot_drive.setLeftRightMotorOutputs(-0.1, -0.1)
+                subsystems.motors.robot_drive.setLeftRightMotorOutputs(-0.15, -0.15)
         else:
             # self.logger.info("drive-to-rod output: {}".format(output))
             # subsystems.motors.robot_drive.drive(-self.power, -output)
