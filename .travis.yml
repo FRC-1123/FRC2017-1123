@@ -31,6 +31,10 @@ before_install:
   - sudo ldconfig
   - cd ../../../
 install:
+  - pip install -U coveralls
   - pip install -U -r requirements.txt
   - pip install -U opencv-python robotpy-cscore
-script: python robot/robot.py test
+script:
+  - python robot/robot.py test
+after_success:
+  - coveralls
