@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/FRC-1123/frc2017-1123.svg?branch=master)](https://travis-ci.org/FRC-1123/frc2017-1123)
+[![Coverage Status](https://coveralls.io/repos/github/FRC-1123/frc2017-1123/badge.svg?branch=master)](https://coveralls.io/github/FRC-1123/frc2017-1123?branch=master)
 
 FRC 2017 - Team 1123
 ====================
