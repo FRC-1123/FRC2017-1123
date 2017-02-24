@@ -335,7 +335,7 @@ function onValueChanged(key, value, isNew) {
             } else {
                 s = 135;
             }
-            NetworkTables.setValue(key, false);
+            NetworkTables.putValue(key, false);
             break;
         case '/SmartDashboard/leftOutput':
             ui.outputs.left.innerHTML = Math.round(-value * 100);
@@ -426,15 +426,15 @@ function onValueChanged(key, value, isNew) {
                 switch (input.type) { // Figure out how to pass data based on data type
                     case 'checkbox':
                         // For booleans, send bool of whether or not checkbox is checked
-                        NetworkTables.setValue(key, input.checked);
+                        NetworkTables.putValue(key, input.checked);
                         break;
                     case 'number':
                         // For number values, send value of input as an int.
-                        NetworkTables.setValue(key, parseInt(input.value));
+                        NetworkTables.putValue(key, parseInt(input.value));
                         break;
                     case 'text':
                         // For normal text values, just send the value.
-                        NetworkTables.setValue(key, input.value);
+                        NetworkTables.putValue(key, input.value);
                         break;
                 }
             };
@@ -458,62 +458,62 @@ function onValueChanged(key, value, isNew) {
 
 // The rest of the doc is listeners for UI elements being clicked on
 ui.forwardCommand.button.onclick = function () {
-    NetworkTables.setValue('/SmartDashboard/forwardCommand', true);
+    NetworkTables.putValue('/SmartDashboard/forwardCommand', true);
 };
 
 ui.turnCommand.button.onclick = function () {
-    NetworkTables.setValue('/SmartDashboard/turnCommand', true);
+    NetworkTables.putValue('/SmartDashboard/turnCommand', true);
 };
 
 ui.camera.minh.onchange = function () {
-    NetworkTables.setValue('/SmartDashboard/camera/minh', parseFloat(ui.camera.minh.value));
+    NetworkTables.putValue('/SmartDashboard/camera/minh', parseFloat(ui.camera.minh.value));
 };
 ui.camera.mins.onchange = function () {
-    NetworkTables.setValue('/SmartDashboard/camera/mins', parseFloat(ui.camera.mins.value));
+    NetworkTables.putValue('/SmartDashboard/camera/mins', parseFloat(ui.camera.mins.value));
 };
 ui.camera.minv.onchange = function () {
-    NetworkTables.setValue('/SmartDashboard/camera/minv', parseFloat(ui.camera.minv.value));
+    NetworkTables.putValue('/SmartDashboard/camera/minv', parseFloat(ui.camera.minv.value));
 };
 ui.camera.maxh.onchange = function () {
-    NetworkTables.setValue('/SmartDashboard/camera/maxh', parseFloat(ui.camera.maxh.value));
+    NetworkTables.putValue('/SmartDashboard/camera/maxh', parseFloat(ui.camera.maxh.value));
 };
 ui.camera.maxs.onchange = function () {
-    NetworkTables.setValue('/SmartDashboard/camera/maxs', parseFloat(ui.camera.maxs.value));
+    NetworkTables.putValue('/SmartDashboard/camera/maxs', parseFloat(ui.camera.maxs.value));
 };
 ui.camera.maxv.onchange = function () {
-    NetworkTables.setValue('/SmartDashboard/camera/maxv', parseFloat(ui.camera.maxv.value));
+    NetworkTables.putValue('/SmartDashboard/camera/maxv', parseFloat(ui.camera.maxv.value));
 };
 
 ui.rod.kp.onchange = function () {
-    NetworkTables.setValue('/SmartDashboard/rod/kp', parseFloat(ui.rod.kp.value));
+    NetworkTables.putValue('/SmartDashboard/rod/kp', parseFloat(ui.rod.kp.value));
 };
 ui.rod.ki.onchange = function () {
-    NetworkTables.setValue('/SmartDashboard/rod/ki', parseFloat(ui.rod.ki.value));
+    NetworkTables.putValue('/SmartDashboard/rod/ki', parseFloat(ui.rod.ki.value));
 };
 ui.rod.kd.onchange = function () {
-    NetworkTables.setValue('/SmartDashboard/rod/kd', parseFloat(ui.rod.kd.value));
+    NetworkTables.putValue('/SmartDashboard/rod/kd', parseFloat(ui.rod.kd.value));
 };
 ui.rod.kf.onchange = function () {
-    NetworkTables.setValue('/SmartDashboard/rod/kf', parseFloat(ui.rod.kf.value));
+    NetworkTables.putValue('/SmartDashboard/rod/kf', parseFloat(ui.rod.kf.value));
 };
 ui.rod.ktolerance.onchange = function () {
-    NetworkTables.setValue('/SmartDashboard/rod/ktolerance', parseFloat(ui.rod.ktolerance.value));
+    NetworkTables.putValue('/SmartDashboard/rod/ktolerance', parseFloat(ui.rod.ktolerance.value));
 };
 
 ui.drive.kp.onchange = function () {
-    NetworkTables.setValue('/SmartDashboard/drive/kp', parseFloat(ui.drive.kp.value));
+    NetworkTables.putValue('/SmartDashboard/drive/kp', parseFloat(ui.drive.kp.value));
 };
 ui.drive.ki.onchange = function () {
-    NetworkTables.setValue('/SmartDashboard/drive/ki', parseFloat(ui.drive.ki.value));
+    NetworkTables.putValue('/SmartDashboard/drive/ki', parseFloat(ui.drive.ki.value));
 };
 ui.drive.kd.onchange = function () {
-    NetworkTables.setValue('/SmartDashboard/drive/kd', parseFloat(ui.drive.kd.value));
+    NetworkTables.putValue('/SmartDashboard/drive/kd', parseFloat(ui.drive.kd.value));
 };
 ui.drive.kf.onchange = function () {
-    NetworkTables.setValue('/SmartDashboard/drive/kf', parseFloat(ui.drive.kf.value));
+    NetworkTables.putValue('/SmartDashboard/drive/kf', parseFloat(ui.drive.kf.value));
 };
 ui.drive.ktolerance.onchange = function () {
-    NetworkTables.setValue('/SmartDashboard/drive/ktolerance', parseFloat(ui.drive.ktolerance.value));
+    NetworkTables.putValue('/SmartDashboard/drive/ktolerance', parseFloat(ui.drive.ktolerance.value));
 };
 
 // Reset gyro value to 0 on click
@@ -537,7 +537,7 @@ ui.tuning.button.onclick = function () {
 ui.tuning.set.onclick = function () {
     // Make sure the inputs have content, if they do update the NT value
     if (ui.tuning.name.value && ui.tuning.value.value) {
-        NetworkTables.setValue('/SmartDashboard/' + ui.tuning.name.value, ui.tuning.value.value);
+        NetworkTables.putValue('/SmartDashboard/' + ui.tuning.name.value, ui.tuning.value.value);
     }
 };
 ui.tuning.get.onclick = function () {
@@ -546,7 +546,7 @@ ui.tuning.get.onclick = function () {
 
 // Update NetworkTables when autonomous selector is changed
 ui.autoSelect.onchange = function () {
-    NetworkTables.setValue('/SmartDashboard/autonomous/selected', this.value);
+    NetworkTables.putValue('/SmartDashboard/autonomous/selected', this.value);
 };
 
 ui.getNT.button.onclick = function () {
