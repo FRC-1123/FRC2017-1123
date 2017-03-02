@@ -33,6 +33,16 @@ class RespondToController(Command):
         elif oi.controller.getBButton():  # close
             ControlGearMech(True).start()
 
+        # camera control
+        if oi.controller.getStartButton():  # switch cameras
+            if self.sd.containsKey("camera/dev"):
+                if self.sd.getNumber("camera/dev") == 1:
+                    self.sd.putNumber("camera/dev", 2)
+                else:
+                    self.sd.putNumber("camera/dev", 1)
+            else:
+                self.sd.putNumber("camera/dev", 1)
+
         # drive-to-rod control
         if oi.controller.getBumper(GenericHID.Hand.kRight):
             rod_pos = camera.get_rod_pos()

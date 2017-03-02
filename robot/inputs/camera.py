@@ -37,18 +37,23 @@ class Camera:
         self.sd.putNumber("camera/maxv", self.max_v)
         self.sd.putNumber("rod_x", -1)  # rod position unknown
 
+        self.sd.putNumber("camera/dev", 1)
+        self.cur_dev = 1
+
         self.logger = logging.getLogger("robot")
+
+        self.camera = None
 
     def main(self):
         cs = CameraServer.getInstance()
         cs.enableLogging()
 
         # Capture from the first USB Camera on the system
-        camera = cs.startAutomaticCapture()
-        camera.setResolution(self.width, self.height)
-        camera.setExposureManual(2)
-        camera.setBrightness(50)
-        camera.setWhiteBalanceManual(7000)
+        self.camera = cs.startAutomaticCapture(dev=robotmap.cameras.dev1, name="camera")
+        self.camera.setResolution(self.width, self.height)
+        self.camera.setExposureManual(2)
+        self.camera.setBrightness(50)
+        self.camera.setWhiteBalanceManual(7000)
 
         # Get a CvSink. This will capture images from the camera
         cv_sink = cs.getVideo()
@@ -57,6 +62,20 @@ class Camera:
         output_stream = cs.putVideo("Camera Feed", self.width, self.height)
 
         while True:
+            # switch cameras if needed
+            if self.sd.getNumber("camera/dev") != self.cur_dev:
+                cs.removeCamera("camera")
+                if self.cur_dev == 1:
+                    self.camera = cs.startAutomaticCapture(dev=robotmap.cameras.dev2, name="camera")
+                    self.cur_dev = 2
+                else:
+                    self.camera = cs.startAutomaticCapture(dev=robotmap.cameras.dev1, name="camera")
+                    self.cur_dev = 1
+                self.camera.setResolution(self.width, self.height)
+                self.camera.setExposureManual(2)
+                self.camera.setBrightness(50)
+                self.camera.setWhiteBalanceManual(7000)
+
             # Tell the CvSink to grab a frame from the camera and put it
             # in the source image.  If there is an error notify the output.
             time, self.frame = cv_sink.grabFrame(self.frame)
@@ -205,5 +224,5 @@ def get_rod_pos():
 
 
 def start():
-    front_camera = Camera(robotmap.cameras.camera_width, robotmap.cameras.camera_height)
-    front_camera.main()
+    camera = Camera(robotmap.cameras.camera_width, robotmap.cameras.camera_height)
+    camera.main()
