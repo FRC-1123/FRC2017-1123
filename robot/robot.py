@@ -45,6 +45,8 @@ class Robot(CommandBasedRobot):
         self.sd.putNumber("drive/kf", 0.0)
         self.sd.putNumber("drive/ktolerance", 0.1)
 
+        self.sd.putNumber("direction", 1)
+
         navx.init()
         sonar.init()
         oi.init()

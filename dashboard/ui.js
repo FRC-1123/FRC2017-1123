@@ -51,6 +51,7 @@ var ui = {
         yaw: document.getElementById('navx-yaw')
     },
     sonarDiagram: {
+        diagram: document.getElementById('sonar-diagram'),
         front: document.getElementById('front-line'),
         frontRight: document.getElementById('front-right-line'),
         right: document.getElementById('right-line'),
@@ -300,6 +301,12 @@ function onValueChanged(key, value, isNew) {
             } else {
                 ui.forwardCommand.button.className = '';
             }
+            break;
+        case '/SmartDashboard/direction':
+            if (value == 1)
+                ui.sonarDiagram.diagram.style.transform = 'rotate3d(0, 0, 1, 0)';
+            else
+                ui.sonarDiagram.diagram.style.transform = 'rotate3d(0, 0, 1, 180deg)';
             break;
         case '/SmartDashboard/timeRunning':
             // When this NetworkTables variable is true, the timer will start.

@@ -1,5 +1,6 @@
 import logging
 
+from networktables import NetworkTables
 from wpilib import Timer
 from wpilib.command import Command
 
@@ -24,6 +25,8 @@ class FollowJoystick(Command):
         self.logger = logging.getLogger("robot")
         self.drive = RectifiedDrive(30, 0.05)
 
+        self.sd = NetworkTables.getTable("SmartDashboard")
+
         self.timer = Timer()
         self.timer.start()
 
@@ -37,8 +40,9 @@ class FollowJoystick(Command):
             # subsystems.motors.robot_drive.arcadeDrive(oi.joystick)
 
             # rectified arcade drive
-            power = oi.joystick.getRawAxis(robotmap.joystick.forwardAxis)
+            power = oi.joystick.getRawAxis(robotmap.joystick.forwardAxis) * self.sd.getNumber("direction")
             power *= 1  # for limiting power
+
             angular_vel = oi.joystick.getRawAxis(robotmap.joystick.steeringAxis)
             # if power > 0:  # if moving backwards, negate angular velocity
             #     angular_vel *= -1
