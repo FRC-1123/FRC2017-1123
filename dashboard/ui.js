@@ -86,6 +86,9 @@ var ui = {
     forwardCommand: {
         button: document.getElementById('forward-button')
     },
+    switchCameraCommand: {
+        button: document.getElementById('switch-ca')
+    },
     turnCommand: {
         button: document.getElementById('turn-right-button')
     },
@@ -466,6 +469,13 @@ function onValueChanged(key, value, isNew) {
 // The rest of the doc is listeners for UI elements being clicked on
 ui.forwardCommand.button.onclick = function () {
     NetworkTables.putValue('/SmartDashboard/forwardCommand', true);
+};
+
+ui.switchCameraCommand.button.onclick = function () {
+    if (NetworkTables.getValue('/SmartDashboard/camera/dev') == 1)
+        NetworkTables.putValue('/SmartDashboard/camera/dev', 2);
+    else
+        NetworkTables.putValue('/SmartDashboard/camera/dev', 1);
 };
 
 ui.turnCommand.button.onclick = function () {
