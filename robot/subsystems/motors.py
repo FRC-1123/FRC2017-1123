@@ -1,5 +1,6 @@
 import ctre
 import wpilib
+from networktables import NetworkTables
 from wpilib.command.subsystem import Subsystem
 
 import robotmap
@@ -24,6 +25,9 @@ class Motors(Subsystem):
         self.left_motor.setInverted(True)
         self.right_motor.setInverted(True)
 
+        self.sd = NetworkTables.getTable("SmartDashboard")
+        self.sd.putNumber("direction", 1)
+
         # follower motors
         left_motor_follower = ctre.CANTalon(robotmap.motors.left_follower_id)
         left_motor_follower.setControlMode(ctre.CANTalon.ControlMode.Follower)
@@ -36,20 +40,26 @@ class Motors(Subsystem):
         self.robot_drive.setMaxOutput(1)
 
     def forwardDirection(self):
-        self.left_motor = ctre.CANTalon(robotmap.motors.left_id)
-        self.right_motor = ctre.CANTalon(robotmap.motors.right_id)
-        self.left_motor.setInverted(True)
-        self.right_motor.setInverted(True)
-        self.robot_drive = wpilib.RobotDrive(self.left_motor, self.right_motor)
-        self.robot_drive.setMaxOutput(1)
+        if self.sd.getNumber("direction") == -1:
+            tmp = self.left_motor
+            self.left_motor = self.right_motor
+            self.right_motor = tmp
+            self.left_motor.setInverted(False)
+            self.right_motor.setInverted(False)
+            self.robot_drive = wpilib.RobotDrive(self.left_motor, self.right_motor)
+            self.robot_drive.setMaxOutput(1)
+        self.sd.putNumber("direction", 1)
 
     def reverseDirection(self):
-        self.left_motor = ctre.CANTalon(robotmap.motors.right_id)
-        self.right_motor = ctre.CANTalon(robotmap.motors.left_id)
-        self.left_motor.setInverted(False)
-        self.right_motor.setInverted(False)
-        self.robot_drive = wpilib.RobotDrive(self.left_motor, self.right_motor)
-        self.robot_drive.setMaxOutput(1)
+        if self.sd.getNumber("direction") == 1:
+            tmp = self.left_motor
+            self.left_motor = self.right_motor
+            self.right_motor = tmp
+            self.left_motor.setInverted(False)
+            self.right_motor.setInverted(False)
+            self.robot_drive = wpilib.RobotDrive(self.left_motor, self.right_motor)
+            self.robot_drive.setMaxOutput(1)
+        self.sd.putNumber("direction", -1)
 
     def initDefaultCommand(self):
         self.setDefaultCommand(FollowJoystick())
