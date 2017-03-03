@@ -37,8 +37,8 @@ class Camera:
         self.sd.putNumber("camera/maxv", self.max_v)
         self.sd.putNumber("rod_x", -1)  # rod position unknown
 
-        self.sd.putNumber("camera/dev", 1)
-        self.cur_dev = 1
+        # self.sd.putNumber("camera/dev", 1)
+        # self.cur_dev = 1
 
         self.logger = logging.getLogger("robot")
 

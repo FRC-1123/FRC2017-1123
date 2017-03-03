@@ -312,6 +312,14 @@ function onValueChanged(key, value, isNew) {
                 ui.sonarDiagram.diagram.style.transform = 'rotate3d(0, 0, 1, 0)';
             else
                 ui.sonarDiagram.diagram.style.transform = 'rotate3d(0, 0, 1, 180deg)';
+            if (ui.switchCameraCommand.port == 1182) {
+                ui.camera.feed.style.backgroundImage = "url('http://roborio-1123-frc.local:1183/?action=stream')";
+                ui.switchCameraCommand.port = 1183;
+            }
+            else {
+                ui.camera.feed.style.backgroundImage = "url('http://roborio-1123-frc.local:1182/?action=stream')";
+                ui.switchCameraCommand.port = 1182;
+            }
             break;
         case '/SmartDashboard/timeRunning':
             // When this NetworkTables variable is true, the timer will start.
@@ -474,10 +482,10 @@ ui.forwardCommand.button.onclick = function () {
 };
 
 ui.switchCameraCommand.button.onclick = function () {
-    if (NetworkTables.getValue('/SmartDashboard/camera/dev') == 1)
-        NetworkTables.putValue('/SmartDashboard/camera/dev', 2);
-    else
-        NetworkTables.putValue('/SmartDashboard/camera/dev', 1);
+//    if (NetworkTables.getValue('/SmartDashboard/camera/dev') == 1)
+//        NetworkTables.putValue('/SmartDashboard/camera/dev', 2);
+//    else
+//        NetworkTables.putValue('/SmartDashboard/camera/dev', 1);
     if (ui.switchCameraCommand.port == 1182) {
         ui.camera.feed.style.backgroundImage = "url('http://roborio-1123-frc.local:1183/?action=stream')";
         ui.switchCameraCommand.port = 1183;
