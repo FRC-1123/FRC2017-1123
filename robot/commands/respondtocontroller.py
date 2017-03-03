@@ -40,7 +40,7 @@ class RespondToController(Command):
                 ControlGearMech(True).start()
 
             # reversing control
-            if oi.controller.getStartButton():  # reverse camera, motors, and sonar
+            # if oi.controller.getStartButton():  # reverse camera, motors, and sonar
                 # if self.sd.containsKey("camera/dev"):
                 #     if self.sd.getNumber("camera/dev") == 1:
                 #         self.sd.putNumber("camera/dev", 2)
@@ -48,12 +48,12 @@ class RespondToController(Command):
                 #         self.sd.putNumber("camera/dev", 1)
                 # else:
                 #     self.sd.putNumber("camera/dev", 1)
-                cur_direct = self.sd.getNumber("direction")
-                if cur_direct == 1:
-                    subsystems.motors.reverseDirection()
-                else:
-                    subsystems.motors.forwardDirection()
-                self.sd.putNumber("direction", -cur_direct)
+                # cur_direct = self.sd.getNumber("direction")
+                # if cur_direct == 1:
+                #     subsystems.motors.reverseDirection()
+                # else:
+                #     subsystems.motors.forwardDirection()
+                # self.sd.putNumber("direction", -cur_direct)
 
             # drive-to-rod control
             if oi.controller.getBumper(GenericHID.Hand.kRight):
