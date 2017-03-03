@@ -2,10 +2,10 @@ import logging
 
 import cv2
 import numpy as np
-from cscore import CameraServer
 from networktables import NetworkTables
 
 import robotmap
+from cscore import CameraServer
 
 
 class Camera:
@@ -55,26 +55,31 @@ class Camera:
         self.camera.setBrightness(50)
         self.camera.setWhiteBalanceManual(7000)
 
+        self.camera2 = cs.startAutomaticCapture(dev=robotmap.cameras.dev2, name="camera2")
+        self.camera2.setResolution(self.width, self.height)
+        self.camera2.setExposureManual(2)
+        self.camera2.setBrightness(50)
+        self.camera2.setWhiteBalanceManual(7000)
+
         # Get a CvSink. This will capture images from the camera
         cv_sink = cs.getVideo()
 
         # Setup a CvSource. This will send images back to the Dashboard
-        output_stream = cs.putVideo("Camera Feed", self.width, self.height)
+        output_stream = cs.putVideo("camera_cv", self.width, self.height)
 
         while True:
             # switch cameras if needed
-            if self.sd.getNumber("camera/dev") != self.cur_dev:
-                cs.removeCamera("camera")
-                if self.cur_dev == 1:
-                    self.camera = cs.startAutomaticCapture(dev=robotmap.cameras.dev2, name="camera")
-                    self.cur_dev = 2
-                else:
-                    self.camera = cs.startAutomaticCapture(dev=robotmap.cameras.dev1, name="camera")
-                    self.cur_dev = 1
-                self.camera.setResolution(self.width, self.height)
-                self.camera.setExposureManual(2)
-                self.camera.setBrightness(50)
-                self.camera.setWhiteBalanceManual(7000)
+            # if self.sd.getNumber("camera/dev") != self.cur_dev:
+            #     if self.cur_dev == 1:
+            #         self.camera = cs.startAutomaticCapture(dev=robotmap.cameras.dev2, name="camera_cv_2")
+            #         self.cur_dev = 2
+            #     else:
+            #         self.camera = cs.startAutomaticCapture(dev=robotmap.cameras.dev1, name="camera_cv_2")
+            #         self.cur_dev = 1
+            #     self.camera.setResolution(self.width, self.height)
+            #     self.camera.setExposureManual(2)
+            #     self.camera.setBrightness(50)
+            #     self.camera.setWhiteBalanceManual(7000)
 
             # Tell the CvSink to grab a frame from the camera and put it
             # in the source image.  If there is an error notify the output.
