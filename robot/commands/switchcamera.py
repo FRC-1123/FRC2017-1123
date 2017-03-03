@@ -24,4 +24,4 @@ class SwitchCamera(InstantCommand):
             subsystems.motors.forwardDirection()
 
         logger = logging.getLogger("robot")
-        logger.info("switched camera")
+        logger.info("Switched camera")
