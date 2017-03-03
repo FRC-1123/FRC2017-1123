@@ -4,6 +4,7 @@ from networktables import NetworkTables
 from wpilib import GenericHID
 from wpilib.command import Command
 
+import subsystems
 from commands.controlgearmech import ControlGearMech
 from commands.drivetorod import DriveToRod
 from commands.rumblecontroller import RumbleController
@@ -42,7 +43,12 @@ class RespondToController(Command):
                     self.sd.putNumber("camera/dev", 1)
             else:
                 self.sd.putNumber("camera/dev", 1)
-            self.sd.putNumber("direction", -self.sd.getNumber("direction"))
+            cur_direct = self.sd.getNumber("direction")
+            if cur_direct == 1:
+                subsystems.motors.reverseDirection()
+            else:
+                subsystems.motors.forwardDirection()
+            self.sd.putNumber("direction", -cur_direct)
 
         # drive-to-rod control
         if oi.controller.getBumper(GenericHID.Hand.kRight):
