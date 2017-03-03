@@ -19,8 +19,8 @@ joystick.steeringAxis = 0
 cameras = PropertiesList()
 cameras.camera_width = 320
 cameras.camera_height = 240
-cameras.dev1 = 0
-cameras.dev2 = 1
+cameras.dev1 = 1
+cameras.dev2 = 0
 
 gear_mech = PropertiesList()
 gear_mech.forward_solenoid_channel = 1

@@ -87,7 +87,8 @@ var ui = {
         button: document.getElementById('forward-button')
     },
     switchCameraCommand: {
-        button: document.getElementById('switch-camera-button')
+        button: document.getElementById('switch-camera-button'),
+        port: 1182
     },
     turnCommand: {
         button: document.getElementById('turn-right-button')
@@ -114,6 +115,7 @@ var ui = {
     },
     pneumatic: document.getElementById('pneumatic'),
     camera: {
+        feed: document.getElementById('camera'),
         minh: document.getElementById('minh'),
         mins: document.getElementById('mins'),
         minv: document.getElementById('minv'),
@@ -476,6 +478,14 @@ ui.switchCameraCommand.button.onclick = function () {
         NetworkTables.putValue('/SmartDashboard/camera/dev', 2);
     else
         NetworkTables.putValue('/SmartDashboard/camera/dev', 1);
+    if (ui.switchCameraCommand.port == 1182) {
+        ui.camera.feed.style.backgroundImage = "url('http://roborio-1123-frc.local:1183/?action=stream')";
+        ui.switchCameraCommand.port = 1183;
+    }
+    else {
+        ui.camera.feed.style.backgroundImage = "url('http://roborio-1123-frc.local:1182/?action=stream')";
+        ui.switchCameraCommand.port = 1182;
+    }
 };
 
 ui.turnCommand.button.onclick = function () {
