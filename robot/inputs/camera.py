@@ -2,10 +2,10 @@ import logging
 
 import cv2
 import numpy as np
-from cscore import CameraServer
 from networktables import NetworkTables
 
 import robotmap
+from cscore import CameraServer
 
 
 class Camera:
@@ -59,18 +59,18 @@ class Camera:
         cv_sink = cs.getVideo()
 
         # Setup a CvSource. This will send images back to the Dashboard
-        output_stream = cs.putVideo("Camera Feed", self.width, self.height)
+        output_stream = cs.putVideo("camera_cv", self.width, self.height)
 
         while True:
             # switch cameras if needed
             if self.sd.getNumber("camera/dev") != self.cur_dev:
-                # cs.removeCamera("camera")
-                cs.removeServer("serve_camera")
+                cs.removeCamera("camera_cv")
+                cs.removeServer("serve_camera_cv")
                 if self.cur_dev == 1:
-                    self.camera = cs.startAutomaticCapture(dev=robotmap.cameras.dev2, name="camera")
+                    self.camera = cs.startAutomaticCapture(dev=robotmap.cameras.dev2, name="camera_cv")
                     self.cur_dev = 2
                 else:
-                    self.camera = cs.startAutomaticCapture(dev=robotmap.cameras.dev1, name="camera")
+                    self.camera = cs.startAutomaticCapture(dev=robotmap.cameras.dev1, name="camera_cv")
                     self.cur_dev = 1
                 self.camera.setResolution(self.width, self.height)
                 self.camera.setExposureManual(2)
