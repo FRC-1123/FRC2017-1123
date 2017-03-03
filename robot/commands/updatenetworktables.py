@@ -7,6 +7,7 @@ from wpilib.command import Command
 import subsystems
 from commands.rotate import Rotate
 from commands.setspeed import SetSpeed
+from commands.switchcamera import SwitchCamera
 from inputs import navx
 from inputs import sonar
 
@@ -38,6 +39,10 @@ class UpdateNetworkTables(Command):
                 self.sd.putBoolean("turnCommand", False)
                 Rotate(90.0).start()
                 self.logger.info("Turning right 90 degrees.")
+            if self.sd.containsKey("switchAllCommand") and self.sd.getBoolean("switchAllCommand"):
+                self.sd.putBoolean("switchAllCommand", False)
+                SwitchCamera().start()
+                self.logger.info("Reversed everything.")
 
             # update navX status
             self.sd.putBoolean('navX/isConnected', navx.ahrs.isConnected())

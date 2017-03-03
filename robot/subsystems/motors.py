@@ -44,8 +44,8 @@ class Motors(Subsystem):
             tmp = self.left_motor
             self.left_motor = self.right_motor
             self.right_motor = tmp
-            self.left_motor.setInverted(False)
-            self.right_motor.setInverted(False)
+            self.left_motor.setInverted(not self.left_motor.getInverted())
+            self.right_motor.setInverted(not self.right_motor.getInverted())
             self.robot_drive = wpilib.RobotDrive(self.left_motor, self.right_motor)
             self.robot_drive.setMaxOutput(1)
         self.sd.putNumber("direction", 1)
@@ -55,8 +55,8 @@ class Motors(Subsystem):
             tmp = self.left_motor
             self.left_motor = self.right_motor
             self.right_motor = tmp
-            self.left_motor.setInverted(False)
-            self.right_motor.setInverted(False)
+            self.left_motor.setInverted(not self.left_motor.getInverted())
+            self.right_motor.setInverted(not self.right_motor.getInverted())
             self.robot_drive = wpilib.RobotDrive(self.left_motor, self.right_motor)
             self.robot_drive.setMaxOutput(1)
         self.sd.putNumber("direction", -1)

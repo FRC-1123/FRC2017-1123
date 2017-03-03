@@ -90,6 +90,9 @@ var ui = {
         button: document.getElementById('switch-camera-button'),
         port: 1182
     },
+    switchAllCommand: {
+        button: document.getElementById('switch-all-button')
+    },
     turnCommand: {
         button: document.getElementById('turn-right-button')
     },
@@ -482,10 +485,6 @@ ui.forwardCommand.button.onclick = function () {
 };
 
 ui.switchCameraCommand.button.onclick = function () {
-//    if (NetworkTables.getValue('/SmartDashboard/camera/dev') == 1)
-//        NetworkTables.putValue('/SmartDashboard/camera/dev', 2);
-//    else
-//        NetworkTables.putValue('/SmartDashboard/camera/dev', 1);
     if (ui.switchCameraCommand.port == 1182) {
         ui.camera.feed.style.backgroundImage = "url('http://roborio-1123-frc.local:1183/?action=stream')";
         ui.switchCameraCommand.port = 1183;
@@ -494,6 +493,18 @@ ui.switchCameraCommand.button.onclick = function () {
         ui.camera.feed.style.backgroundImage = "url('http://roborio-1123-frc.local:1182/?action=stream')";
         ui.switchCameraCommand.port = 1182;
     }
+};
+
+ui.switchCameraCommand.button.onclick = function () {
+    if (ui.switchCameraCommand.port == 1182) {
+        ui.camera.feed.style.backgroundImage = "url('http://roborio-1123-frc.local:1183/?action=stream')";
+        ui.switchCameraCommand.port = 1183;
+    }
+    else {
+        ui.camera.feed.style.backgroundImage = "url('http://roborio-1123-frc.local:1182/?action=stream')";
+        ui.switchCameraCommand.port = 1182;
+    }
+    NetworkTables.putValue('/SmartDashboard/switchAllCommand', true);
 };
 
 ui.turnCommand.button.onclick = function () {
