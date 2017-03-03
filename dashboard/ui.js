@@ -87,7 +87,7 @@ var ui = {
         button: document.getElementById('forward-button')
     },
     switchCameraCommand: {
-        button: document.getElementById('switch-ca')
+        button: document.getElementById('switch-camera-button')
     },
     turnCommand: {
         button: document.getElementById('turn-right-button')

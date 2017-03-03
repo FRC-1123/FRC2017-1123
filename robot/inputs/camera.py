@@ -2,10 +2,10 @@ import logging
 
 import cv2
 import numpy as np
-from cscore import CameraServer
 from networktables import NetworkTables
 
 import robotmap
+from cscore import CameraServer
 
 
 class Camera:
@@ -64,7 +64,8 @@ class Camera:
         while True:
             # switch cameras if needed
             if self.sd.getNumber("camera/dev") != self.cur_dev:
-                cs.removeCamera("camera")
+                # cs.removeCamera("camera")
+                cs.removeServer(cs.getServer().getName())
                 if self.cur_dev == 1:
                     self.camera = cs.startAutomaticCapture(dev=robotmap.cameras.dev2, name="camera")
                     self.cur_dev = 2
