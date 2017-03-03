@@ -2,10 +2,10 @@ import wpilib
 from wpilib.buttons.joystickbutton import JoystickButton
 
 import robotmap
-from commands.switchcamera import SwitchCamera
 
 joystick = None
 controller = None
+start_btn = None
 
 
 def init():
@@ -13,10 +13,9 @@ def init():
     Initialize operator input (OI) objects.
     """
 
-    global joystick, controller
+    global joystick, controller, start_btn
 
     joystick = wpilib.Joystick(robotmap.joystick.port)
     controller = wpilib.XboxController(robotmap.joystick.port)
 
-    start = JoystickButton(joystick, 7)
-    start.whenPressed(SwitchCamera())
+    start_btn = JoystickButton(joystick, 7)

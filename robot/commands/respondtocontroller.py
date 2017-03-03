@@ -5,10 +5,10 @@ from wpilib import GenericHID
 from wpilib.command import Command
 from wpilib.timer import Timer
 
-import subsystems
 from commands.controlgearmech import ControlGearMech
 from commands.drivetorod import DriveToRod
 from commands.rumblecontroller import RumbleController
+from commands.switchcamera import SwitchCamera
 from inputs import camera
 from inputs import oi
 
@@ -25,6 +25,8 @@ class RespondToController(Command):
 
         self.sd = NetworkTables.getTable("SmartDashboard")
         self.logger = logging.getLogger("robot")
+
+        oi.start_btn.whenPressed(SwitchCamera())
 
         self.timer = Timer()
         self.timer.start()
