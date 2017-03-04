@@ -316,10 +316,12 @@ function onValueChanged(key, value, isNew) {
             else
                 ui.sonarDiagram.diagram.style.transform = 'rotate3d(0, 0, 1, 180deg)';
             if (ui.switchCameraCommand.port == 1182) {
+                ui.camera.feed.style.transform = 'rotate3d(0, 0, 1, 180deg)';
                 ui.camera.feed.style.backgroundImage = "url('http://roborio-1123-frc.local:1183/?action=stream')";
                 ui.switchCameraCommand.port = 1183;
             }
             else {
+                ui.camera.feed.style.transform = 'rotate3d(0, 0, 1, 0deg)';
                 ui.camera.feed.style.backgroundImage = "url('http://roborio-1123-frc.local:1182/?action=stream')";
                 ui.switchCameraCommand.port = 1182;
             }
@@ -487,10 +489,12 @@ ui.forwardCommand.button.onclick = function () {
 ui.switchCameraCommand.button.onclick = function () {
     if (ui.switchCameraCommand.port == 1182) {
         ui.camera.feed.style.backgroundImage = "url('http://roborio-1123-frc.local:1183/?action=stream')";
+        ui.camera.feed.style.transform = 'rotate3d(0, 0, 1, 180deg)';
         ui.switchCameraCommand.port = 1183;
     }
     else {
         ui.camera.feed.style.backgroundImage = "url('http://roborio-1123-frc.local:1182/?action=stream')";
+        ui.camera.feed.style.transform = 'rotate3d(0, 0, 1, 0deg)';
         ui.switchCameraCommand.port = 1182;
     }
 };
@@ -498,10 +502,12 @@ ui.switchCameraCommand.button.onclick = function () {
 ui.switchCameraCommand.button.onclick = function () {
     if (ui.switchCameraCommand.port == 1182) {
         ui.camera.feed.style.backgroundImage = "url('http://roborio-1123-frc.local:1183/?action=stream')";
+        ui.camera.feed.style.transform = 'rotate3d(0, 0, 1, 180deg)';
         ui.switchCameraCommand.port = 1183;
     }
     else {
         ui.camera.feed.style.backgroundImage = "url('http://roborio-1123-frc.local:1182/?action=stream')";
+        ui.camera.feed.style.transform = 'rotate3d(0, 0, 1, 0deg)';
         ui.switchCameraCommand.port = 1182;
     }
     NetworkTables.putValue('/SmartDashboard/switchAllCommand', true);
