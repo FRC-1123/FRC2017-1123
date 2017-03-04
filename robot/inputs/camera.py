@@ -9,7 +9,7 @@ from cscore import CameraServer
 
 
 class Camera:
-    def __init__(self, width, height):
+    def __init__(self, width, height, upside_down=False):
         # Allocating new images is very expensive, always try to preallocate
         self.width, self.height = width, height
         self.frame = np.zeros(shape=(self.height, self.width, 3), dtype=np.uint8)
@@ -43,6 +43,7 @@ class Camera:
         self.logger = logging.getLogger("robot")
 
         self.camera = None
+        self.upside_down = upside_down
 
     def main(self):
         cs = CameraServer.getInstance()
@@ -84,6 +85,8 @@ class Camera:
             # Tell the CvSink to grab a frame from the camera and put it
             # in the source image.  If there is an error notify the output.
             time, self.frame = cv_sink.grabFrame(self.frame)
+            if self.upside_down:
+                self.frame = np.rot90(self.frame, 2)
             if time == 0:
                 output_stream.notifyError(cv_sink.getError())  # send the output the error
                 continue  # skip the rest of the current iteration
@@ -229,5 +232,5 @@ def get_rod_pos():
 
 
 def start():
-    camera = Camera(robotmap.cameras.camera_width, robotmap.cameras.camera_height)
+    camera = Camera(robotmap.cameras.camera_width, robotmap.cameras.camera_height, True)
     camera.main()
