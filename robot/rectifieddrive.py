@@ -55,7 +55,6 @@ class RectifiedDrive:
 
         angular_vel = angular_vel_frac * self.max_angular_speed
         actual = navx.ahrs.getRate()
-        self.logger.info("actual angular velocity: {}".format(actual))
         self.sd.putNumber("drive/setpoint", angular_vel)
         self.sd.putNumber("drive/actual", actual)
 

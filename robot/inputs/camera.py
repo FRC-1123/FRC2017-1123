@@ -58,7 +58,7 @@ class Camera:
 
         self.camera2 = cs.startAutomaticCapture(dev=robotmap.cameras.dev2, name="camera2")
         self.camera2.setResolution(self.width, self.height)
-        self.camera2.setExposureManual(2)
+        self.camera2.setExposureAuto()
         self.camera2.setBrightness(50)
         self.camera2.setWhiteBalanceManual(7000)
 
@@ -87,6 +87,7 @@ class Camera:
             time, self.frame = cv_sink.grabFrame(self.frame)
             if self.upside_down:
                 self.frame = np.rot90(self.frame, 2)
+                self.frame = self.frame.copy()
             if time == 0:
                 output_stream.notifyError(cv_sink.getError())  # send the output the error
                 continue  # skip the rest of the current iteration

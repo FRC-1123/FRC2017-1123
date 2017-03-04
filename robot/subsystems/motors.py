@@ -46,8 +46,10 @@ class Motors(Subsystem):
             self.right_motor = tmp
             self.left_motor.setInverted(not self.left_motor.getInverted())
             self.right_motor.setInverted(not self.right_motor.getInverted())
-            self.robot_drive = wpilib.RobotDrive(self.left_motor, self.right_motor)
-            self.robot_drive.setMaxOutput(1)
+            self.robot_drive.rearLeftMotor = self.left_motor
+            self.robot_drive.rearRightMotor = self.right_motor
+            # self.robot_drive = wpilib.RobotDrive(self.left_motor, self.right_motor)
+            # self.robot_drive.setMaxOutput(1)
         self.sd.putNumber("direction", 1)
 
     def reverseDirection(self):
@@ -57,8 +59,10 @@ class Motors(Subsystem):
             self.right_motor = tmp
             self.left_motor.setInverted(not self.left_motor.getInverted())
             self.right_motor.setInverted(not self.right_motor.getInverted())
-            self.robot_drive = wpilib.RobotDrive(self.left_motor, self.right_motor)
-            self.robot_drive.setMaxOutput(1)
+            self.robot_drive.rearLeftMotor = self.left_motor
+            self.robot_drive.rearRightMotor = self.right_motor
+            # self.robot_drive = wpilib.RobotDrive(self.left_motor, self.right_motor)
+            # self.robot_drive.setMaxOutput(1)
         self.sd.putNumber("direction", -1)
 
     def initDefaultCommand(self):

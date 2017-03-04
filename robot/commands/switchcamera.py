@@ -7,9 +7,6 @@ import subsystems
 
 
 class SwitchCamera(InstantCommand):
-    """
-    This command rumbles the Xbox controller for a set amount of time.
-    """
 
     def __init__(self):
         super().__init__("Switch Camera")
