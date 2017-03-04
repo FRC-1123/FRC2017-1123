@@ -28,7 +28,7 @@ class Robot(CommandBasedRobot):
 
         # set autonomous modes
         self.sd.putStringArray("autonomous/options", ["left", "center", "right"])
-        self.sd.putString("autonomous/selected", "center")
+        self.sd.putString("autonomous/selected", "right")
         self.sd.putBoolean("isautonomous", False)
 
         # drive-to-rod PID values (for tuning)
@@ -55,10 +55,10 @@ class Robot(CommandBasedRobot):
     def autonomousInit(self):
         self.sd.putBoolean("isautonomous", True)
         UpdateNetworkTables().start()
-        if self.sd.containsKey("autonomous/selected"):
-            AutonomousProgram(self.sd.getString("autonomous/selected")).start()
-        else:  # if not set for some reason (bad!), just use center mode
-            AutonomousProgram("center").start()
+        # if self.sd.containsKey("autonomous/selected"):
+        #     AutonomousProgram(self.sd.getString("autonomous/selected")).start()
+          # if not set for some reason (bad!), just use center mode
+        AutonomousProgram("right").start()
         self.logger.info("Started autonomous.")
 
     def teleopInit(self):

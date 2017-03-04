@@ -14,11 +14,13 @@ class SwitchCamera(InstantCommand):
     def initialize(self):
         sd = NetworkTables.getTable("SmartDashboard")
         cur_direct = sd.getNumber("direction")
+        logger = logging.getLogger("robot")
 
         if cur_direct == 1:
             subsystems.motors.reverseDirection()
+            logger.info("Reversed")
         else:
             subsystems.motors.forwardDirection()
+            logger.info("Forward")
 
-        logger = logging.getLogger("robot")
         logger.info("Switched camera")
