@@ -41,7 +41,7 @@ class FollowJoystick(Command):
 
             # rectified arcade drive
             power = oi.joystick.getRawAxis(robotmap.joystick.forwardAxis)
-            power *= 1  # for limiting power
+            power /= oi.divider  # for limiting power
 
             angular_vel = oi.joystick.getRawAxis(robotmap.joystick.steeringAxis)
             # if power > 0:  # if moving backwards, negate angular velocity

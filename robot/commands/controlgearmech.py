@@ -19,10 +19,13 @@ class ControlGearMech(InstantCommand):
         self.requires(subsystems.gear_mech)
 
         sd = NetworkTables.getTable("SmartDashboard")
+        logger = logging.getLogger("robot")
 
         if closed:
             subsystems.gear_mech.double_solenoid.set(subsystems.gear_mech.double_solenoid.Value.kReverse)
             sd.putBoolean("pneumatic", False)
+            logger.info("closed")
         else:
             subsystems.gear_mech.double_solenoid.set(subsystems.gear_mech.double_solenoid.Value.kForward)
             sd.putBoolean("pneumatic", True)
+            logger.info("open")
