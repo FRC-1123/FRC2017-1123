@@ -6,10 +6,7 @@ from wpilib.command import Command
 from wpilib.timer import Timer
 
 from commands.controlgearmech import ControlGearMech
-from commands.drivetorod import DriveToRod
-from commands.rumblecontroller import RumbleController
 from commands.switchcamera import SwitchCamera
-from inputs import camera
 from inputs import oi
 
 logging.basicConfig(level=logging.INFO)
@@ -66,7 +63,7 @@ class RespondToController(Command):
                 elif oi.divider != 1:
                     oi.divider = 1
                 else:
-                    oi.divider = 3
+                    oi.divider = 2
                 self.bumper_last = True
             else:
                 self.bumper_last = False
