@@ -55,12 +55,14 @@ class Camera:
         self.camera.setExposureManual(2)
         self.camera.setBrightness(50)
         self.camera.setWhiteBalanceManual(7000)
+        self.camera.setFPS(30)
 
         self.camera2 = cs.startAutomaticCapture(dev=robotmap.cameras.dev2, name="camera2")
         self.camera2.setResolution(self.width, self.height)
         self.camera2.setExposureAuto()
         self.camera2.setBrightness(50)
         self.camera2.setWhiteBalanceManual(7000)
+        self.camera2.setFPS(15)
 
         # Get a CvSink. This will capture images from the camera
         cv_sink = cs.getVideo()
