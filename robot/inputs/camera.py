@@ -2,10 +2,10 @@ import logging
 
 import cv2
 import numpy as np
+from cscore import CameraServer
 from networktables import NetworkTables
 
 import robotmap
-from cscore import CameraServer
 
 
 class Camera:
@@ -54,12 +54,14 @@ class Camera:
         self.camera.setExposureManual(2)
         self.camera.setBrightness(50)
         self.camera.setWhiteBalanceManual(7000)
+        self.camera.setFPS(10)
 
         self.camera2 = cs.startAutomaticCapture(dev=robotmap.cameras.dev2, name="camera2")
         self.camera2.setResolution(self.width, self.height)
         self.camera2.setExposureManual(2)
         self.camera2.setBrightness(50)
         self.camera2.setWhiteBalanceManual(7000)
+        self.camera.setFPS(10)
 
         # Get a CvSink. This will capture images from the camera
         cv_sink = cs.getVideo()
@@ -95,8 +97,6 @@ class Camera:
             self.draw_crosshairs()
             self.draw_tape_contours()
             self.draw_rod_pos()
-
-            output_stream.putFrame(self.frame)
 
     def update_rod_pos(self):
         """
