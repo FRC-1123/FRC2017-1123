@@ -20,10 +20,11 @@ class ListenForClimb(Command):
 
     def execute(self):
         if self.timer.hasPeriodPassed(0.05):
-            if oi.controller.getYButton():  # climb up
-                subsystems.climbing_mech.setSpeed(-1.0)
-            elif oi.controller.getXButton():  # climb down
-                subsystems.climbing_mech.setSpeed(0.3)
+            # subsystems.climbing_mech.setSpeed(oi.controller.getRawAxis(3))
+            if oi.controller.getYButton():  # climb down
+                subsystems.climbing_mech.setSpeed(-0.3)
+            elif oi.controller.getXButton():  # climb up
+                subsystems.climbing_mech.setSpeed(1.0)
             else:
                 subsystems.climbing_mech.setSpeed(0)
 

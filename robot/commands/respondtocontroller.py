@@ -6,10 +6,7 @@ from wpilib.command import Command
 from wpilib.timer import Timer
 
 from commands.controlgearmech import ControlGearMech
-from commands.drivetorod import DriveToRod
-from commands.rumblecontroller import RumbleController
 from commands.switchcamera import SwitchCamera
-from inputs import camera
 from inputs import oi
 
 logging.basicConfig(level=logging.INFO)
@@ -30,6 +27,8 @@ class RespondToController(Command):
 
         self.timer = Timer()
         self.timer.start()
+
+        self.bumper_last = False
 
     def execute(self):
         if self.timer.hasPeriodPassed(0.05):
@@ -59,13 +58,22 @@ class RespondToController(Command):
 
             # drive-to-rod control
             if oi.controller.getBumper(GenericHID.Hand.kRight):
-                rod_pos = camera.get_rod_pos()
-                if rod_pos is None:  # cannot find rod
-                    self.logger.critical("Couldn't find the rod! {}".format(rod_pos))
-                    RumbleController(0.5).start()
+                if self.bumper_last:
+                    pass
+                elif oi.divider != 1:
+                    oi.divider = 1
                 else:
-                    self.logger.info("Driving to the rod!")
-                    DriveToRod().start()
+                    oi.divider = 2
+                self.bumper_last = True
+            else:
+                self.bumper_last = False
+                # rod_pos = camera.get_rod_pos()
+                # if rod_pos is None:  # cannot find rod
+                #     self.logger.critical("Couldn't find the rod! {}".format(rod_pos))
+                #     RumbleController(0.5).start()
+                # else:
+                #     self.logger.info("Driving to the rod!")
+                #     DriveToRod().start()
 
                     # for single joystick
                     # if oi.joystick.getRawButton(robotmap.joystick.top_left_port):  # piston in

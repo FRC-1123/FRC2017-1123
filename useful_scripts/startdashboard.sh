@@ -2,7 +2,7 @@
 # Starts the dashboard and cleans up on exit.
 
 cd "$(dirname "$(readlink -f $0)")/../dashboard/"
-pynetworktables2js --robot=roborio-1123-frc.local &
+pynetworktables2js --robot=10.11.23.2 &
 PID=$!
 
 # kill pynetworktables2js on EXIT

@@ -2,14 +2,14 @@ import logging
 
 import cv2
 import numpy as np
-from cscore import CameraServer
 from networktables import NetworkTables
 
 import robotmap
+from cscore import CameraServer
 
 
 class Camera:
-    def __init__(self, width, height):
+    def __init__(self, width, height, upside_down=False):
         # Allocating new images is very expensive, always try to preallocate
         self.width, self.height = width, height
         self.frame = np.zeros(shape=(self.height, self.width, 3), dtype=np.uint8)
@@ -43,6 +43,7 @@ class Camera:
         self.logger = logging.getLogger("robot")
 
         self.camera = None
+        self.upside_down = upside_down
 
     def main(self):
         cs = CameraServer.getInstance()
@@ -54,14 +55,14 @@ class Camera:
         self.camera.setExposureManual(2)
         self.camera.setBrightness(50)
         self.camera.setWhiteBalanceManual(7000)
-        self.camera.setFPS(10)
+        self.camera.setFPS(30)
 
         self.camera2 = cs.startAutomaticCapture(dev=robotmap.cameras.dev2, name="camera2")
-        self.camera2.setResolution(self.width, self.height)
-        self.camera2.setExposureManual(2)
+        self.camera2.setResolution(120, 90)
+        self.camera2.setExposureAuto()
         self.camera2.setBrightness(50)
         self.camera2.setWhiteBalanceManual(7000)
-        self.camera.setFPS(10)
+        self.camera2.setFPS(10)
 
         # Get a CvSink. This will capture images from the camera
         cv_sink = cs.getVideo()
@@ -86,6 +87,9 @@ class Camera:
             # Tell the CvSink to grab a frame from the camera and put it
             # in the source image.  If there is an error notify the output.
             time, self.frame = cv_sink.grabFrame(self.frame)
+            if self.upside_down:
+                self.frame = np.rot90(self.frame, 2)
+                self.frame = self.frame.copy()
             if time == 0:
                 output_stream.notifyError(cv_sink.getError())  # send the output the error
                 continue  # skip the rest of the current iteration
@@ -97,6 +101,8 @@ class Camera:
             self.draw_crosshairs()
             self.draw_tape_contours()
             self.draw_rod_pos()
+
+            output_stream.putFrame(self.frame)
 
     def update_rod_pos(self):
         """
@@ -183,7 +189,7 @@ class Camera:
 
             # make sure the bottom of the contour is below 1/5th of the height
             bottom = tuple(approx[approx[:, :, 1].argmax()][0])[1]
-            if bottom < self.height / 3:
+            if bottom < self.height / 5:
                 continue
 
             # remove noise
@@ -229,5 +235,5 @@ def get_rod_pos():
 
 
 def start():
-    camera = Camera(robotmap.cameras.camera_width, robotmap.cameras.camera_height)
+    camera = Camera(robotmap.cameras.camera_width, robotmap.cameras.camera_height, True)
     camera.main()
