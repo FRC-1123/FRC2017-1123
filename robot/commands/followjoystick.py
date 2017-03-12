@@ -23,7 +23,7 @@ class FollowJoystick(Command):
         self.requires(subsystems.motors)
 
         self.logger = logging.getLogger("robot")
-        self.drive = RectifiedDrive(30, 0.05)
+        self.drive = RectifiedDrive(25, 0.05)
 
         self.sd = NetworkTables.getTable("SmartDashboard")
 
@@ -44,7 +44,7 @@ class FollowJoystick(Command):
             power /= oi.divider  # for limiting power
 
             angular_vel = oi.joystick.getRawAxis(robotmap.joystick.steeringAxis)
-            angular_vel /= oi.divider  # for limiting angular velocity
+            # angular_vel /= oi.divider  # for limiting angular velocity
             # if power > 0:  # if moving backwards, negate angular velocity
             #     angular_vel *= -1
             self.drive.rectified_drive(power, angular_vel)
