@@ -53,6 +53,8 @@ class UpdateNetworkTables(Command):
             # update motor output statuses
             self.sd.putNumber("leftOutput", subsystems.motors.left_motor.getSetpoint())
             self.sd.putNumber("rightOutput", subsystems.motors.right_motor.getSetpoint())
+            self.sd.putNumber("leftCurrent", subsystems.motors.left_motor.getOutputCurrent())
+            self.sd.putNumber("rightCurrent", subsystems.motors.right_motor.getOutputCurrent())
 
             # with open("outputs.txt", "a") as outfile:
             #     outfile.write("{}\t{}\n".format(subsystems.motors.left_motor.getOutputCurrent(), subsystems.motors.right_motor.getOutputCurrent()))

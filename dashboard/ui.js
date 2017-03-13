@@ -114,7 +114,9 @@ var ui = {
     },
     outputs: {
         left: document.getElementById('left-output'),
-        right: document.getElementById('right-output')
+        right: document.getElementById('right-output'),
+        leftCurrent: document.getElementById('left-current'),
+        rightCurrent: document.getElementById('right-current')
     },
     pneumatic: document.getElementById('pneumatic'),
     camera: {
@@ -365,14 +367,20 @@ function onValueChanged(key, value, isNew) {
         case '/SmartDashboard/leftOutput':
             ui.outputs.left.innerHTML = Math.round(-value * 100);
             var period = 2.5 - Math.abs((parseInt(ui.outputs.left.innerHTML) + parseInt(ui.outputs.right.innerHTML)) / 100.0);
-            ui.gears.left.style.animation = "barrelRoll " + period + "s infinite linear"
-            ui.gears.right.style.animation = "invertBarrelRoll " + period + "s infinite linear"
+            ui.gears.left.style.animation = "barrelRoll " + period + "s infinite linear";
+            ui.gears.right.style.animation = "invertBarrelRoll " + period + "s infinite linear";
             break;
         case '/SmartDashboard/rightOutput':
             ui.outputs.right.innerHTML = Math.round(value * 100);
             var period = 2.5 - Math.abs((parseInt(ui.outputs.left.innerHTML) + parseInt(ui.outputs.right.innerHTML)) / 100.0);
-            ui.gears.left.style.animation = "barrelRoll " + period + "s infinite linear"
-            ui.gears.right.style.animation = "invertBarrelRoll " + period + "s infinite linear"
+            ui.gears.left.style.animation = "barrelRoll " + period + "s infinite linear";
+            ui.gears.right.style.animation = "invertBarrelRoll " + period + "s infinite linear";
+            break;
+        case '/SmartDashboard/leftCurrent':
+            ui.outputs.leftCurrent.innerHTML = value;
+            break;
+        case '/SmartDashboard/rightCurrent':
+            ui.outputs.rightCurrent.innerHTML = value;
             break;
         case '/SmartDashboard/pneumatic':
             if (value) {
