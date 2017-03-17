@@ -21,8 +21,12 @@ class Motors(Subsystem):
 
         # main motors
         self.left_motor = ctre.CANTalon(robotmap.motors.left_id)
-        self.right_motor = ctre.CANTalon(robotmap.motors.right_id)
+        self.left_motor.setControlMode(ctre.CANTalon.ControlMode.Speed)
+        self.left_motor.setFeedbackDevice(ctre.CANTalon.FeedbackDevice.QuadEncoder)
         self.left_motor.setInverted(True)
+        self.right_motor = ctre.CANTalon(robotmap.motors.right_id)
+        self.right_motor.setControlMode(ctre.CANTalon.ControlMode.Speed)
+        self.right_motor.setFeedbackDevice(ctre.CANTalon.FeedbackDevice.QuadEncoder)
         self.right_motor.setInverted(True)
 
         self.sd = NetworkTables.getTable("SmartDashboard")
@@ -37,7 +41,7 @@ class Motors(Subsystem):
         right_motor_follower.set(robotmap.motors.right_id)
 
         self.robot_drive = wpilib.RobotDrive(self.left_motor, self.right_motor)
-        self.robot_drive.setMaxOutput(1)
+        self.robot_drive.setMaxOutput(0.69)  # maximum edges per 10ms
 
     def forwardDirection(self):
         if self.sd.getNumber("direction") == -1:
