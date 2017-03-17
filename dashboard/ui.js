@@ -128,6 +128,11 @@ var ui = {
         maxs: document.getElementById('maxs'),
         maxv: document.getElementById('maxv')
     },
+    motors: {
+        kp: document.getElementById('motorsp'),
+        ki: document.getElementById('motorsi'),
+        kd: document.getElementById('motorsd')
+    },
     rod: {
         kp: document.getElementById('rodp'),
         ki: document.getElementById('rodi'),
@@ -542,6 +547,16 @@ ui.camera.maxs.onchange = function () {
 };
 ui.camera.maxv.onchange = function () {
     NetworkTables.putValue('/SmartDashboard/camera/maxv', parseFloat(ui.camera.maxv.value));
+};
+
+ui.motors.kp.onchange = function () {
+    NetworkTables.putValue('/SmartDashboard/motors/kp', parseFloat(ui.motors.kp.value));
+};
+ui.motors.ki.onchange = function () {
+    NetworkTables.putValue('/SmartDashboard/motors/ki', parseFloat(ui.motors.ki.value));
+};
+ui.motors.kd.onchange = function () {
+    NetworkTables.putValue('/SmartDashboard/motors/kd', parseFloat(ui.motors.kd.value));
 };
 
 ui.rod.kp.onchange = function () {

@@ -47,6 +47,13 @@ class FollowJoystick(Command):
             # angular_vel /= oi.divider  # for limiting angular velocity
             # if power > 0:  # if moving backwards, negate angular velocity
             #     angular_vel *= -1
+
+            if self.sd.containsKey("motors/kp"):
+                subsystems.motors.left_motor.setPID(p=self.sd.getNumber("motors/kp"), i=self.sd.getNumber("motors/ki"),
+                                                    d=self.sd.getNumber("motors/kd"), f=0, izone=0)
+                subsystems.motors.right_motor.setPID(p=self.sd.getNumber("motors/kp"), i=self.sd.getNumber("motors/ki"),
+                                                     d=self.sd.getNumber("motors/kd"), f=0, izone=0)
+
             self.drive.rectified_drive(power, angular_vel)
 
     def end(self):

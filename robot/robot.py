@@ -45,6 +45,11 @@ class Robot(CommandBasedRobot):
         self.sd.putNumber("drive/kf", 0.0)
         self.sd.putNumber("drive/ktolerance", 0.1)
 
+        # Motor PID values (for tuning)
+        self.sd.putNumber("motors/kp", 0.3)
+        self.sd.putNumber("motors/ki", 0.05)
+        self.sd.putNumber("motors/kd", 0)
+
         self.sd.putNumber("direction", 1)
 
         navx.init()
