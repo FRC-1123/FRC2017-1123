@@ -44,7 +44,7 @@ class Motors(Subsystem):
         right_motor_follower.set(robotmap.motors.right_id)
 
         self.robot_drive = wpilib.RobotDrive(self.left_motor, self.right_motor)
-        self.robot_drive.setMaxOutput(0.69)  # maximum edges per 10ms
+        self.robot_drive.setMaxOutput(0.69)  # maximum edges per 10ms, approx. 27 ft/s
 
     def forwardDirection(self):
         if self.sd.getNumber("direction") == -1:
