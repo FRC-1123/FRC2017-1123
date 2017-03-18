@@ -45,8 +45,9 @@ class Robot(CommandBasedRobot):
 
         # Motor PID values (for tuning)
         self.sd.putNumber("motors/kp", 0.3)
-        self.sd.putNumber("motors/ki", 0.05)
+        self.sd.putNumber("motors/ki", 0)
         self.sd.putNumber("motors/kd", 0)
+        self.sd.putNumber("motors/kf", 0.5)
 
         self.sd.putNumber("direction", 1)
 

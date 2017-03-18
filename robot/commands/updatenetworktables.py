@@ -33,7 +33,8 @@ class UpdateNetworkTables(Command):
             # dashboard forward button (for demonstration purposes)
             if self.sd.containsKey("forwardCommand") and self.sd.getBoolean("forwardCommand"):  # check if move forward button pressed
                 self.sd.putBoolean("forwardCommand", False)
-                SetSpeed(-0.058, 1).start()  # move forward at 1 rotation per second for one second
+                SetSpeed(0.1 * subsystems.motors.max_speed,
+                         1).start()  # move forward at 1 rotation per second for one second
                 self.logger.info("Moving forward at half power for one second.")
             elif self.sd.containsKey("turnCommand") and self.sd.getBoolean("turnCommand"):
                 self.sd.putBoolean("turnCommand", False)
@@ -55,6 +56,8 @@ class UpdateNetworkTables(Command):
             self.sd.putNumber("rightOutput", subsystems.motors.right_motor.getSetpoint())
             self.sd.putNumber("leftCurrent", subsystems.motors.left_motor.getOutputCurrent())
             self.sd.putNumber("rightCurrent", subsystems.motors.right_motor.getOutputCurrent())
+            self.sd.putNumber("leftSpeed", subsystems.motors.left_motor.getSpeed())
+            self.sd.putNumber("rightSpeed", subsystems.motors.right_motor.getSpeed())
 
             # with open("outputs.txt", "a") as outfile:
             #     outfile.write("{}\t{}\n".format(subsystems.motors.left_motor.getOutputCurrent(), subsystems.motors.right_motor.getOutputCurrent()))

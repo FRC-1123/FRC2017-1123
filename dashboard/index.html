@@ -106,8 +106,10 @@
     </div>
     <!-- Left and right motor outputs in amps -->
     <div id="outputs">
-        <p>Left Output:&ensp;<span id="left-output"></span>%</p>
-        <p>Right Output:&ensp;<span id="right-output"></span>%</p>
+        <p>Left Speed:&ensp;<span id="left-speed"></span></p>
+        <p>Right Speed:&ensp;<span id="right-speed"></span></p>
+        <p>Left Output:&ensp;<span id="left-output"></span></p>
+        <p>Right Output:&ensp;<span id="right-output"></span></p>
         <p>Left Current:&ensp;<span id="left-current"></span> A</p>
         <p>Right Current:&ensp;<span id="right-current"></span> A</p>
     </div>
@@ -155,6 +157,8 @@
         <input id="motorsi" type="number">
         <p>kD</p>
         <input id="motorsd" type="number">
+        <p>kF</p>
+        <input id="motorsf" type="number">
     </div>
     <div id="rod">
         <h3>Drive-to-Rod PID</h3>
