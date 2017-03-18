@@ -9,7 +9,6 @@ from commands.followjoystick import FollowJoystick
 from commands.rumblecontroller import RumbleController
 from inputs import camera
 from inputs import oi
-from inputs import sonar
 from rectifieddrive import RectifiedDrive
 
 logging.basicConfig(level=logging.INFO)
@@ -95,6 +94,7 @@ class DriveToRod(PIDCommand):
             return True
         # sonar.update_readings()
         # return sonar.distances[0] < 8.0
+        return False
 
     def end(self):
         subsystems.motors.robot_drive.setLeftRightMotorOutputs(0, 0)
