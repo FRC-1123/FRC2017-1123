@@ -10,7 +10,6 @@ from commands.followjoystick import FollowJoystick
 from commands.rumblecontroller import RumbleController
 from inputs import camera
 from inputs import oi
-from inputs import sonar
 from rectifieddrive import RectifiedDrive
 
 logging.basicConfig(level=logging.DEBUG)
@@ -18,7 +17,7 @@ logging.basicConfig(level=logging.DEBUG)
 
 class LockOn(PIDCommand):
     '''
-    this command dynamically transfers control between the driver and computer vision for driving to the rod
+    This command dynamically transfers control between the driver and computer vision for driving to the rod
     '''
 
     def __init__(self):
@@ -54,10 +53,10 @@ class LockOn(PIDCommand):
 
         self.logger = logging.getLogger("robot")
 
-        self.is_autonomous = self.sd.getBoolean("isautonomous")
+        # self.is_autonomous = self.sd.getBoolean("isautonomous")
         self.is_lost = False  # can't find the rod
 
-        self.last_rod_pos = 0
+        # self.last_rod_pos = 0
 
     def returnPIDInput(self):
         if oi.controller.getBumper(GenericHID.Hand.kLeft):  # return control back to controller
@@ -67,10 +66,10 @@ class LockOn(PIDCommand):
         if rod_pos is None:
             self.logger.critical("Couldn't find the rod!")
             self.is_lost = True
-            if not self.is_autonomous:  # return control to controller if not in autonomous
-                self.logger.critical("Returning control to the controller!")
-                FollowJoystick().start()
-                RumbleController(0.5).start()
+            # if not self.is_autonomous:  # return control to controller if not in autonomous
+            self.logger.critical("Returning control to the controller!")
+            FollowJoystick().start()
+            RumbleController(0.5).start()
             return 0.5
         else:
             self.last_rod_pos = rod_pos[0]
@@ -85,9 +84,9 @@ class LockOn(PIDCommand):
         else:  # combine human and computer vision control
             self.drive.rectified_drive(power, -output * abs(0.5 - self.last_rod_pos) + (1.0 - abs(0.5 - self.last_rod_pos)) * angular_vel)
 
-    def isFinished(self):
-        # timeout after 10 seconds or stop when within 8 inches of the wall
-        if self.timeSinceInitialized() > self.timeout:
-            return True
-        sonar.update_readings()
-        return sonar.distances[0] < 8.0
+            # def isFinished(self):
+            #     # timeout after 10 seconds or stop when within 8 inches of the wall
+            #     if self.timeSinceInitialized() > self.timeout:
+            #         return True
+            #     sonar.update_readings()
+            #     return sonar.distances[0] < 8.0

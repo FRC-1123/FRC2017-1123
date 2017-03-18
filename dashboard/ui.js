@@ -7,7 +7,7 @@ var drive_smoothie = new SmoothieChart({
         lineWidth: 1, millisPerLine: 1000, verticalSections: 10,
     },
     labels: {fillStyle: 'rgb(255, 255, 0)'},
-    maxValue: 50, minValue: -50
+    maxValue: 1760, minValue: -1760
 });
 drive_smoothie.addTimeSeries(drivesetpoint,
     {strokeStyle: 'rgb(100, 255, 100)', lineWidth: 2});
@@ -116,7 +116,9 @@ var ui = {
         left: document.getElementById('left-output'),
         right: document.getElementById('right-output'),
         leftCurrent: document.getElementById('left-current'),
-        rightCurrent: document.getElementById('right-current')
+        rightCurrent: document.getElementById('right-current'),
+        leftSpeed: document.getElementById('left-speed'),
+        rightSpeed: document.getElementById('right-speed')
     },
     pneumatic: document.getElementById('pneumatic'),
     camera: {
@@ -131,7 +133,8 @@ var ui = {
     motors: {
         kp: document.getElementById('motorsp'),
         ki: document.getElementById('motorsi'),
-        kd: document.getElementById('motorsd')
+        kd: document.getElementById('motorsd'),
+        kf: document.getElementById('motorsf')
     },
     rod: {
         kp: document.getElementById('rodp'),
@@ -370,14 +373,14 @@ function onValueChanged(key, value, isNew) {
             NetworkTables.putValue(key, false);
             break;
         case '/SmartDashboard/leftOutput':
-            ui.outputs.left.innerHTML = Math.round(-value * 100);
-            var period = 2.5 - Math.abs((parseInt(ui.outputs.left.innerHTML) + parseInt(ui.outputs.right.innerHTML)) / 100.0);
+            ui.outputs.left.innerHTML = Math.round(-value);
+            var period = 2.5 - Math.abs((parseInt(ui.outputs.left.innerHTML) + parseInt(ui.outputs.right.innerHTML * 100)) / 100.0);
             ui.gears.left.style.animation = "barrelRoll " + period + "s infinite linear";
             ui.gears.right.style.animation = "invertBarrelRoll " + period + "s infinite linear";
             break;
         case '/SmartDashboard/rightOutput':
-            ui.outputs.right.innerHTML = Math.round(value * 100);
-            var period = 2.5 - Math.abs((parseInt(ui.outputs.left.innerHTML) + parseInt(ui.outputs.right.innerHTML)) / 100.0);
+            ui.outputs.right.innerHTML = Math.round(value);
+            var period = 2.5 - Math.abs((parseInt(ui.outputs.left.innerHTML) + parseInt(ui.outputs.right.innerHTML * 100)) / 100.0);
             ui.gears.left.style.animation = "barrelRoll " + period + "s infinite linear";
             ui.gears.right.style.animation = "invertBarrelRoll " + period + "s infinite linear";
             break;
@@ -386,6 +389,12 @@ function onValueChanged(key, value, isNew) {
             break;
         case '/SmartDashboard/rightCurrent':
             ui.outputs.rightCurrent.innerHTML = value;
+            break;
+        case '/SmartDashboard/leftSpeed':
+            ui.outputs.leftSpeed.innerHTML = value;
+            break;
+        case '/SmartDashboard/rightSpeed':
+            ui.outputs.rightSpeed.innerHTML = value;
             break;
         case '/SmartDashboard/pneumatic':
             if (value) {
@@ -558,6 +567,9 @@ ui.motors.ki.onchange = function () {
 ui.motors.kd.onchange = function () {
     NetworkTables.putValue('/SmartDashboard/motors/kd', parseFloat(ui.motors.kd.value));
 };
+ui.motors.kf.onchange = function () {
+    NetworkTables.putValue('/SmartDashboard/motors/kf', parseFloat(ui.motors.kf.value));
+};
 
 ui.rod.kp.onchange = function () {
     NetworkTables.putValue('/SmartDashboard/rod/kp', parseFloat(ui.rod.kp.value));
@@ -633,6 +645,11 @@ ui.getNT.button.onclick = function () {
     ui.camera.maxh.value = NetworkTables.getValue('/SmartDashboard/camera/maxh');
     ui.camera.maxs.value = NetworkTables.getValue('/SmartDashboard/camera/maxs');
     ui.camera.maxv.value = NetworkTables.getValue('/SmartDashboard/camera/maxv');
+
+    ui.motors.kp.value = NetworkTables.getValue('/SmartDashboard/motors/kp');
+    ui.motors.ki.value = NetworkTables.getValue('/SmartDashboard/motors/ki');
+    ui.motors.kd.value = NetworkTables.getValue('/SmartDashboard/motors/kd');
+    ui.motors.kf.value = NetworkTables.getValue('/SmartDashboard/motors/kf');
 
     ui.rod.kp.value = NetworkTables.getValue('/SmartDashboard/rod/kp');
     console.log(NetworkTables.getValue('/SmartDashboard/rod/kp'));
