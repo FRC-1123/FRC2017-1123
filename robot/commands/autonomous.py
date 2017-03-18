@@ -1,8 +1,8 @@
 from wpilib.command.commandgroup import CommandGroup
 
+from commands.driveforward import DriveForward
 from commands.drivetorod import DriveToRod
 from commands.rotate import Rotate
-from commands.setspeed import SetSpeed
 
 
 class AutonomousProgram(CommandGroup):
@@ -10,11 +10,18 @@ class AutonomousProgram(CommandGroup):
         super().__init__('Autonomous Program')
 
         if mode == "left":
-            self.addSequential(SetSpeed(-0.3, 0.5))
+            # self.addSequential(SetSpeed(-0.3, 0.5))
+            # self.addSequential(Rotate(-20))
+            # self.addSequential(SetSpeed(-0.3, 2.5))
+            # self.addSequential(Rotate(28))
+            # self.addSequential(DriveToRod(timeout=3.5))
+
+            self.addSequential(DriveForward(6))
             self.addSequential(Rotate(-20))
-            self.addSequential(SetSpeed(-0.3, 2.5))
-            self.addSequential(Rotate(28))
+            self.addSequential(DriveForward(48))
+            self.addSequential(Rotate(30))
             self.addSequential(DriveToRod(timeout=3.5))
+
             # self.addSequential(ControlGearMech(False))
             # self.addSequential(WaitCommand())
             # self.addSequential(SetSpeed(0.3, 0.1))
@@ -24,11 +31,18 @@ class AutonomousProgram(CommandGroup):
             # self.addSequential(Rotate(-10))
             # self.addSequential(SetSpeed(-0.5, 2))
         elif mode == "right":
-            self.addSequential(SetSpeed(-0.3, 0.5))
+            # self.addSequential(SetSpeed(-0.3, 0.5))
+            # self.addSequential(Rotate(20))
+            # self.addSequential(SetSpeed(-0.3, 2.5))
+            # self.addSequential(Rotate(-28))
+            # self.addSequential(DriveToRod(timeout=3.5))
+
+            self.addSequential(DriveForward(6))
             self.addSequential(Rotate(20))
-            self.addSequential(SetSpeed(-0.3, 2.5))
-            self.addSequential(Rotate(-28))
+            self.addSequential(DriveForward(48))
+            self.addSequential(Rotate(-30))
             self.addSequential(DriveToRod(timeout=3.5))
+
             # self.addSequential(ControlGearMech(False))
             # self.addSequential(WaitCommand(0.5))
             # self.addSequential(SetSpeed(0.3, 0.1))
