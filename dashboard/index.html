@@ -38,17 +38,6 @@
 <!-- The main body of the dashboard, by default contains the gyro monitor and the robot diagram -->
 
 <article>
-    <h3>Rectified Drive PID</h3>
-    <canvas id="drivegraph" width="400" height="110"></canvas>
-    <h3>Drive-to-Rod PID</h3>
-    <canvas id="rodgraph" width="400" height="110"></canvas>
-    <!-- Gyroscope -->
-    <svg id="gyro" viewBox="0 0 180 180">
-        <circle cx="90" cy="90" r="90"/>
-        <circle cx="90" cy="90" r="45"/>
-        <rect id="gyro-arm" x="85" y="5" width="10" height="85"/>
-        <text id="gyro-number" x="90" y="115">0º</text>
-    </svg>
     <svg id="sonar-diagram" viewBox="0 0 180 180">
         <polygon points="45 0, 135 0, 180 45, 180 135, 135 180, 45 180, 0 135, 0 45"/>
         <polygon points="80 70, 100 70, 110 80, 110 100, 100 110, 80 110, 70 100, 70 80"/>
@@ -61,6 +50,21 @@
         <line id="back-left-line" x1="80" y1="110" x2="70" y2="100" stroke-width="1px"/>
         <line id="left-line" x1="70" y1="100" x2="70" y2="80"/>
         <line id="front-left-line" x1="70" y1="80" x2="80" y2="70" stroke-width="1px"/>
+    </svg>
+    <div id="drivegraph_div">
+        <h5>Rectified Drive PID</h5>
+        <canvas id="drivegraph" width="230" height="70"></canvas>
+    </div>
+    <div id="rodgraph_div">
+        <h5>Drive-to-Rod PID</h5>
+        <canvas id="rodgraph" width="230" height="70"></canvas>
+    </div>
+    <!-- Gyroscope -->
+    <svg id="gyro" viewBox="0 0 180 180">
+        <circle cx="90" cy="90" r="90"/>
+        <circle cx="90" cy="90" r="45"/>
+        <rect id="gyro-arm" x="85" y="5" width="10" height="85"/>
+        <text id="gyro-number" x="90" y="115">0º</text>
     </svg>
     <!--<svg id="robot-diagram" width="332" height="450">-->
     <!--<text x="40" y="340">Da Bot</text>-->
