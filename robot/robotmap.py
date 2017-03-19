@@ -42,4 +42,4 @@ sonar.front_left_channel = 7
 sonar.pinger_channel = 8
 
 switches = PropertiesList()
-switches.climb_switch_channel = 9
+switches.gear_switch_channel = 9

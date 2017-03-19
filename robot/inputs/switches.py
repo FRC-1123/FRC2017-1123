@@ -11,4 +11,4 @@ def init():
     """
     global gear_mech_switch
 
-    gear_mech_switch = DigitalInput(robotmap.switches.climb_switch_channel)
+    gear_mech_switch = DigitalInput(robotmap.switches.gear_switch_channel)
