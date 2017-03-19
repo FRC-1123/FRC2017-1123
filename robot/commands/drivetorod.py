@@ -7,8 +7,7 @@ from wpilib.command import PIDCommand
 import subsystems
 from commands.followjoystick import FollowJoystick
 from commands.rumblecontroller import RumbleController
-from inputs import camera
-from inputs import oi
+from inputs import camera, oi, switches
 from rectifieddrive import RectifiedDrive
 
 logging.basicConfig(level=logging.INFO)
@@ -92,8 +91,11 @@ class DriveToRod(PIDCommand):
         # timeout after 10 seconds or stop when within 8 inches of the wall
         if self.timeSinceInitialized() > self.timeout:
             return True
-        # sonar.update_readings()
-        # return sonar.distances[0] < 8.0
+
+        # stop if the rod is hitting the switch
+        if switches.gear_mech_switch.get():
+            return True
+
         return False
 
     def end(self):
