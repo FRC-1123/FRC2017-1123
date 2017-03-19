@@ -1,4 +1,4 @@
-import wpilib
+from wpilib import Joystick, XboxController
 from wpilib.buttons.joystickbutton import JoystickButton
 
 import robotmap
@@ -13,11 +13,10 @@ def init():
     """
     Initialize operator input (OI) objects.
     """
-
     global joystick, controller, start_btn, divider
 
-    joystick = wpilib.Joystick(robotmap.joystick.port)
-    controller = wpilib.XboxController(robotmap.joystick.port)
+    joystick = Joystick(robotmap.joystick.port)
+    controller = XboxController(robotmap.joystick.port)
 
     start_btn = JoystickButton(joystick, 7)
 

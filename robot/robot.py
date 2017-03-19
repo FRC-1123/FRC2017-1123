@@ -10,9 +10,7 @@ import subsystems
 from commands.autonomous import AutonomousProgram
 from commands.respondtocontroller import RespondToController
 from commands.updatenetworktables import UpdateNetworkTables
-from inputs import navx
-from inputs import oi
-from inputs import sonar
+from inputs import navx, oi, sonar, switches
 
 
 class Robot(CommandBasedRobot):
@@ -55,6 +53,7 @@ class Robot(CommandBasedRobot):
         navx.init()
         sonar.init()
         oi.init()
+        switches.init()
         wpilib.CameraServer.launch('inputs/camera.py:start')
 
     def autonomousInit(self):
