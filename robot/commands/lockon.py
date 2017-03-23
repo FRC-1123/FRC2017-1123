@@ -1,7 +1,6 @@
 import logging
 
 from networktables import NetworkTables
-from wpilib import GenericHID
 from wpilib.command import PIDCommand
 
 import robotmap
@@ -22,6 +21,7 @@ class LockOn(PIDCommand):
 
     def __init__(self):
         self.sd = NetworkTables.getTable("SmartDashboard")
+        self.sd.putBoolean("lockonRunning", True)
 
         # PID constants
         # kp = 0.01
@@ -59,17 +59,14 @@ class LockOn(PIDCommand):
         # self.last_rod_pos = 0
 
     def returnPIDInput(self):
-        if oi.controller.getBumper(GenericHID.Hand.kLeft):  # return control back to controller
-            FollowJoystick().start()
-            return 0.5
         rod_pos = camera.get_rod_pos()
         if rod_pos is None:
             self.logger.critical("Couldn't find the rod!")
             self.is_lost = True
-            # if not self.is_autonomous:  # return control to controller if not in autonomous
             self.logger.critical("Returning control to the controller!")
-            FollowJoystick().start()
+            self.sd.putBoolean("lockonRunning", False)
             RumbleController(0.5).start()
+            FollowJoystick().start()
             return 0.5
         else:
             self.last_rod_pos = rod_pos[0]

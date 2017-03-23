@@ -51,6 +51,8 @@ class Robot(CommandBasedRobot):
 
         self.sd.putNumber("direction", 1)
 
+        self.sd.putBoolean("lockonRunning", False)
+
         navx.init()
         sonar.init()
         oi.init()

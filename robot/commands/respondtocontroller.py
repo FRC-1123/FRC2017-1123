@@ -6,6 +6,9 @@ from wpilib.command import Command
 from wpilib.timer import Timer
 
 from commands.controlgearmech import ControlGearMech
+from commands.followjoystick import FollowJoystick
+from commands.lockon import LockOn
+from commands.rumblecontroller import RumbleController
 from commands.switchcamera import SwitchCamera
 from inputs import oi
 
@@ -28,7 +31,8 @@ class RespondToController(Command):
         self.timer = Timer()
         self.timer.start()
 
-        self.bumper_last = False
+        self.right_bumper_last = False
+        self.left_bumper_last = False
 
     def execute(self):
         if self.timer.hasPeriodPassed(0.05):
@@ -56,17 +60,33 @@ class RespondToController(Command):
                 #     subsystems.motors.forwardDirection()
                 # self.sd.putNumber("direction", -cur_direct)
 
-            # drive-to-rod control
+            # slow mode
             if oi.controller.getBumper(GenericHID.Hand.kRight):
-                if self.bumper_last:
+                if self.right_bumper_last:
                     pass
                 elif oi.divider != 1:
                     oi.divider = 1
                 else:
                     oi.divider = 2
-                self.bumper_last = True
+                self.right_bumper_last = True
             else:
-                self.bumper_last = False
+                self.right_bumper_last = False
+
+            # lock on
+            if oi.controller.getBumper(GenericHID.Hand.kLeft):
+                if self.left_bumper_last:
+                    pass
+                elif not self.sd.getBoolean("lockonRunning"):
+                    LockOn().start()
+                else:
+                    self.logger.critical("Returning control to the controller!")
+                    self.sd.putBoolean("lockonRunning", False)
+                    RumbleController(0.5).start()
+                    FollowJoystick().start()
+                self.left_bumper_last = True
+            else:
+                self.left_bumper_last = False
+
                 # rod_pos = camera.get_rod_pos()
                 # if rod_pos is None:  # cannot find rod
                 #     self.logger.critical("Couldn't find the rod! {}".format(rod_pos))
