@@ -61,6 +61,16 @@ class RectifiedDrive:
         self.sd.putNumber("drive/setpoint", angular_vel)
         self.sd.putNumber("drive/actual", actual)
 
+        if self.sd.containsKey("motors/kp"):
+            subsystems.motors.left_motor.setPID(p=self.sd.getNumber("motors/kp"), i=self.sd.getNumber("motors/ki"),
+                                                d=self.sd.getNumber("motors/kd"), f=self.sd.getNumber("motors/kf"),
+                                                izone=0)
+            subsystems.motors.right_motor.setPID(p=self.sd.getNumber("motors/kp"), i=self.sd.getNumber("motors/ki"),
+                                                 d=self.sd.getNumber("motors/kd"), f=self.sd.getNumber("motors/kf"),
+                                                 izone=0)
+        self.sd.putNumber("motors/setpoint", power)
+        self.sd.putNumber("motors/actual", subsystems.motors.left_motor.getSpeed() / subsystems.motors.max_speed)
+
         error = actual - angular_vel
         if abs(error) > self.max_angular_speed * 0.3:  # prevent integral windup
             self.integral = 0

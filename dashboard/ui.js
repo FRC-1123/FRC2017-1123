@@ -1,3 +1,21 @@
+// Left Talon PID graph
+var motorsetpoint = new TimeSeries();
+var motoractual = new TimeSeries();
+var motor_smoothie = new SmoothieChart({
+    grid: {
+        strokeStyle: 'rgb(255, 255, 255)', fillStyle: 'rgb(0, 0, 0)',
+        lineWidth: 1, millisPerLine: 1000, verticalSections: 10,
+    },
+    labels: {fillStyle: 'rgb(255, 255, 0)'},
+    maxValue: 1760, minValue: -1760
+});
+motor_smoothie.addTimeSeries(motorsetpoint,
+    {strokeStyle: 'rgb(100, 255, 100)', lineWidth: 2});
+motor_smoothie.addTimeSeries(motoractual,
+    {strokeStyle: 'rgb(255, 100, 100)', lineWidth: 2});
+motor_smoothie.streamTo(document.getElementById("motorgraph"));
+
+
 // RectifiedDrive PID graph
 var drivesetpoint = new TimeSeries();
 var driveactual = new TimeSeries();
@@ -422,6 +440,14 @@ function onValueChanged(key, value, isNew) {
             break;
         case '/SmartDashboard/autonomous/selected':
             ui.autoSelect.value = value;
+            break;
+
+        // for tuning RectifiedDrive
+        case '/SmartDashboard/motors/setpoint':
+            motorsetpoint.append(new Date().getTime(), value);
+            break;
+        case '/SmartDashboard/motors/actual':
+            motoractual.append(new Date().getTime(), value);
             break;
 
         // for tuning RectifiedDrive

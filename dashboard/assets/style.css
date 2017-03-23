@@ -159,8 +159,8 @@ text {
 }
 
 #sonar-diagram {
-    width: 22vw;
-    height: 22vw;
+    width: 18vw;
+    height: 18vw;
     margin-top: 5px;
     margin-left: 6vw;
 }
@@ -209,6 +209,12 @@ text {
     position: absolute;
     bottom: 1px;
     right: 1vw;
+}
+
+#motorgraph_div {
+    position: absolute;
+    bottom: 170px;
+    right: 1px;
 }
 
 #drivegraph_div {
