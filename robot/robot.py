@@ -62,10 +62,11 @@ class Robot(CommandBasedRobot):
     def autonomousInit(self):
         self.sd.putBoolean("isautonomous", True)
         UpdateNetworkTables().start()
-        # if self.sd.containsKey("autonomous/selected"):
-        #     AutonomousProgram(self.sd.getString("autonomous/selected")).start()
-          # if not set for some reason (bad!), just use center mode
-        AutonomousProgram("left").start()
+        if self.sd.containsKey("autonomous/selected"):
+            AutonomousProgram(self.sd.getString("autonomous/selected")).start()
+        else:
+            # if not set for some reason (bad!), just use center mode
+            AutonomousProgram("center").start()
         self.logger.info("Started autonomous.")
 
     def teleopInit(self):
