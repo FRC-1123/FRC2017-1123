@@ -78,17 +78,16 @@ class DriveToRod(PIDCommand):
 
     def usePIDOutput(self, output):
         if self.is_lost:  # if lost, slowly spin in circle
-            # TODO: check signs of motor outputs
             if self.last_output > 0:  # keep turning right
-                subsystems.motors.robot_drive.setLeftRightMotorOutputs(0.2, 0.2)
+                subsystems.motors.robot_drive.setLeftRightMotorOutputs(0.2, -0.2)
             else:  # keep turning left
-                subsystems.motors.robot_drive.setLeftRightMotorOutputs(-0.2, -0.2)
+                subsystems.motors.robot_drive.setLeftRightMotorOutputs(-0.2, 0.2)
         else:
             self.drive.rectified_drive(-self.power, -output)
             self.last_output = output
 
     def isFinished(self):
-        # timeout after 10 seconds or stop when within 8 inches of the wall
+        # timeout
         if self.timeSinceInitialized() > self.timeout:
             return True
 
