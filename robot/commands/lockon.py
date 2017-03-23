@@ -5,7 +5,6 @@ from wpilib.command import PIDCommand
 
 import robotmap
 import subsystems
-from commands.followjoystick import FollowJoystick
 from commands.rumblecontroller import RumbleController
 from inputs import camera
 from inputs import oi
@@ -19,7 +18,7 @@ class LockOn(PIDCommand):
     This command dynamically transfers control between the driver and computer vision for driving to the rod
     '''
 
-    def __init__(self):
+    def __init__(self, timeout=20):
         self.sd = NetworkTables.getTable("SmartDashboard")
         self.sd.putBoolean("lockonRunning", True)
 
@@ -49,24 +48,23 @@ class LockOn(PIDCommand):
         turnController.setContinuous(True)
         turnController.setSetpoint(0.5)  # want rod to be at center
 
+        self.timeout = timeout
+
         self.drive = RectifiedDrive(30, 0.05)
 
         self.logger = logging.getLogger("robot")
 
-        # self.is_autonomous = self.sd.getBoolean("isautonomous")
         self.is_lost = False  # can't find the rod
 
-        # self.last_rod_pos = 0
+        self.last_rod_pos = 0
 
     def returnPIDInput(self):
         rod_pos = camera.get_rod_pos()
         if rod_pos is None:
             self.logger.critical("Couldn't find the rod!")
             self.is_lost = True
-            self.logger.critical("Returning control to the controller!")
             self.sd.putBoolean("lockonRunning", False)
             RumbleController(0.5).start()
-            FollowJoystick().start()
             return 0.5
         else:
             self.last_rod_pos = rod_pos[0]
@@ -81,9 +79,8 @@ class LockOn(PIDCommand):
         else:  # combine human and computer vision control
             self.drive.rectified_drive(power, -output * abs(0.5 - self.last_rod_pos) + (1.0 - abs(0.5 - self.last_rod_pos)) * angular_vel)
 
-            # def isFinished(self):
-            #     # timeout after 10 seconds or stop when within 8 inches of the wall
-            #     if self.timeSinceInitialized() > self.timeout:
-            #         return True
-            #     sonar.update_readings()
-            #     return sonar.distances[0] < 8.0
+    def isFinished(self):
+        # timeout
+        if self.timeSinceInitialized() > self.timeout:
+            return True
+        return False
