@@ -23,7 +23,7 @@ class FollowJoystick(Command):
         self.requires(subsystems.motors)
 
         self.logger = logging.getLogger("robot")
-        self.drive = RectifiedDrive(25, 0.05)
+        self.drive = RectifiedDrive(25, 0.05, squared_inputs=True)
 
         self.sd = NetworkTables.getTable("SmartDashboard")
 
