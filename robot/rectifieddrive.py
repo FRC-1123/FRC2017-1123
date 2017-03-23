@@ -46,8 +46,10 @@ class RectifiedDrive:
         if abs(angular_vel_frac) < self.tolerance:
             angular_vel_frac = 0  # drive straight forward
         if self.squared_inputs:
-            angular_vel_frac = angular_vel_frac ** 2 * angular_vel_frac / abs(angular_vel_frac)
-            power = power ** 2 * power / abs(power)
+            if angular_vel_frac != 0:
+                angular_vel_frac = angular_vel_frac ** 2 * angular_vel_frac / abs(angular_vel_frac)
+            if power != 0:
+                power = power ** 2 * power / abs(power)
 
         # reset integral when setpoint changes by more than 10%
         if abs(angular_vel_frac - self.prev_setpoint) > 0.1:
