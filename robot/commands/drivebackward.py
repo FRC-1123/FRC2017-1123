@@ -28,12 +28,12 @@ class DriveBackward(Command):
         self.logger = logging.getLogger("robot")
 
     def execute(self):
-        self.drive.rectified_drive(-0.2, 0)
+        self.drive.rectified_drive(0.2, 0)
         self.timer.delay(0.05)
 
     def isFinished(self):
         # timeout after 10 seconds
-        if self.timeSinceInitialized() > 10:
+        if self.timeSinceInitialized() > 3:
             return True
 
         position = subsystems.motors.left_motor.getPosition()

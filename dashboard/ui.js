@@ -7,7 +7,7 @@ var motor_smoothie = new SmoothieChart({
         lineWidth: 1, millisPerLine: 1000, verticalSections: 10,
     },
     labels: {fillStyle: 'rgb(255, 255, 0)'},
-    maxValue: 1760, minValue: -1760
+    maxValue: 1, minValue: -1
 });
 motor_smoothie.addTimeSeries(motorsetpoint,
     {strokeStyle: 'rgb(100, 255, 100)', lineWidth: 2});
@@ -25,7 +25,7 @@ var drive_smoothie = new SmoothieChart({
         lineWidth: 1, millisPerLine: 1000, verticalSections: 10,
     },
     labels: {fillStyle: 'rgb(255, 255, 0)'},
-    maxValue: 1760, minValue: -1760
+    maxValue: 1, minValue: -1
 });
 drive_smoothie.addTimeSeries(drivesetpoint,
     {strokeStyle: 'rgb(100, 255, 100)', lineWidth: 2});

@@ -37,17 +37,17 @@ class Robot(CommandBasedRobot):
         self.sd.putNumber("rod/ktolerance", 0.02)
 
         # RectifiedDrive PID values (for tuning)
-        self.sd.putNumber("drive/kp", 0.1)
-        self.sd.putNumber("drive/ki", 0.05)
+        self.sd.putNumber("drive/kp", 0.07)
+        self.sd.putNumber("drive/ki", 0.0)
         self.sd.putNumber("drive/kd", 0)
-        self.sd.putNumber("drive/kf", 0.0)
+        self.sd.putNumber("drive/kf", 0.05)
         self.sd.putNumber("drive/ktolerance", 0.1)
 
         # Motor PID values (for tuning)
-        self.sd.putNumber("motors/kp", 0.4)
+        self.sd.putNumber("motors/kp", 0.3)
         self.sd.putNumber("motors/ki", 0)
         self.sd.putNumber("motors/kd", 0)
-        self.sd.putNumber("motors/kf", 0.5)
+        self.sd.putNumber("motors/kf", 0.7)
 
         self.sd.putNumber("direction", 1)
 
@@ -72,7 +72,7 @@ class Robot(CommandBasedRobot):
     def teleopInit(self):
         self.sd.putBoolean("isautonomous", False)
         self.sd.putBoolean("timeRunning", True)  # start dashboard timer
-        self.sd.putNumber("drive/kp", 0.06)
+        # self.sd.putNumber("drive/kp", 0.06)
         RespondToController().start()
         UpdateNetworkTables().start()
         self.logger.info("Started teleop.")

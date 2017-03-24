@@ -5,8 +5,8 @@ from networktables import NetworkTables
 from wpilib.command import Command
 
 import subsystems
+from commands.driveforward import DriveForward
 from commands.rotate import Rotate
-from commands.setspeed import SetSpeed
 from commands.switchcamera import SwitchCamera
 from inputs import navx
 from inputs import sonar
@@ -30,15 +30,14 @@ class UpdateNetworkTables(Command):
 
     def execute(self):
         if self.nt_timer.hasPeriodPassed(0.1):  # update NetworkTables every 0.1 seconds
-            # dashboard forward button (for demonstration purposes)
+            # dashboard forward button (for testing purposes)
             if self.sd.containsKey("forwardCommand") and self.sd.getBoolean("forwardCommand"):  # check if move forward button pressed
                 self.sd.putBoolean("forwardCommand", False)
-                SetSpeed(0.1 * subsystems.motors.max_speed,
-                         1).start()  # move forward at 1 rotation per second for one second
+                DriveForward(24).start()  # drive forward 24 inches
                 self.logger.info("Moving forward at half power for one second.")
             elif self.sd.containsKey("turnCommand") and self.sd.getBoolean("turnCommand"):
                 self.sd.putBoolean("turnCommand", False)
-                Rotate(90.0).start()
+                Rotate(60.0).start()
                 self.logger.info("Turning right 90 degrees.")
             if self.sd.containsKey("switchAllCommand") and self.sd.getBoolean("switchAllCommand"):
                 self.sd.putBoolean("switchAllCommand", False)

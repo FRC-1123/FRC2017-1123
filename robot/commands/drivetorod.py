@@ -7,7 +7,7 @@ from wpilib.command import PIDCommand
 import subsystems
 from commands.followjoystick import FollowJoystick
 from commands.rumblecontroller import RumbleController
-from inputs import camera, oi, switches
+from inputs import camera, oi
 from rectifieddrive import RectifiedDrive
 
 logging.basicConfig(level=logging.INFO)
@@ -18,7 +18,7 @@ class DriveToRod(PIDCommand):
     This command will find the rod and drive the robot towards it.
     """
 
-    def __init__(self, timeout=20, power=0.25):
+    def __init__(self, timeout=20, power=0.3):
         self.sd = NetworkTables.getTable("SmartDashboard")
 
         # PID constants
@@ -92,8 +92,8 @@ class DriveToRod(PIDCommand):
             return True
 
         # stop if the rod is hitting the switch
-        if switches.gear_mech_switch.get():
-            return True
+        # if switches.gear_mech_switch.get():
+        #     return True
 
         return False
 
