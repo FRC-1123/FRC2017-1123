@@ -28,7 +28,7 @@ class DriveBackward(Command):
         self.logger = logging.getLogger("robot")
 
     def execute(self):
-        self.drive.rectified_drive(0.2, 0)
+        self.drive.rectified_drive(0.3, 0)
         self.timer.delay(0.05)
 
     def isFinished(self):
