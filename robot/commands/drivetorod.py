@@ -83,7 +83,7 @@ class DriveToRod(PIDCommand):
             else:  # keep turning left
                 subsystems.motors.robot_drive.setLeftRightMotorOutputs(-0.2, 0.2)
         else:
-            self.drive.rectified_drive(-self.power, -output)
+            self.drive.rectified_drive(self.power, -output)
             self.last_output = output
 
     def isFinished(self):

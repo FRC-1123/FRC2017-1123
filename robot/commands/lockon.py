@@ -72,7 +72,7 @@ class LockOn(PIDCommand):
             return rod_pos[0]
 
     def usePIDOutput(self, output):
-        power = oi.joystick.getRawAxis(robotmap.joystick.forwardAxis)  # get human command for steering and speed
+        power = -oi.joystick.getRawAxis(robotmap.joystick.forwardAxis)  # get human command for steering and speed
         angular_vel = oi.joystick.getRawAxis(robotmap.joystick.steeringAxis)
         if self.is_lost or abs(angular_vel) >= 0.5:  # if we're lost or the human is insistent
             self.drive.rectified_drive(power, angular_vel)

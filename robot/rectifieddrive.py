@@ -41,7 +41,7 @@ class RectifiedDrive:
         self.kd = self.sd.getNumber("drive/kd")
         self.tolerance = abs(self.sd.getNumber("drive/ktolerance"))
 
-        if power < 0.02:  # reset integral if power close to 0
+        if abs(power) < 0.02:  # reset integral if power close to 0
             self.integral = 0
         if abs(angular_vel_frac) < self.tolerance:
             angular_vel_frac = 0  # drive straight forward
@@ -76,10 +76,10 @@ class RectifiedDrive:
             self.integral = 0
         # self.logger.info("integral: {}".format(self.integral))
         output = self.calc_pid(error)
-        left_output = power + output
+        left_output = -power + output
         if abs(left_output) > 1.0:  # normalize if magnitude greater than 1
             left_output /= abs(left_output)
-        right_output = power - output
+        right_output = -power - output
         if abs(right_output) > 1.0:  # normalize if magnitude greater than 1
             right_output /= abs(right_output)
         subsystems.motors.robot_drive.setLeftRightMotorOutputs(left_output, right_output)
