@@ -213,7 +213,7 @@ text {
 
 #motorgraph_div {
     position: absolute;
-    bottom: 170px;
+    bottom: 160px;
     right: 1px;
 }
 
@@ -225,7 +225,7 @@ text {
 
 #rodgraph_div {
     position: absolute;
-    bottom: 85px;
+    bottom: 80px;
     right: 1px;
 }
 
