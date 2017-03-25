@@ -25,7 +25,7 @@ class Robot(CommandBasedRobot):
         self.sd = NetworkTables.getTable("SmartDashboard")
 
         # set autonomous modes
-        self.sd.putStringArray("autonomous/options", ["left", "center", "right", "bork"])
+        self.sd.putStringArray("autonomous/options", ["left", "center", "right", "borkleft", "borkright"])
         self.sd.putString("autonomous/selected", "left")
         self.sd.putBoolean("isautonomous", False)
 
@@ -68,7 +68,7 @@ class Robot(CommandBasedRobot):
             AutonomousProgram(self.sd.getString("autonomous/selected")).start()
         else:
             # if not set for some reason (bad!), just use center mode
-            AutonomousProgram("bork").start()
+            AutonomousProgram("center").start()
         self.logger.info("Started autonomous.")
 
     def teleopInit(self):

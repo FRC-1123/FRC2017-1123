@@ -13,8 +13,14 @@ class AutonomousProgram(CommandGroup):
         super().__init__('Autonomous Program')
         self.logger = logging.getLogger("robot")
 
-        if mode == "bork":
-            self.addSequential(SetSpeed(0.2, 3.0))
+        if mode == "borkleft":  # just cross the base line
+            self.addSequential(SetSpeed(0.2, 0.5))
+            self.addSequential(Rotate(-20))
+            self.addSequential(SetSpeed(0.2, 2.0))
+        elif mode == "borkright":
+            self.addSequential(SetSpeed(0.2, 0.5))
+            self.addSequential(Rotate(20))
+            self.addSequential(SetSpeed(0.2, 2.0))
         elif mode == "left":
             # self.addSequential(SetSpeed(-0.3, 0.5))
             # self.addSequential(Rotate(-20))
