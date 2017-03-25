@@ -45,7 +45,7 @@ class Rotate(PIDCommand):
 
     def isFinished(self):
         # stop command if rate set to less than 0.1 or if it has been 2 seconds
-        if abs(self.rate) < 0.001 or self.timeSinceInitialized() > 2:
+        if abs(self.rate) < 0.01 or self.timeSinceInitialized() > 2:
             self.logger.info("Done rotating {}.".format(self.rate))
             return True
         return False

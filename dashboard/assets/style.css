@@ -99,7 +99,8 @@ header {
     overflow: hidden;
     background-color: #333;
     background-size: cover;
-    background-image: url('http://roborio-1123-frc.local:1182/?action=stream');
+    /*background-image: url('http://roborio-1123-frc.local:1182/?action=stream');*/
+    background-image: url('http://10.11.23.2:1182/?action=stream');
 }
 
 #tuning {

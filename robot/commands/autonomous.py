@@ -22,10 +22,10 @@ class AutonomousProgram(CommandGroup):
 
             # self.addSequential(DriveForward(24))
             self.addSequential(SetSpeed(0.2, 0.5))
-            self.addSequential(Rotate(-20))
+            self.addSequential(Rotate(-30))
             # self.addSequential(DriveForward(48))
-            self.addSequential(SetSpeed(0.2, 1.5))
-            self.addSequential(Rotate(30))
+            self.addSequential(SetSpeed(0.2, 1.2))
+            self.addSequential(Rotate(40))
             self.addSequential(DriveToRod(timeout=3.5))
             # if switches.gear_mech_switch.get():
             #     self.addSequential(ControlGearMech(False))
@@ -49,10 +49,10 @@ class AutonomousProgram(CommandGroup):
 
             # self.addSequential(DriveForward(24))
             self.addSequential(SetSpeed(0.2, 0.5))
-            self.addSequential(Rotate(20))
+            self.addSequential(Rotate(30))
             # self.addSequential(DriveForward(48))
-            self.addSequential(SetSpeed(0.2, 1.5))
-            self.addSequential(Rotate(-30))
+            self.addSequential(SetSpeed(0.2, 1.2))
+            self.addSequential(Rotate(-40))
             self.addSequential(DriveToRod(timeout=3.5))
             # if switches.gear_mech_switch.get():
             #     self.addSequential(ControlGearMech(False))
