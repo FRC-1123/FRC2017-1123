@@ -23,11 +23,11 @@ class Motors(Subsystem):
         self.left_motor = ctre.CANTalon(robotmap.motors.left_id)
         self.left_motor.setControlMode(ctre.CANTalon.ControlMode.Speed)
         self.left_motor.setFeedbackDevice(ctre.CANTalon.FeedbackDevice.QuadEncoder)
-        self.left_motor.setInverted(True)
+        self.left_motor.setInverted(False)
         self.right_motor = ctre.CANTalon(robotmap.motors.right_id)
         self.right_motor.setControlMode(ctre.CANTalon.ControlMode.Speed)
         self.right_motor.setFeedbackDevice(ctre.CANTalon.FeedbackDevice.QuadEncoder)
-        self.right_motor.setInverted(True)
+        self.right_motor.setInverted(False)
 
         # self.left_motor.setPID(p=0.0000000000001, i=0, d=0, f=0, izone=0)
         # self.right_motor.setPID(p=0.0000000000001, i=0, d=0, f=0, izone=0)
