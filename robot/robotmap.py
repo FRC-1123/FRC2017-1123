@@ -31,13 +31,13 @@ climbing_mech.id = 4
 climbing_mech.follower_id = 5
 
 sonar = PropertiesList()
-sonar.front_channel = 0
-sonar.front_right_channel = 1
+sonar.front_channel = 6
+sonar.front_right_channel = 4
 sonar.right_channel = 2
 sonar.back_right_channel = 3
-sonar.back_channel = 4
+sonar.back_channel = 1
 sonar.back_left_channel = 5
-sonar.left_channel = 6
+sonar.left_channel = 0
 sonar.front_left_channel = 7
 sonar.pinger_channel = 8
 

@@ -62,7 +62,7 @@ class AutonomousProgram(CommandGroup):
             # self.addSequential(Rotate(10))
             # self.addSequential(SetSpeed(-0.5, 2))
         else:
-            self.addSequential(DriveForward(36))
+            self.addSequential(DriveForward(24))
             self.logger.info("Drive to rod now!")
             self.addSequential(DriveToRod(timeout=4))
             # if switches.gear_mech_switch.get():
