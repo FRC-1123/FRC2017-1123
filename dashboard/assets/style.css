@@ -140,8 +140,8 @@ text {
 }
 
 #gyro {
-    width: 170px;
-    height: 170px;
+    width: 180px;
+    height: 180px;
     position: absolute;
     bottom: 5px;
     left: 1vw;
@@ -159,8 +159,8 @@ text {
 }
 
 #sonar-diagram {
-    width: 18vw;
-    height: 18vw;
+    width: 17vw;
+    height: 17vw;
     margin-top: 5px;
     margin-left: 6vw;
 }
