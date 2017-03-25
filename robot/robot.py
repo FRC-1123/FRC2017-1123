@@ -53,6 +53,8 @@ class Robot(CommandBasedRobot):
 
         self.sd.putBoolean("lockonRunning", False)
 
+        self.sd.putBoolean("climbDownCommand", False)
+
         navx.init()
         sonar.init()
         oi.init()

@@ -1,4 +1,5 @@
 import wpilib
+from networktables import NetworkTables
 from wpilib.command import Command
 
 import subsystems
@@ -15,16 +16,20 @@ class ListenForClimb(Command):
 
         self.requires(subsystems.climbing_mech)
 
+        self.sd = NetworkTables.getTable("SmartDashboard")
+
         self.timer = wpilib.Timer()
         self.timer.start()
 
     def execute(self):
         if self.timer.hasPeriodPassed(0.05):
             # subsystems.climbing_mech.setSpeed(oi.controller.getRawAxis(3))
-            if oi.controller.getYButton():  # climb down
-                subsystems.climbing_mech.setSpeed(-0.3)
-            elif oi.controller.getXButton():  # climb up
+            # if oi.controller.getYButton():  # climb down
+            #     subsystems.climbing_mech.setSpeed(-0.3)
+            if oi.controller.getXButton():  # climb up
                 subsystems.climbing_mech.setSpeed(1.0)
+            elif self.sd.containsKey("climbDownCommand") and self.sd.getBoolean("climbDownCommand"):
+                subsystems.climbing_mech.setSpeed(-0.2)
             else:
                 subsystems.climbing_mech.setSpeed(0)
 

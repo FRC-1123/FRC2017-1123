@@ -114,6 +114,9 @@ var ui = {
     turnCommand: {
         button: document.getElementById('turn-right-button')
     },
+    climbDownCommand: {
+        button: document.getElementById('climb-down-button')
+    },
     getNT: {
         button: document.getElementById('get-nt-button')
     },
@@ -532,6 +535,14 @@ function onValueChanged(key, value, isNew) {
 // The rest of the doc is listeners for UI elements being clicked on
 ui.forwardCommand.button.onclick = function () {
     NetworkTables.putValue('/SmartDashboard/forwardCommand', true);
+};
+
+ui.climbDownCommand.button.onmousedown = function () {
+    NetworkTables.putValue('/SmartDashboard/climbDownCommand', true);
+};
+
+ui.climbDownCommand.button.onmouseup = function () {
+    NetworkTables.putValue('/SmartDashboard/climbDownCommand', false);
 };
 
 ui.switchCameraCommand.button.onclick = function () {
