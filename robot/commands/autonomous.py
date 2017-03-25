@@ -13,7 +13,9 @@ class AutonomousProgram(CommandGroup):
         super().__init__('Autonomous Program')
         self.logger = logging.getLogger("robot")
 
-        if mode == "left":
+        if mode == "bork":
+            self.addSequential(SetSpeed(0.2, 3.0))
+        elif mode == "left":
             # self.addSequential(SetSpeed(-0.3, 0.5))
             # self.addSequential(Rotate(-20))
             # self.addSequential(SetSpeed(-0.3, 2.5))
