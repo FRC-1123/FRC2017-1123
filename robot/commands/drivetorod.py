@@ -47,7 +47,7 @@ class DriveToRod(PIDCommand):
         turnController.setContinuous(True)
         turnController.setSetpoint(0.5)  # want rod to be at center
 
-        self.drive = RectifiedDrive(30, 0.05)
+        self.drive = RectifiedDrive(30, 0.05, tolerance=0)
         self.timeout = timeout
 
         self.logger = logging.getLogger("robot")

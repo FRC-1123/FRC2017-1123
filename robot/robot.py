@@ -30,11 +30,11 @@ class Robot(CommandBasedRobot):
         self.sd.putBoolean("isautonomous", False)
 
         # drive-to-rod PID values (for tuning)
-        self.sd.putNumber("rod/kp", 0.8)
+        self.sd.putNumber("rod/kp", 0.2)
         self.sd.putNumber("rod/ki", 0)
-        self.sd.putNumber("rod/kd", 0.5)
+        self.sd.putNumber("rod/kd", 0)
         self.sd.putNumber("rod/kf", 0.0)
-        self.sd.putNumber("rod/ktolerance", 0.02)
+        self.sd.putNumber("rod/ktolerance", 0)
 
         # RectifiedDrive PID values (for tuning)
         self.sd.putNumber("drive/kp", 0.07)
