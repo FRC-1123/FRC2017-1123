@@ -2,7 +2,8 @@ import logging
 
 from wpilib.command.commandgroup import CommandGroup
 
-from commands.driveforward import DriveForward
+# from commands.driveforward import DriveForward
+from commands.setspeed import SetSpeed
 from commands.drivetorod import DriveToRod
 from commands.rotate import Rotate
 
@@ -19,9 +20,11 @@ class AutonomousProgram(CommandGroup):
             # self.addSequential(Rotate(28))
             # self.addSequential(DriveToRod(timeout=3.5))
 
-            self.addSequential(DriveForward(24))
+            # self.addSequential(DriveForward(24))
+            self.addSequential(SetSpeed(0.2, 0.5))
             self.addSequential(Rotate(-20))
-            self.addSequential(DriveForward(48))
+            # self.addSequential(DriveForward(48))
+            self.addSequential(SetSpeed(0.2, 2.0))
             self.addSequential(Rotate(30))
             self.addSequential(DriveToRod(timeout=3.5))
             # if switches.gear_mech_switch.get():
@@ -44,9 +47,11 @@ class AutonomousProgram(CommandGroup):
             # self.addSequential(Rotate(-28))
             # self.addSequential(DriveToRod(timeout=3.5))
 
-            self.addSequential(DriveForward(24))
+            # self.addSequential(DriveForward(24))
+            self.addSequential(SetSpeed(0.2, 0.5))
             self.addSequential(Rotate(20))
-            self.addSequential(DriveForward(48))
+            # self.addSequential(DriveForward(48))
+            self.addSequential(SetSpeed(0.2, 2.0))
             self.addSequential(Rotate(-30))
             self.addSequential(DriveToRod(timeout=3.5))
             # if switches.gear_mech_switch.get():
@@ -62,9 +67,10 @@ class AutonomousProgram(CommandGroup):
             # self.addSequential(Rotate(10))
             # self.addSequential(SetSpeed(-0.5, 2))
         else:
-            self.addSequential(DriveForward(36))
+            # self.addSequential(DriveForward(36))
+            self.addSequential(SetSpeed(0.2, 1.0))
             self.logger.info("Drive to rod now!")
-            self.addSequential(DriveToRod(timeout=4))
+            self.addSequential(DriveToRod(timeout=5))
             # if switches.gear_mech_switch.get():
             #     self.addSequential(ControlGearMech(False))
             #     self.addSequential(DriveBackward(3))
