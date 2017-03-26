@@ -43,7 +43,7 @@ class FollowJoystick(Command):
             power = -oi.joystick.getRawAxis(robotmap.joystick.forwardAxis) * 0.75
             angular_vel = oi.joystick.getRawAxis(robotmap.joystick.steeringAxis)
 
-            if self.sd.contains("slowmode") and self.sd.getBoolean("slowmode"):
+            if self.sd.containsKey("slowmode") and self.sd.getBoolean("slowmode"):
                 power *= 0.75
                 angular_vel *= 0.75
             if abs(angular_vel) < 0.05:  # tolerance
