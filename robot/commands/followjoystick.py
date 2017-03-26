@@ -46,7 +46,8 @@ class FollowJoystick(Command):
             if self.sd.contains("slowmode") and self.sd.getBoolean("slowmode"):
                 power *= 0.75
                 angular_vel *= 0.75
-
+            if abs(angular_vel) < 0.05:  # tolerance
+                angular_vel = 0
             self.drive.rectified_drive(power, angular_vel)
 
     def end(self):
