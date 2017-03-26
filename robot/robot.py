@@ -55,6 +55,8 @@ class Robot(CommandBasedRobot):
 
         self.sd.putBoolean("climbDownCommand", False)
 
+        self.sd.putBoolean("slowmode", False)
+
         navx.init()
         sonar.init()
         oi.init()

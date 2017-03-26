@@ -41,12 +41,11 @@ class FollowJoystick(Command):
 
             # rectified arcade drive
             power = -oi.joystick.getRawAxis(robotmap.joystick.forwardAxis) * 0.75
-            power /= oi.divider  # for slow mode
-
             angular_vel = oi.joystick.getRawAxis(robotmap.joystick.steeringAxis)
-            # angular_vel /= oi.divider  # for limiting angular velocity
-            # if power > 0:  # if moving backwards, negate angular velocity
-            #     angular_vel *= -1
+
+            if self.sd.contains("slowmode") and self.sd.getBoolean("slowmode"):
+                power *= 0.75
+                angular_vel *= 0.75
 
             self.drive.rectified_drive(power, angular_vel)
 

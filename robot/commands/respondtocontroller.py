@@ -65,9 +65,9 @@ class RespondToController(Command):
                 if self.right_bumper_last:
                     pass
                 elif oi.divider != 1:
-                    oi.divider = 1
+                    self.sd.putBoolean("slowmode", False)
                 else:
-                    oi.divider = 2
+                    self.sd.putBoolean("slowmode", True)
                 self.right_bumper_last = True
             else:
                 self.right_bumper_last = False
