@@ -7,6 +7,7 @@ import subsystems
 from rectifieddrive import RectifiedDrive
 
 
+# FIXME: Distance calculation does not seem to work correctly!
 class DriveBackward(Command):
     """
     Drives backward the given distance in inches.
