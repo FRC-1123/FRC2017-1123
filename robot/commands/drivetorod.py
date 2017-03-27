@@ -18,7 +18,7 @@ class DriveToRod(PIDCommand):
     This command will find the rod and drive the robot towards it.
     """
 
-    def __init__(self, timeout=20, power=0.15):
+    def __init__(self, timeout=20, power=0.12):
         self.sd = NetworkTables.getTable("SmartDashboard")
 
         # PID constants
