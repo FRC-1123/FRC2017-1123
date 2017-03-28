@@ -183,27 +183,27 @@ text {
 }
 
 @-webkit-keyframes zoomIn {
-  from {
-    opacity: 0.8;
-  }
+    from {
+        opacity: 0.8;
+    }
 
-  100% {
-    opacity: 0;
-    -webkit-transform: scale3d(18, 18, 18);
-    transform: scale3d(18, 18, 18);
-  }
+    100% {
+        opacity: 0;
+        -webkit-transform: scale3d(18, 18, 18);
+        transform: scale3d(18, 18, 18);
+    }
 }
 
 @keyframes zoomIn {
-  from {
-    opacity: 0.8;
-  }
+    from {
+        opacity: 0.8;
+    }
 
-  100% {
-    opacity: 0;
-    -webkit-transform: scale3d(18, 18, 18);
-    transform: scale3d(18, 18, 18);
-  }
+    100% {
+        opacity: 0;
+        -webkit-transform: scale3d(18, 18, 18);
+        transform: scale3d(18, 18, 18);
+    }
 }
 
 #robot-diagram {

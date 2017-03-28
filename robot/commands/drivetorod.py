@@ -21,13 +21,6 @@ class DriveToRod(PIDCommand):
     def __init__(self, timeout=20, power=0.12):
         self.sd = NetworkTables.getTable("SmartDashboard")
 
-        # PID constants
-        # kp = 0.01
-        # ki = 0.005
-        # kd = 0.002
-        # kf = 0.0
-        # ktolerance = 0.02
-
         # NetworkTables variables for tuning
         kp = self.sd.getNumber("rod/kp")
         ki = self.sd.getNumber("rod/ki")
@@ -57,7 +50,6 @@ class DriveToRod(PIDCommand):
 
         self.power = power
         self.last_output = 0  # for if the rod is lost
-
 
     def returnPIDInput(self):
         if oi.controller.getBumper(GenericHID.Hand.kLeft):  # return control back to controller

@@ -39,7 +39,6 @@ class RectifiedDrive:
         self.kp = self.sd.getNumber("drive/kp")
         self.ki = self.sd.getNumber("drive/ki")
         self.kd = self.sd.getNumber("drive/kd")
-        #self.tolerance = abs(self.sd.getNumber("drive/ktolerance"))
 
         if abs(power) < 0.02:  # reset integral if power close to 0
             self.integral = 0

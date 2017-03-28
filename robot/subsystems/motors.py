@@ -29,9 +29,6 @@ class Motors(Subsystem):
         self.right_motor.setFeedbackDevice(ctre.CANTalon.FeedbackDevice.QuadEncoder)
         self.right_motor.setInverted(False)
 
-        # self.left_motor.setPID(p=0.0000000000001, i=0, d=0, f=0, izone=0)
-        # self.right_motor.setPID(p=0.0000000000001, i=0, d=0, f=0, izone=0)
-
         self.sd = NetworkTables.getTable("SmartDashboard")
         self.sd.putNumber("direction", 1)
 

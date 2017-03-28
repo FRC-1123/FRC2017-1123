@@ -24,6 +24,7 @@ ping_timer = Timer()
 
 prev_time = 0
 
+
 def init():
     """
     Initialize sonar object.

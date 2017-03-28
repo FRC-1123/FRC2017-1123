@@ -76,7 +76,6 @@ class Robot(CommandBasedRobot):
     def teleopInit(self):
         self.sd.putBoolean("isautonomous", False)
         self.sd.putBoolean("timeRunning", True)  # start dashboard timer
-        # self.sd.putNumber("drive/kp", 0.06)
         RespondToController().start()
         UpdateNetworkTables().start()
         self.logger.info("Started teleop.")

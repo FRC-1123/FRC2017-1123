@@ -10,14 +10,9 @@ from .climbingmech import ClimbingMech
 from .gearmech import GearMech
 from .motors import Motors
 
-# from .switches import Switches
-
 motors = None
 gear_mech = None
 climbing_mech = None
-
-
-# switches = None
 
 
 def init():
@@ -39,5 +34,3 @@ def init():
     gear_mech = GearMech()
 
     climbing_mech = ClimbingMech()
-
-    # switches = Switches()

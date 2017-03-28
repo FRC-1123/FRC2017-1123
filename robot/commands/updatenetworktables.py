@@ -58,9 +58,6 @@ class UpdateNetworkTables(Command):
             self.sd.putNumber("leftSpeed", subsystems.motors.left_motor.getSpeed())
             self.sd.putNumber("rightSpeed", subsystems.motors.right_motor.getSpeed())
 
-            # with open("outputs.txt", "a") as outfile:
-            #     outfile.write("{}\t{}\n".format(subsystems.motors.left_motor.getOutputCurrent(), subsystems.motors.right_motor.getOutputCurrent()))
-
             # update sonar readings
             sonar.update_readings()
             self.sd.putNumber("sonar/front", sonar.distances[0])

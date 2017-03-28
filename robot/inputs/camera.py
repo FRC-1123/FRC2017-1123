@@ -20,7 +20,6 @@ class Camera:
         self.no_rod_count_max = 30  # how many loops of not being able to find the rod before setting rod_pos = None
 
         # hsv range for tape contour detection
-        # h: [0, 179], s: [0, 255], v: [0, 255]
         # green
         self.min_h, self.min_s, self.min_v = 60, 10, 120
         self.max_h, self.max_s, self.max_v = 100, 190, 255
@@ -43,6 +42,7 @@ class Camera:
         self.logger = logging.getLogger("robot")
 
         self.camera = None
+        self.camera2 = None
         self.upside_down = upside_down
 
     def main(self):
@@ -146,9 +146,9 @@ class Camera:
         center_x = self.frame.shape[1] // 2
         center_y = self.frame.shape[0] // 2
         # horizontal line
-        self.frame[center_y, center_x - 10:center_x + 11] = [0, 0, 255]
+        self.frame[center_y, center_x - 10:center_x + 11] = [0, 50, 255]
         # vertical line
-        self.frame[center_y - 10:center_y + 11, center_x] = [0, 0, 255]
+        self.frame[center_y - 10:center_y + 11, center_x] = [0, 50, 255]
 
     def draw_tape_contours(self):
         """
@@ -205,7 +205,7 @@ class Camera:
             # make sure the contour is mostly convex
             hull = cv2.convexHull(approx)
             hull_area = cv2.contourArea(hull)
-            solidity = area / hull_area if hull_area > 0 else 0  # account for divide-by-zero
+            solidity = area / hull_area if hull_area > 0.0 else 0.0  # account for divide-by-zero
             if solidity < 0.7:
                 continue
 

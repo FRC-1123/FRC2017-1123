@@ -14,9 +14,9 @@ logging.basicConfig(level=logging.DEBUG)
 
 
 class LockOn(PIDCommand):
-    '''
+    """
     This command dynamically transfers control between the driver and computer vision for driving to the rod
-    '''
+    """
 
     def __init__(self, timeout=20):
         self.sd = NetworkTables.getTable("SmartDashboard")

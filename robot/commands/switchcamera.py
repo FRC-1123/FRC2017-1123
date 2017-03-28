@@ -7,7 +7,6 @@ import subsystems
 
 
 class SwitchCamera(InstantCommand):
-
     def __init__(self):
         super().__init__("Switch Camera")
 

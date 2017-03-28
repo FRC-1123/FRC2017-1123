@@ -168,8 +168,7 @@ var ui = {
         kp: document.getElementById('drivep'),
         ki: document.getElementById('drivei'),
         kd: document.getElementById('drived'),
-        kf: document.getElementById('drivef'),
-        ktolerance: document.getElementById('drivetolerance')
+        kf: document.getElementById('drivef')
     }
 };
 
@@ -217,36 +216,36 @@ function onValueChanged(key, value, isNew) {
             ui.navx.yaw.innerHTML = value;
             break;
         case '/SmartDashboard/sonar/front':
-            ui.sonarDiagram.front.setAttribute('transform', 'translate(0, ' + (-value) + ') translate(90, 70) scale(' + ((20 + value)/90.0 * 4.5) + ', 1) translate(-90, -70)');
+            ui.sonarDiagram.front.setAttribute('transform', 'translate(0, ' + (-value) + ') translate(90, 70) scale(' + ((20 + value) / 90.0 * 4.5) + ', 1) translate(-90, -70)');
             console.log(ui.sonarDiagram.front.getAttribute('transform'));
             ui.sonar.front.innerHTML = Math.round(value * 100) / 100.0;
             break;
         case '/SmartDashboard/sonar/frontRight':
-            ui.sonarDiagram.frontRight.setAttribute('transform', 'translate(' + (value/Math.sqrt(2)) + ', ' + (-value/Math.sqrt(2)) + ') translate(105, 75) scale(' + ((20 + value)/Math.sqrt(2)/90.0 * 4.5) + ', ' + ((20 + value)/Math.sqrt(2)/90.0 * 4.5) + ') translate(-105, -75)');
+            ui.sonarDiagram.frontRight.setAttribute('transform', 'translate(' + (value / Math.sqrt(2)) + ', ' + (-value / Math.sqrt(2)) + ') translate(105, 75) scale(' + ((20 + value) / Math.sqrt(2) / 90.0 * 4.5) + ', ' + ((20 + value) / Math.sqrt(2) / 90.0 * 4.5) + ') translate(-105, -75)');
             ui.sonar.frontRight.innerHTML = Math.round(value * 100) / 100.0;
             break;
         case '/SmartDashboard/sonar/right':
-            ui.sonarDiagram.right.setAttribute('transform', 'translate(' + value + ', 0) translate(110, 90) scale(1, ' + ((20 + value)/90.0 * 4.5) + ') translate(-110, -90)');
+            ui.sonarDiagram.right.setAttribute('transform', 'translate(' + value + ', 0) translate(110, 90) scale(1, ' + ((20 + value) / 90.0 * 4.5) + ') translate(-110, -90)');
             ui.sonar.right.innerHTML = Math.round(value * 100) / 100.0;
             break;
         case '/SmartDashboard/sonar/backRight':
-            ui.sonarDiagram.backRight.setAttribute('transform', 'translate(' + (value/Math.sqrt(2)) + ', ' + (value/Math.sqrt(2)) + ') translate(105, 105) scale(' + ((20 + value)/Math.sqrt(2)/90.0 * 4.5) + ', ' + ((20 + value)/Math.sqrt(2)/90.0 * 4.5) + ') translate(-105, -105)');
+            ui.sonarDiagram.backRight.setAttribute('transform', 'translate(' + (value / Math.sqrt(2)) + ', ' + (value / Math.sqrt(2)) + ') translate(105, 105) scale(' + ((20 + value) / Math.sqrt(2) / 90.0 * 4.5) + ', ' + ((20 + value) / Math.sqrt(2) / 90.0 * 4.5) + ') translate(-105, -105)');
             ui.sonar.backRight.innerHTML = Math.round(value * 100) / 100.0;
             break;
         case '/SmartDashboard/sonar/back':
-            ui.sonarDiagram.back.setAttribute('transform', 'translate(0, ' + value + ') translate(90, 110) scale(' + ((20 + value)/90.0 * 4.5) + ', 1) translate(-90, -110)');
+            ui.sonarDiagram.back.setAttribute('transform', 'translate(0, ' + value + ') translate(90, 110) scale(' + ((20 + value) / 90.0 * 4.5) + ', 1) translate(-90, -110)');
             ui.sonar.back.innerHTML = Math.round(value * 100) / 100.0;
             break;
         case '/SmartDashboard/sonar/backLeft':
-            ui.sonarDiagram.backLeft.setAttribute('transform', 'translate(' + (-value/Math.sqrt(2)) + ', ' + (value/Math.sqrt(2)) + ') translate(75, 105) scale(' + ((20 + value)/Math.sqrt(2)/90.0 * 4.5) + ', ' + ((20 + value)/Math.sqrt(2)/90.0 * 4.5) + ') translate(-75, -105)');
+            ui.sonarDiagram.backLeft.setAttribute('transform', 'translate(' + (-value / Math.sqrt(2)) + ', ' + (value / Math.sqrt(2)) + ') translate(75, 105) scale(' + ((20 + value) / Math.sqrt(2) / 90.0 * 4.5) + ', ' + ((20 + value) / Math.sqrt(2) / 90.0 * 4.5) + ') translate(-75, -105)');
             ui.sonar.backLeft.innerHTML = Math.round(value * 100) / 100.0;
             break;
         case '/SmartDashboard/sonar/left':
-            ui.sonarDiagram.left.setAttribute('transform', 'translate(' + (-value) + ', 0) translate(70, 90) scale(1, ' + ((20 + value)/90.0 * 4.5) + ') translate(-70, -90)');
+            ui.sonarDiagram.left.setAttribute('transform', 'translate(' + (-value) + ', 0) translate(70, 90) scale(1, ' + ((20 + value) / 90.0 * 4.5) + ') translate(-70, -90)');
             ui.sonar.left.innerHTML = Math.round(value * 100) / 100.0;
             break;
         case '/SmartDashboard/sonar/frontLeft':
-            ui.sonarDiagram.frontLeft.setAttribute('transform', 'translate(' + (-value/Math.sqrt(2)) + ', ' + (-value/Math.sqrt(2)) + ') translate(75, 75) scale(' + ((20 + value)/Math.sqrt(2)/90.0 * 4.5) + ', ' + ((20 + value)/Math.sqrt(2)/90.0 * 4.5) + ') translate(-75, -75)');
+            ui.sonarDiagram.frontLeft.setAttribute('transform', 'translate(' + (-value / Math.sqrt(2)) + ', ' + (-value / Math.sqrt(2)) + ') translate(75, 75) scale(' + ((20 + value) / Math.sqrt(2) / 90.0 * 4.5) + ', ' + ((20 + value) / Math.sqrt(2) / 90.0 * 4.5) + ') translate(-75, -75)');
             ui.sonar.frontLeft.innerHTML = Math.round(value * 100) / 100.0;
             break;
         case '/SmartDashboard/sonar/front_speed':
@@ -256,7 +255,7 @@ function onValueChanged(key, value, isNew) {
                 value = 0;
             else if (value > 255)
                 value = 255;
-            ui.sonarDiagram.front.style.stroke = 'rgb(' + value + ', 100, ' + (255-value) + ')';
+            ui.sonarDiagram.front.style.stroke = 'rgb(' + value + ', 100, ' + (255 - value) + ')';
             break;
         case '/SmartDashboard/sonar/frontRight_speed':
             ui.sonar.frontRight_speed.innerHTML = Math.round(value * 100) / 100.0;
@@ -265,7 +264,7 @@ function onValueChanged(key, value, isNew) {
                 value = 0;
             else if (value > 255)
                 value = 255;
-            ui.sonarDiagram.frontRight.style.stroke = 'rgb(' + value + ', 100, ' + (255-value) + ')';
+            ui.sonarDiagram.frontRight.style.stroke = 'rgb(' + value + ', 100, ' + (255 - value) + ')';
             break;
         case '/SmartDashboard/sonar/right_speed':
             ui.sonar.right_speed.innerHTML = Math.round(value * 100) / 100.0;
@@ -274,7 +273,7 @@ function onValueChanged(key, value, isNew) {
                 value = 0;
             else if (value > 255)
                 value = 255;
-            ui.sonarDiagram.right.style.stroke = 'rgb(' + value + ', 100, ' + (255-value) + ')';
+            ui.sonarDiagram.right.style.stroke = 'rgb(' + value + ', 100, ' + (255 - value) + ')';
             break;
         case '/SmartDashboard/sonar/backRight_speed':
             ui.sonar.backRight_speed.innerHTML = Math.round(value * 100) / 100.0;
@@ -283,7 +282,7 @@ function onValueChanged(key, value, isNew) {
                 value = 0;
             else if (value > 255)
                 value = 255;
-            ui.sonarDiagram.backRight.style.stroke = 'rgb(' + value + ', 100, ' + (255-value) + ')';
+            ui.sonarDiagram.backRight.style.stroke = 'rgb(' + value + ', 100, ' + (255 - value) + ')';
             break;
         case '/SmartDashboard/sonar/back_speed':
             ui.sonar.back_speed.innerHTML = Math.round(value * 100) / 100.0;
@@ -292,7 +291,7 @@ function onValueChanged(key, value, isNew) {
                 value = 0;
             else if (value > 255)
                 value = 255;
-            ui.sonarDiagram.back.style.stroke = 'rgb(' + value + ', 100, ' + (255-value) + ')';
+            ui.sonarDiagram.back.style.stroke = 'rgb(' + value + ', 100, ' + (255 - value) + ')';
             break;
         case '/SmartDashboard/sonar/backLeft_speed':
             ui.sonar.backLeft_speed.innerHTML = Math.round(value * 100) / 100.0;
@@ -301,7 +300,7 @@ function onValueChanged(key, value, isNew) {
                 value = 0;
             else if (value > 255)
                 value = 255;
-            ui.sonarDiagram.backLeft.style.stroke = 'rgb(' + value + ', 100, ' + (255-value) + ')';
+            ui.sonarDiagram.backLeft.style.stroke = 'rgb(' + value + ', 100, ' + (255 - value) + ')';
             break;
         case '/SmartDashboard/sonar/left_speed':
             ui.sonar.left_speed.innerHTML = Math.round(value * 100) / 100.0;
@@ -310,7 +309,7 @@ function onValueChanged(key, value, isNew) {
                 value = 0;
             else if (value > 255)
                 value = 255;
-            ui.sonarDiagram.left.style.stroke = 'rgb(' + value + ', 100, ' + (255-value) + ')';
+            ui.sonarDiagram.left.style.stroke = 'rgb(' + value + ', 100, ' + (255 - value) + ')';
             break;
         case '/SmartDashboard/sonar/frontLeft_speed':
             ui.sonar.frontLeft_speed.innerHTML = Math.round(value * 100) / 100.0;
@@ -319,7 +318,7 @@ function onValueChanged(key, value, isNew) {
                 value = 0;
             else if (value > 255)
                 value = 255;
-            ui.sonarDiagram.frontLeft.style.stroke = 'rgb(' + value + ', 100, ' + (255-value) + ')';
+            ui.sonarDiagram.frontLeft.style.stroke = 'rgb(' + value + ', 100, ' + (255 - value) + ')';
             break;
         case '/SmartDashboard/forwardCommand':
             // This button moves the robot forward for 1 second.
@@ -425,7 +424,7 @@ function onValueChanged(key, value, isNew) {
             else {
                 ui.pneumatic.innerHTML = "Closed";
                 ui.pneumatic.style.color = "rgb(255, 100, 100)";
-             }
+            }
             break;
         case '/SmartDashboard/autonomous/options': // Load list of prewritten autonomous modes
             // Clear previous list
@@ -636,9 +635,6 @@ ui.drive.kd.onchange = function () {
 ui.drive.kf.onchange = function () {
     NetworkTables.putValue('/SmartDashboard/drive/kf', parseFloat(ui.drive.kf.value));
 };
-ui.drive.ktolerance.onchange = function () {
-    NetworkTables.putValue('/SmartDashboard/drive/ktolerance', parseFloat(ui.drive.ktolerance.value));
-};
 
 // Reset gyro value to 0 on click
 ui.gyro.container.onclick = function () {
@@ -699,5 +695,4 @@ ui.getNT.button.onclick = function () {
     ui.drive.ki.value = NetworkTables.getValue('/SmartDashboard/drive/ki');
     ui.drive.kd.value = NetworkTables.getValue('/SmartDashboard/drive/kd');
     ui.drive.kf.value = NetworkTables.getValue('/SmartDashboard/drive/kf');
-    ui.drive.ktolerance.value = NetworkTables.getValue('/SmartDashboard/drive/ktolerance');
 };
