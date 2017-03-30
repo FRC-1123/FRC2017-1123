@@ -1,7 +1,5 @@
 [run]
 branch = true
-omit =
-    robot/commands/reacttoswitch.py
 
 [report]
 # Regexes for lines to exclude from consideration
