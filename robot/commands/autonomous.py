@@ -45,7 +45,27 @@ class AutonomousProgram(CommandGroup):
             self.addSequential(SetSpeed(-0.3, 0.5))
             self.addSequential(Rotate(10))
             self.addSequential(SetSpeed(0.3, 1.0))
-        else:
+        elif mode == "angledleft":
+            self.addSequential(SetSpeed(0.3, 1.0))
+            self.addSequential(Rotate(38))
+            self.addSequential(DriveToRod(timeout=3.5))
+            self.addSequential(ControlGearMech(False))
+            self.addSequential(SetSpeed(-0.1, 1.0))
+
+            self.addSequential(SetSpeed(-0.3, 0.5))
+            self.addSequential(Rotate(-10))
+            self.addSequential(SetSpeed(0.3, 1.0))
+        elif mode == "angledright":
+            self.addSequential(SetSpeed(0.3, 1.0))
+            self.addSequential(Rotate(-38))
+            self.addSequential(DriveToRod(timeout=3.5))
+            self.addSequential(ControlGearMech(False))
+            self.addSequential(SetSpeed(-0.1, 1.0))
+
+            self.addSequential(SetSpeed(-0.3, 0.5))
+            self.addSequential(Rotate(10))
+            self.addSequential(SetSpeed(0.3, 1.0))
+        else:  # center mode
             self.addSequential(SetSpeed(0.3, 0.5))
             self.logger.info("Drive to rod now!")
             self.addSequential(DriveToRod(timeout=3.0))
