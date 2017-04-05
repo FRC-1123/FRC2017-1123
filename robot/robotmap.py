@@ -26,6 +26,10 @@ gear_mech = PropertiesList()
 gear_mech.forward_solenoid_channel = 1
 gear_mech.reverse_solenoid_channel = 0
 
+dumper = PropertiesList()
+dumper.forward_solenoid_channel = 2
+dumper.reverse_solenoid_channel = 3
+
 climbing_mech = PropertiesList()
 climbing_mech.id = 4
 climbing_mech.follower_id = 5
