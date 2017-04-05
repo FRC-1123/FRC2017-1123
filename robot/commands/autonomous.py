@@ -1,11 +1,13 @@
 import logging
 
 from wpilib.command.commandgroup import CommandGroup
+from wpilib.command.waitcommand import WaitCommand
 
 from commands.controlgearmech import ControlGearMech
 from commands.drivetorod import DriveToRod
 from commands.rotate import Rotate
 from commands.setspeed import SetSpeed
+from commands.controldumper import ControlDumper
 
 
 class AutonomousProgram(CommandGroup):
@@ -31,7 +33,7 @@ class AutonomousProgram(CommandGroup):
             self.addSequential(SetSpeed(-0.1, 1.0))
 
             self.addSequential(SetSpeed(-0.3, 0.5))
-            self.addSequential(Rotate(-10))
+            self.addSequential(Rotate(-20))
             self.addSequential(SetSpeed(0.3, 1.0))
         elif mode == "right":
             self.addSequential(SetSpeed(0.4, 0.3))
@@ -43,7 +45,7 @@ class AutonomousProgram(CommandGroup):
             self.addSequential(SetSpeed(-0.1, 1.0))
 
             self.addSequential(SetSpeed(-0.3, 0.5))
-            self.addSequential(Rotate(10))
+            self.addSequential(Rotate(20))
             self.addSequential(SetSpeed(0.3, 1.0))
         elif mode == "angledleft":
             self.addSequential(SetSpeed(0.3, 1.0))
@@ -53,7 +55,7 @@ class AutonomousProgram(CommandGroup):
             self.addSequential(SetSpeed(-0.1, 1.0))
 
             self.addSequential(SetSpeed(-0.3, 0.5))
-            self.addSequential(Rotate(-10))
+            self.addSequential(Rotate(-20))
             self.addSequential(SetSpeed(0.3, 1.0))
         elif mode == "angledright":
             self.addSequential(SetSpeed(0.3, 1.0))
@@ -63,7 +65,37 @@ class AutonomousProgram(CommandGroup):
             self.addSequential(SetSpeed(-0.1, 1.0))
 
             self.addSequential(SetSpeed(-0.3, 0.5))
+            self.addSequential(Rotate(20))
+            self.addSequential(SetSpeed(0.3, 1.0))
+        elif mode == "boilerleft":
+            self.addSequential(SetSpeed(0.3, 0.3))
+            self.addSequential(ControlDumper(False))
+            self.addSequential(WaitCommand(2.0))
+
             self.addSequential(Rotate(10))
+            self.addSequential(SetSpeed(0.3, 0.5))
+            self.addSequential(Rotate(28))
+            self.addSequential(DriveToRod(timeout=3.5))
+            self.addSequential(ControlGearMech(False))
+            self.addSequential(SetSpeed(-0.1, 1.0))
+
+            self.addSequential(SetSpeed(-0.3, 0.5))
+            self.addSequential(Rotate(-20))
+            self.addSequential(SetSpeed(0.3, 1.0))
+        elif mode == "boilerright":
+            self.addSequential(SetSpeed(-0.3, 0.3))
+            self.addParallel(ControlDumper(False))
+            self.addSequential(WaitCommand(2.0))
+
+            self.addSequential(Rotate(-10))
+            self.addSequential(SetSpeed(-0.3, 0.5))
+            self.addSequential(Rotate(150))
+            self.addSequential(DriveToRod(timeout=3.5))
+            self.addSequential(ControlGearMech(False))
+            self.addSequential(SetSpeed(-0.1, 1.0))
+
+            self.addSequential(SetSpeed(-0.3, 0.5))
+            self.addSequential(Rotate(20))
             self.addSequential(SetSpeed(0.3, 1.0))
         else:  # center mode
             self.addSequential(SetSpeed(0.3, 0.5))
