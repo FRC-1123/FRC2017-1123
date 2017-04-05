@@ -25,7 +25,8 @@ class Robot(CommandBasedRobot):
         self.sd = NetworkTables.getTable("SmartDashboard")
 
         # set autonomous modes
-        self.sd.putStringArray("autonomous/options", ["left", "center", "right", "borkleft", "borkright"])
+        self.sd.putStringArray("autonomous/options",
+                               ["left", "center", "right", "boilerleft", "boilerright", "angledleft", "angledright", "borkleft", "borkright"])
         self.sd.putString("autonomous/selected", "left")
         self.sd.putBoolean("isautonomous", False)
 
