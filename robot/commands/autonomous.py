@@ -3,11 +3,11 @@ import logging
 from wpilib.command.commandgroup import CommandGroup
 from wpilib.command.waitcommand import WaitCommand
 
+from commands.controldumper import ControlDumper
 from commands.controlgearmech import ControlGearMech
 from commands.drivetorod import DriveToRod
 from commands.rotate import Rotate
 from commands.setspeed import SetSpeed
-from commands.controldumper import ControlDumper
 
 
 class AutonomousProgram(CommandGroup):
@@ -73,6 +73,7 @@ class AutonomousProgram(CommandGroup):
             self.addSequential(WaitCommand(2.0))
 
             self.addSequential(Rotate(10))
+            self.addParallel(ControlDumper(True))
             self.addSequential(SetSpeed(0.3, 0.5))
             self.addSequential(Rotate(28))
             self.addSequential(DriveToRod(timeout=3.5))
@@ -88,6 +89,7 @@ class AutonomousProgram(CommandGroup):
             self.addSequential(WaitCommand(2.0))
 
             self.addSequential(Rotate(-10))
+            self.addParallel(ControlDumper(True))
             self.addSequential(SetSpeed(-0.3, 0.5))
             self.addSequential(Rotate(150))
             self.addSequential(DriveToRod(timeout=3.5))
