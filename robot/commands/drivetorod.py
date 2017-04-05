@@ -7,7 +7,7 @@ from wpilib.command import PIDCommand
 import subsystems
 from commands.followjoystick import FollowJoystick
 from commands.rumblecontroller import RumbleController
-from inputs import camera, oi
+from inputs import camera, oi, switches
 from rectifieddrive import RectifiedDrive
 
 logging.basicConfig(level=logging.INFO)
@@ -84,8 +84,8 @@ class DriveToRod(PIDCommand):
             return True
 
         # stop if the rod is hitting the switch
-        # if switches.gear_mech_switch.get():
-        #     return True
+        if not switches.gear_mech_switch.get():
+            return True
 
         return False
 
