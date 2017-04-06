@@ -5,6 +5,7 @@ from wpilib.command import PIDCommand
 
 import subsystems
 from inputs import navx
+from rectifieddrive import RectifiedDrive
 
 
 class Rotate(PIDCommand):
@@ -20,9 +21,9 @@ class Rotate(PIDCommand):
         # ki = self.sd.getNumber("rod/ki")
         # kd = self.sd.getNumber("rod/kd")
         # kf = self.sd.getNumber("rod/kf")
-        kp = 0.002
-        ki = 0.0004
-        kd = 0
+        kp = 0.006
+        ki = 0.0001
+        kd = 0.02
         kf = 0
         ktolerance = 1.0  # tolerance of 1.0 degree
 
@@ -43,6 +44,8 @@ class Rotate(PIDCommand):
 
         self.logger = logging.getLogger('robot')
 
+        self.drive = RectifiedDrive(30, 0.05)
+
     def initialize(self):
         self.initial_angle = navx.ahrs.getAngle()
 
@@ -51,7 +54,8 @@ class Rotate(PIDCommand):
 
     def usePIDOutput(self, output):
         self.rate = output
-        subsystems.motors.robot_drive.setLeftRightMotorOutputs(output, -output)
+        # subsystems.motors.robot_drive.setLeftRightMotorOutputs(output, -output)
+        self.drive.rectified_drive(0, output)
 
     def isFinished(self):
         # stop command if rate set to less than 0.02 or if it has been 2.5 seconds

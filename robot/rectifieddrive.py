@@ -67,7 +67,7 @@ class RectifiedDrive:
             subsystems.motors.right_motor.setPID(p=self.sd.getNumber("motors/kp"), i=self.sd.getNumber("motors/ki"),
                                                  d=self.sd.getNumber("motors/kd"), f=self.sd.getNumber("motors/kf"),
                                                  izone=0)
-        self.sd.putNumber("motors/setpoint", power)
+        self.sd.putNumber("motors/setpoint", subsystems.motors.left_motor.getSetpoint() / subsystems.motors.max_speed)
         self.sd.putNumber("motors/actual", subsystems.motors.left_motor.getSpeed() / subsystems.motors.max_speed)
 
         error = actual - angular_vel

@@ -21,7 +21,7 @@ class Camera:
 
         # hsv range for tape contour detection
         # green
-        self.min_h, self.min_s, self.min_v = 70, 40, 120
+        self.min_h, self.min_s, self.min_v = 70, 10, 120
         self.max_h, self.max_s, self.max_v = 100, 140, 255
         # blue
         # self.min_h, self.min_s, self.min_v = 95, 230, 230
@@ -95,12 +95,12 @@ class Camera:
                 continue  # skip the rest of the current iteration
 
             self.update_tape_contours()
-            self.update_rod_pos()
+            # self.update_rod_pos()
 
             # draw shapes
-            self.draw_crosshairs()
-            self.draw_tape_contours()
-            self.draw_rod_pos()
+            # self.draw_crosshairs()
+            # self.draw_tape_contours()
+            # self.draw_rod_pos()
 
             output_stream.putFrame(self.frame)
 

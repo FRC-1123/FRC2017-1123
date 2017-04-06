@@ -40,7 +40,7 @@ class UpdateNetworkTables(Command):
                 self.logger.info("Moving forward at half power for one second.")
             elif self.sd.containsKey("turnCommand") and self.sd.getBoolean("turnCommand"):
                 self.sd.putBoolean("turnCommand", False)
-                Rotate(20.0).start()
+                Rotate(45.0).start()
                 self.logger.info("Turning right 135 degrees.")
             if self.sd.containsKey("openDumperCommand") and self.sd.getBoolean("openDumperCommand"):
                 self.sd.putBoolean("openDumperCommand", False)
