@@ -18,6 +18,8 @@ class SetSpeed(TimedCommand):
         self.power = power
         self.drive = RectifiedDrive(0, 0.05)
         self.timer = wpilib.Timer()
+
+    def initialize(self):
         self.timer.start()
 
     def execute(self):

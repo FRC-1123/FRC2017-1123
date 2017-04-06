@@ -20,13 +20,16 @@ class DriveBackward(Command):
 
         self.drive = RectifiedDrive(0, 0.05)
         self.timer = wpilib.Timer()
-        self.timer.start()
 
         self.desired_dist = dist * 1024 / 18.85  # convert from inches to edges
-        self.last_position = subsystems.motors.left_motor.getPosition()
+        self.last_position = None
         self.dist_traveled = 0  # in edges
 
         self.logger = logging.getLogger("robot")
+
+    def initialize(self):
+        self.last_position = subsystems.motors.left_motor.getPosition()
+        self.timer.start()
 
     def execute(self):
         self.drive.rectified_drive(-0.3, 0)

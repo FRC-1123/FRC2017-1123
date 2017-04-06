@@ -27,7 +27,7 @@ class AutonomousProgram(CommandGroup):
         elif mode == "left":
             self.addSequential(SetSpeed(0.4, 0.3))
             self.addSequential(Rotate(-30))
-            self.addSequential(SetSpeed(0.3, 0.8))
+            self.addSequential(SetSpeed(0.3, 0.7))
             self.addSequential(Rotate(38))
             self.addSequential(DriveToRod(timeout=3.5))
             if not switches.gear_mech_switch.get():  # only open the gear mech if the switch is pressed
@@ -40,7 +40,7 @@ class AutonomousProgram(CommandGroup):
         elif mode == "right":
             self.addSequential(SetSpeed(0.4, 0.3))
             self.addSequential(Rotate(30))
-            self.addSequential(SetSpeed(0.3, 0.8))
+            self.addSequential(SetSpeed(0.3, 0.7))
             self.addSequential(Rotate(-38))
             self.addSequential(DriveToRod(timeout=3.5))
             if not switches.gear_mech_switch.get():
@@ -51,7 +51,7 @@ class AutonomousProgram(CommandGroup):
             self.addSequential(Rotate(20))
             self.addSequential(SetSpeed(0.3, 1.0))
         elif mode == "angledleft":
-            self.addSequential(SetSpeed(0.3, 1.0))
+            self.addSequential(SetSpeed(0.3, 0.8))
             self.addSequential(Rotate(38))
             self.addSequential(DriveToRod(timeout=3.5))
             if not switches.gear_mech_switch.get():
@@ -62,7 +62,7 @@ class AutonomousProgram(CommandGroup):
             self.addSequential(Rotate(-20))
             self.addSequential(SetSpeed(0.3, 1.0))
         elif mode == "angledright":
-            self.addSequential(SetSpeed(0.3, 1.0))
+            self.addSequential(SetSpeed(0.3, 0.8))
             self.addSequential(Rotate(-38))
             self.addSequential(DriveToRod(timeout=3.5))
             if not switches.gear_mech_switch.get():

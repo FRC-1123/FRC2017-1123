@@ -19,6 +19,8 @@ class ListenForClimb(Command):
         self.sd = NetworkTables.getTable("SmartDashboard")
 
         self.timer = wpilib.Timer()
+
+    def initialize(self):
         self.timer.start()
 
     def execute(self):

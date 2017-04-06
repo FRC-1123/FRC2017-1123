@@ -29,10 +29,12 @@ class RespondToController(Command):
         oi.start_btn.whenPressed(SwitchCamera())
 
         self.timer = Timer()
-        self.timer.start()
 
         self.right_bumper_last = False
         self.left_bumper_last = False
+
+    def initialize(self):
+        self.timer.start()
 
     def execute(self):
         if self.timer.hasPeriodPassed(0.05):

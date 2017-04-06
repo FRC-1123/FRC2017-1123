@@ -24,7 +24,7 @@ class Rotate(PIDCommand):
 
         self.requires(subsystems.motors)
 
-        self.initial_angle = navx.ahrs.getAngle()
+        self.initial_angle = None
         self.rate = 1.0
 
         turn_controller = self.getPIDController()
@@ -35,6 +35,9 @@ class Rotate(PIDCommand):
         turn_controller.setSetpoint(angle)
 
         self.logger = logging.getLogger('robot')
+
+    def initialize(self):
+        self.initial_angle = navx.ahrs.getAngle()
 
     def returnPIDInput(self):
         return navx.ahrs.getAngle() - self.initial_angle

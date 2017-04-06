@@ -12,6 +12,7 @@ class RumbleController(TimedCommand):
     def __init__(self, duration):
         super().__init__("Rumble controller", duration)
 
+    def initialize(self):
         oi.controller.setRumble(wpilib.GenericHID.RumbleType.kRightRumble, True)
 
     def end(self):

@@ -26,6 +26,8 @@ class UpdateNetworkTables(Command):
 
         self.sd = NetworkTables.getTable("SmartDashboard")
         self.nt_timer = wpilib.Timer()  # timer for updating NetworkTables
+
+    def initialize(self):
         self.nt_timer.start()
 
     def execute(self):
