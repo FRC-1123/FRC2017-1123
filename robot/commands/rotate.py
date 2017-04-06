@@ -16,10 +16,14 @@ class Rotate(PIDCommand):
         self.sd = NetworkTables.getTable("SmartDashboard")
 
         # PID constants
-        kp = self.sd.getNumber("rod/kp")
-        ki = self.sd.getNumber("rod/ki")
-        kd = self.sd.getNumber("rod/kd")
-        kf = self.sd.getNumber("rod/kf")
+        # kp = self.sd.getNumber("rod/kp")
+        # ki = self.sd.getNumber("rod/ki")
+        # kd = self.sd.getNumber("rod/kd")
+        # kf = self.sd.getNumber("rod/kf")
+        kp = 0.002
+        ki = 0.0004
+        kd = 0
+        kf = 0
         ktolerance = 1.0  # tolerance of 1.0 degree
 
         # initialize PID controller with a period of 0.05 seconds
