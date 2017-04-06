@@ -26,7 +26,7 @@ class Robot(CommandBasedRobot):
 
         # set autonomous modes
         self.sd.putStringArray("autonomous/options",
-                               ["left", "center", "right", "boilerleft", "boilerright", "angledleft", "angledright", "borkleft", "borkright"])
+                               ["left", "center", "right", "boilerleft", "boilerright", "angledleft", "angledright", "borkleft", "borkright", "oldleft", "oldright"])
         self.sd.putString("autonomous/selected", "left")
         self.sd.putBoolean("isautonomous", False)
 
