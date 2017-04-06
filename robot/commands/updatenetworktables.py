@@ -5,6 +5,7 @@ from networktables import NetworkTables
 from wpilib.command import Command
 
 import subsystems
+from commands.controldumper import ControlDumper
 from commands.driveforward import DriveForward
 from commands.rotate import Rotate
 from commands.switchcamera import SwitchCamera
@@ -41,6 +42,12 @@ class UpdateNetworkTables(Command):
                 self.sd.putBoolean("turnCommand", False)
                 Rotate(135.0).start()
                 self.logger.info("Turning right 135 degrees.")
+            if self.sd.containsKey("openDumperCommand") and self.sd.getBoolean("openDumperCommand"):
+                self.sd.putBoolean("openDumperCommand", False)
+                ControlDumper(False).start()
+            elif self.sd.containsKey("closeDumperCommand") and self.sd.getBoolean("closeDumperCommand"):
+                self.sd.putBoolean("closeDumperCommand", False)
+                ControlDumper(True).start()
             if self.sd.containsKey("switchAllCommand") and self.sd.getBoolean("switchAllCommand"):
                 self.sd.putBoolean("switchAllCommand", False)
                 SwitchCamera().start()

@@ -117,6 +117,12 @@ var ui = {
     climbDownCommand: {
         button: document.getElementById('climb-down-button')
     },
+    openDumperCommand: {
+        button: document.getElementById('open-dumper-button')
+    },
+    closeDumperCommand: {
+        button: document.getElementById('close-dumper-button')
+    },
     getNT: {
         button: document.getElementById('get-nt-button')
     },
@@ -542,6 +548,14 @@ ui.climbDownCommand.button.onmousedown = function () {
 
 ui.climbDownCommand.button.onmouseup = function () {
     NetworkTables.putValue('/SmartDashboard/climbDownCommand', false);
+};
+
+ui.openDumperCommand.button.onclick = function () {
+    NetworkTables.putValue('/SmartDashboard/openDumperCommand', true);
+};
+
+ui.closeDumperCommand.button.onclick = function () {
+    NetworkTables.putValue('/SmartDashboard/closeDumperCommand', true)
 };
 
 ui.switchCameraCommand.button.onclick = function () {

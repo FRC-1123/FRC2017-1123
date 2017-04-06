@@ -81,8 +81,8 @@ class AutonomousProgram(CommandGroup):
             self.addSequential(ControlDumper(False))
             self.addSequential(WaitCommand(2.0))
 
-            self.addSequential(Rotate(10))
             self.addParallel(ControlDumper(True))
+            self.addSequential(Rotate(10))
             self.addSequential(SetSpeed(0.3, 0.5))
             self.addSequential(Rotate(28))
             self.addSequential(DriveToRod(timeout=3.5))
@@ -100,8 +100,8 @@ class AutonomousProgram(CommandGroup):
             self.addParallel(ControlDumper(False))
             self.addSequential(WaitCommand(2.0))
 
-            self.addSequential(Rotate(-10))
             self.addParallel(ControlDumper(True))
+            self.addSequential(Rotate(-10))
             self.addSequential(SetSpeed(-0.3, 0.5))
             self.addSequential(Rotate(150))
             self.addSequential(DriveToRod(timeout=3.5))

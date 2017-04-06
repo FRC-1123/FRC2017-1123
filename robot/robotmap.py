@@ -27,8 +27,8 @@ gear_mech.forward_solenoid_channel = 1
 gear_mech.reverse_solenoid_channel = 0
 
 dumper = PropertiesList()
-dumper.forward_solenoid_channel = 2
-dumper.reverse_solenoid_channel = 3
+dumper.forward_solenoid_channel = 3
+dumper.reverse_solenoid_channel = 2
 
 climbing_mech = PropertiesList()
 climbing_mech.id = 4
