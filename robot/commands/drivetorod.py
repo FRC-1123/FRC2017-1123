@@ -5,6 +5,7 @@ from wpilib import GenericHID
 from wpilib.command import PIDCommand
 
 import subsystems
+from commands.controlgearmech import ControlGearMech
 from commands.followjoystick import FollowJoystick
 from commands.rumblecontroller import RumbleController
 from inputs import camera, oi, switches
@@ -85,6 +86,8 @@ class DriveToRod(PIDCommand):
 
         # stop if the rod is hitting the switch
         if not switches.gear_mech_switch.get():
+            self.logger.info("switch pressed")
+            ControlGearMech(False).start()
             return True
 
         return False

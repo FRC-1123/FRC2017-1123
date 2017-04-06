@@ -39,8 +39,8 @@ class UpdateNetworkTables(Command):
                 self.logger.info("Moving forward at half power for one second.")
             elif self.sd.containsKey("turnCommand") and self.sd.getBoolean("turnCommand"):
                 self.sd.putBoolean("turnCommand", False)
-                Rotate(60.0).start()
-                self.logger.info("Turning right 90 degrees.")
+                Rotate(135.0).start()
+                self.logger.info("Turning right 135 degrees.")
             if self.sd.containsKey("switchAllCommand") and self.sd.getBoolean("switchAllCommand"):
                 self.sd.putBoolean("switchAllCommand", False)
                 SwitchCamera().start()
