@@ -47,8 +47,8 @@ class Rotate(PIDCommand):
         subsystems.motors.robot_drive.setLeftRightMotorOutputs(output, -output)
 
     def isFinished(self):
-        # stop command if rate set to less than 0.02 or if it has been 2 seconds
-        if abs(self.rate) < 0.02 or self.timeSinceInitialized() > 2:
+        # stop command if rate set to less than 0.02 or if it has been 2.5 seconds
+        if abs(self.rate) < 0.02 or self.timeSinceInitialized() > 2.5:
             self.logger.info("Done rotating {}.".format(self.rate))
             return True
         return False
