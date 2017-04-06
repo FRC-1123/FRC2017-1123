@@ -175,6 +175,12 @@ var ui = {
         ki: document.getElementById('drivei'),
         kd: document.getElementById('drived'),
         kf: document.getElementById('drivef')
+    },
+    rotate: {
+        kp: document.getElementById('rotatep'),
+        ki: document.getElementById('rotatei'),
+        kd: document.getElementById('rotated'),
+        kf: document.getElementById('rotatef')
     }
 };
 
@@ -608,6 +614,19 @@ ui.camera.maxv.onchange = function () {
     NetworkTables.putValue('/SmartDashboard/camera/maxv', parseFloat(ui.camera.maxv.value));
 };
 
+ui.rotate.kp.onchange = function () {
+    NetworkTables.putValue('/SmartDashboard/rotate/kp', parseFloat(ui.rotate.kp.value));
+};
+ui.rotate.ki.onchange = function () {
+    NetworkTables.putValue('/SmartDashboard/rotate/ki', parseFloat(ui.rotate.ki.value));
+};
+ui.rotate.kd.onchange = function () {
+    NetworkTables.putValue('/SmartDashboard/rotate/kd', parseFloat(ui.rotate.kd.value));
+};
+ui.rotate.kf.onchange = function () {
+    NetworkTables.putValue('/SmartDashboard/rotate/kf', parseFloat(ui.rotate.kf.value));
+};
+
 ui.motors.kp.onchange = function () {
     NetworkTables.putValue('/SmartDashboard/motors/kp', parseFloat(ui.motors.kp.value));
 };
@@ -685,6 +704,12 @@ ui.autoSelect.onchange = function () {
 
 ui.getNT.button.onclick = function () {
     // get NetworkTables values
+
+    ui.rotate.kp.value = NetworkTables.getValue('/SmartDashboard/rotate/kp');
+    ui.rotate.ki.value = NetworkTables.getValue('/SmartDashboard/rotate/ki');
+    ui.rotate.kd.value = NetworkTables.getValue('/SmartDashboard/rotate/kd');
+    ui.rotate.kf.value = NetworkTables.getValue('/SmartDashboard/rotate/kf');
+    
     ui.camera.minh.value = NetworkTables.getValue('/SmartDashboard/camera/minh');
     console.log(NetworkTables.getValue('/SmartDashboard/camera/minh'));
     ui.camera.mins.value = NetworkTables.getValue('/SmartDashboard/camera/mins');

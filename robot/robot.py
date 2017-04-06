@@ -30,6 +30,12 @@ class Robot(CommandBasedRobot):
         self.sd.putString("autonomous/selected", "left")
         self.sd.putBoolean("isautonomous", False)
 
+        # Rotate PID values (for tuning)
+        self.sd.putNumber("rotate/kp", 0.007)
+        self.sd.putNumber("rotate/ki", 0.001)
+        self.sd.putNumber("rotate/kd", 0.05)
+        self.sd.putNumber("rotate/kf", 0.0)
+
         # drive-to-rod PID values (for tuning)
         self.sd.putNumber("rod/kp", 0.2)
         self.sd.putNumber("rod/ki", 0)

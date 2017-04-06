@@ -1,5 +1,6 @@
 import logging
 
+from networktables import NetworkTables
 from wpilib.command import PIDCommand
 
 import subsystems
@@ -12,11 +13,13 @@ class Rotate(PIDCommand):
     """
 
     def __init__(self, angle):
+        self.sd = NetworkTables.getTable("SmartDashboard")
+
         # PID constants
-        kp = 0.007
-        ki = 0.001
-        kd = 0.05
-        kf = 0.0
+        kp = self.sd.getNumber("rod/kp")
+        ki = self.sd.getNumber("rod/ki")
+        kd = self.sd.getNumber("rod/kd")
+        kf = self.sd.getNumber("rod/kf")
         ktolerance = 1.0  # tolerance of 1.0 degree
 
         # initialize PID controller with a period of 0.05 seconds
