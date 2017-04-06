@@ -21,8 +21,8 @@ class Camera:
 
         # hsv range for tape contour detection
         # green
-        self.min_h, self.min_s, self.min_v = 60, 10, 120
-        self.max_h, self.max_s, self.max_v = 115, 190, 255
+        self.min_h, self.min_s, self.min_v = 70, 40, 120
+        self.max_h, self.max_s, self.max_v = 100, 140, 255
         # blue
         # self.min_h, self.min_s, self.min_v = 95, 230, 230
         # self.max_h, self.max_s, self.max_v = 115, 255, 255
@@ -54,14 +54,14 @@ class Camera:
         self.camera.setResolution(self.width, self.height)
         self.camera.setExposureManual(2)
         self.camera.setBrightness(50)
-        self.camera.setWhiteBalanceManual(7000)
+        self.camera.setWhiteBalanceManual(6000)
         self.camera.setFPS(15)
 
         self.camera2 = cs.startAutomaticCapture(dev=robotmap.cameras.dev2, name="camera2")
         self.camera2.setResolution(120, 90)
         self.camera2.setExposureAuto()
         self.camera2.setBrightness(50)
-        self.camera2.setWhiteBalanceManual(7000)
+        self.camera2.setWhiteBalanceManual(6000)
         self.camera2.setFPS(10)
 
         # Get a CvSink. This will capture images from the camera
@@ -95,12 +95,12 @@ class Camera:
                 continue  # skip the rest of the current iteration
 
             self.update_tape_contours()
-            # self.update_rod_pos()
+            self.update_rod_pos()
 
             # draw shapes
-            # self.draw_crosshairs()
-            # self.draw_tape_contours()
-            # self.draw_rod_pos()
+            self.draw_crosshairs()
+            self.draw_tape_contours()
+            self.draw_rod_pos()
 
             output_stream.putFrame(self.frame)
 
@@ -175,8 +175,8 @@ class Camera:
         mask = cv2.inRange(hsv, np.array([self.min_h, self.min_s, self.min_v]), np.array([self.max_h, self.max_s, self.max_v]))
 
         # just display the mask (for tuning)
-        self.frame = mask
-        return
+        # self.frame = mask
+        # return
 
         # find two most likely retro-reflective tape contours
         contours = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)[1]
