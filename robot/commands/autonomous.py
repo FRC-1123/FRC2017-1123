@@ -73,7 +73,7 @@ class AutonomousProgram(CommandGroup):
             self.addSequential(Rotate(20))
             self.addSequential(SetSpeed(0.3, 1.0))
         elif mode == "boilerleft":
-            self.addSequential(SetSpeed(0.3, 0.3))
+            self.addSequential(SetSpeed(0.3, 0.5))
             self.addSequential(ControlDumper(False))
             self.addSequential(WaitCommand(2.0))
 
@@ -89,8 +89,9 @@ class AutonomousProgram(CommandGroup):
             self.addSequential(SetSpeed(-0.3, 0.5))
             self.addSequential(Rotate(-20))
             self.addSequential(SetSpeed(0.3, 1.0))
+            self.addSequential(Rotate(30))
         elif mode == "boilerright":
-            self.addSequential(SetSpeed(-0.3, 0.3))
+            self.addSequential(SetSpeed(-0.3, 0.5))
             self.addParallel(ControlDumper(False))
             self.addSequential(WaitCommand(2.0))
 
@@ -106,6 +107,7 @@ class AutonomousProgram(CommandGroup):
             self.addSequential(SetSpeed(-0.3, 0.5))
             self.addSequential(Rotate(20))
             self.addSequential(SetSpeed(0.3, 1.0))
+            self.addSequential(Rotate(-30))
         elif mode == "oldleft":
             self.addSequential(SetSpeed(0.2, 0.5))
             self.addSequential(Rotate(-30))
