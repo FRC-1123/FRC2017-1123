@@ -82,9 +82,9 @@ class AutonomousProgram(CommandGroup):
             self.addSequential(WaitCommand(2.0))
 
             self.addParallel(ControlDumper(True))
-            self.addSequential(Rotate(10))
+            self.addSequential(Rotate(20))
             self.addSequential(SetSpeed(0.3, 0.5))
-            self.addSequential(Rotate(38))
+            self.addSequential(Rotate(30))
             self.addSequential(DriveToRod(timeout=3.5))
             self.addSequential(WaitCommand(0.5))
             if not switches.gear_mech_switch.get():
@@ -101,9 +101,9 @@ class AutonomousProgram(CommandGroup):
             self.addSequential(WaitCommand(2.0))
 
             self.addParallel(ControlDumper(True))
-            self.addSequential(Rotate(-10))
+            self.addSequential(Rotate(-20))
             self.addSequential(SetSpeed(-0.3, 0.5))
-            self.addSequential(Rotate(150))
+            self.addSequential(Rotate(140))
             self.addSequential(DriveToRod(timeout=3.5))
             self.addSequential(WaitCommand(0.5))
             if not switches.gear_mech_switch.get():
