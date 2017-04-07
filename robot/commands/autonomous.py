@@ -7,6 +7,7 @@ from commands.controldumper import ControlDumper
 from commands.drivetorod import DriveToRod
 from commands.rotate import Rotate
 from commands.setspeed import SetSpeed
+from commands.finishautonomous import FinishAutonomous
 
 
 class AutonomousProgram(CommandGroup):
@@ -28,24 +29,14 @@ class AutonomousProgram(CommandGroup):
             self.addSequential(SetSpeed(0.3, 0.7))
             self.addSequential(Rotate(38))
             self.addSequential(DriveToRod(timeout=3.5))
-            self.addSequential(WaitCommand(0.5))
-            self.addSequential(SetSpeed(-0.1, 1.0))
-
-            self.addSequential(SetSpeed(-0.3, 0.5))
-            self.addSequential(Rotate(-20))
-            self.addSequential(SetSpeed(0.3, 1.0))
+            self.addSequential(FinishAutonomous("left"))
         elif mode == "right":
             self.addSequential(SetSpeed(0.4, 0.3))
             self.addSequential(Rotate(30))
             self.addSequential(SetSpeed(0.3, 0.7))
             self.addSequential(Rotate(-38))
             self.addSequential(DriveToRod(timeout=3.5))
-            self.addSequential(WaitCommand(0.5))
-            self.addSequential(SetSpeed(-0.1, 1.0))
-
-            self.addSequential(SetSpeed(-0.3, 0.5))
-            self.addSequential(Rotate(20))
-            self.addSequential(SetSpeed(0.3, 1.0))
+            self.addSequential(FinishAutonomous("right"))
         elif mode == "angledleft":
             self.addSequential(SetSpeed(0.3, 0.8))
             self.addSequential(Rotate(38))
@@ -67,7 +58,7 @@ class AutonomousProgram(CommandGroup):
             self.addSequential(Rotate(20))
             self.addSequential(SetSpeed(0.3, 1.0))
         elif mode == "boilerleft":
-            self.addSequential(SetSpeed(0.3, 0.4))
+            self.addSequential(SetSpeed(0.3, 0.35))
             self.addSequential(ControlDumper(False))
             self.addSequential(WaitCommand(2.0))
 
@@ -76,13 +67,7 @@ class AutonomousProgram(CommandGroup):
             self.addSequential(SetSpeed(0.3, 0.3))
             self.addSequential(Rotate(90))
             self.addSequential(DriveToRod(timeout=3.5))
-            self.addSequential(WaitCommand(0.5))
-            self.addSequential(SetSpeed(-0.1, 1.0))
-
-            self.addSequential(SetSpeed(-0.3, 0.5))
-            self.addSequential(Rotate(-20))
-            self.addSequential(SetSpeed(0.3, 1.0))
-            self.addSequential(Rotate(30))
+            self.addSequential(FinishAutonomous("left"))
         elif mode == "boilerright":
             self.addSequential(SetSpeed(-0.3, 0.4))
             self.addParallel(ControlDumper(False))
@@ -93,13 +78,7 @@ class AutonomousProgram(CommandGroup):
             self.addSequential(SetSpeed(-0.3, 0.3))
             self.addSequential(Rotate(135))
             self.addSequential(DriveToRod(timeout=3.5))
-            self.addSequential(WaitCommand(0.5))
-            self.addSequential(SetSpeed(-0.1, 1.0))
-
-            self.addSequential(SetSpeed(-0.3, 0.5))
-            self.addSequential(Rotate(20))
-            self.addSequential(SetSpeed(0.3, 1.0))
-            self.addSequential(Rotate(-30))
+            self.addSequential(FinishAutonomous("right"))
         elif mode == "oldleft":
             self.addSequential(SetSpeed(0.2, 0.5))
             self.addSequential(Rotate(-30))
@@ -128,8 +107,4 @@ class AutonomousProgram(CommandGroup):
             # self.addSequential(SetSpeed(0.3, 0.3))
             self.logger.info("Drive to rod now!")
             self.addSequential(DriveToRod(timeout=4.0))
-            self.addSequential(WaitCommand(0.5))
-            self.addSequential(SetSpeed(-0.1, 1.0))
-            self.addSequential(SetSpeed(-0.3, 0.5))
-            self.addSequential(WaitCommand(5.0))
-            self.addSequential(SetSpeed(0.3, 0.8))
+            self.addSequential(FinishAutonomous("center"))
