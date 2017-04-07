@@ -5,9 +5,9 @@ from wpilib.command.waitcommand import WaitCommand
 
 from commands.controldumper import ControlDumper
 from commands.drivetorod import DriveToRod
+from commands.finishautonomous import FinishAutonomous
 from commands.rotate import Rotate
 from commands.setspeed import SetSpeed
-from commands.finishautonomous import FinishAutonomous
 
 
 class AutonomousProgram(CommandGroup):
@@ -27,15 +27,15 @@ class AutonomousProgram(CommandGroup):
             self.addSequential(SetSpeed(0.4, 0.3))
             self.addSequential(Rotate(-30))
             self.addSequential(SetSpeed(0.3, 0.7))
-            self.addSequential(Rotate(38))
-            self.addSequential(DriveToRod(timeout=3.5))
+            self.addSequential(Rotate(80))
+            self.addSequential(DriveToRod(timeout=4.0))
             self.addSequential(FinishAutonomous("left"))
         elif mode == "right":
             self.addSequential(SetSpeed(0.4, 0.3))
             self.addSequential(Rotate(30))
             self.addSequential(SetSpeed(0.3, 0.7))
-            self.addSequential(Rotate(-38))
-            self.addSequential(DriveToRod(timeout=3.5))
+            self.addSequential(Rotate(-80))
+            self.addSequential(DriveToRod(timeout=4.0))
             self.addSequential(FinishAutonomous("right"))
         elif mode == "angledleft":
             self.addSequential(SetSpeed(0.3, 0.8))
