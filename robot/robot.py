@@ -37,7 +37,7 @@ class Robot(CommandBasedRobot):
         self.sd.putNumber("rotate/kf", 0.0)
 
         # drive-to-rod PID values (for tuning)
-        self.sd.putNumber("rod/kp", 0.2)
+        self.sd.putNumber("rod/kp", 0.15)
         self.sd.putNumber("rod/ki", 0)
         self.sd.putNumber("rod/kd", 0)
         self.sd.putNumber("rod/kf", 0.0)
