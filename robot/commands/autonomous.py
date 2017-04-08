@@ -69,7 +69,7 @@ class AutonomousProgram(CommandGroup):
             self.addSequential(DriveToRod(timeout=4.0))
             self.addSequential(FinishAutonomous("left"))
         elif mode == "boilerright":
-            self.addSequential(SetSpeed(-0.3, 0.35))
+            self.addSequential(SetSpeed(-0.3, 0.4))
             self.addParallel(ControlDumper(False))
             self.addSequential(WaitCommand(2.0))
 
