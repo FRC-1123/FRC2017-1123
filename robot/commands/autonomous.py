@@ -76,7 +76,7 @@ class AutonomousProgram(CommandGroup):
             self.addParallel(ControlDumper(True))
             self.addSequential(Rotate(-45))
             self.addSequential(SetSpeed(-0.3, 0.3))
-            self.addSequential(Rotate(135))
+            self.addSequential(Rotate(140))
             self.addSequential(DriveToRod(timeout=4.0))
             self.addSequential(FinishAutonomous("right"))
         elif mode == "oldleft":

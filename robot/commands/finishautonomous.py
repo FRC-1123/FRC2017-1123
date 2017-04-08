@@ -21,13 +21,13 @@ class FinishAutonomous(CommandGroup):
         if self.mode == "left":
             self.addSequential(SetSpeed(-0.1, 1.0))
             self.addSequential(SetSpeed(-0.3, 0.5))
-            self.addSequential(Rotate(-45))
+            self.addSequential(Rotate(-60))
             self.addSequential(SetSpeed(0.3, 2.0))
             self.addSequential(Rotate(90))
         elif self.mode == "right":
             self.addSequential(SetSpeed(-0.1, 1.0))
             self.addSequential(SetSpeed(-0.3, 0.5))
-            self.addSequential(Rotate(45))
+            self.addSequential(Rotate(60))
             self.addSequential(SetSpeed(0.3, 2.0))
             self.addSequential(Rotate(-90))
         else:
